@@ -677,3 +677,6 @@ section[id]{scroll-margin-top:calc(var(--top) + 24px)}
  .article-layout{display:block}.article-page{padding:0}.quick-answer{background:#fff!important;color:#14283e;border:1px solid #777;box-shadow:none}.quick-answer-label{color:#942b3c}
  .guide-step{break-inside:avoid}.guide-step[hidden]{display:block!important}.platform-shot-frame{max-height:none}
 }
+
+.campus-notice{margin:13px 0 4px;border:2px solid #bd7c35;background:#fff7e8;color:#5d3f1d;border-radius:10px;padding:13px 16px;line-height:1.6;font-size:.86rem}
+.campus-notice strong{font-weight:850}

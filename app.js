@@ -47,7 +47,7 @@ function renderGrid(){
  const list=searchList();
  $("#result-count").textContent=list.length+" guide"+(list.length===1?"":"s")+" found"+(state.query?' for "'+state.query+'"':"");
  $("#tips-grid").innerHTML=list.slice(0,state.shown).map(t=>{
-  const action=t.where.length<53?t.where:t.steps[0];
+  const action=t.id==="t09"?"Off campus only · "+t.where:(t.where.length<53?t.where:t.steps[0]);
   return '<article class="tip-card answer-card"><div class="tip-card-top"><span class="tip-app">'+esc(t.category)+'</span><button class="save-tip" type="button" data-save="'+t.id+'" aria-pressed="'+favourites.has(t.id)+'" aria-label="'+(favourites.has(t.id)?"Remove saved guide: ":"Save guide: ")+esc(t.title)+'">'+(favourites.has(t.id)?"♥":"♡")+'</button></div><h3><a href="'+tipLink(t.id)+'">'+esc(t.title)+'</a></h3><p class="card-answer">'+esc(action)+'</p><div class="tip-card-bottom"><small>'+((window.TIP_TRANSLATIONS||{})[t.id]?"EN · 中文 · 한국어":"English")+'</small><a class="tip-open" href="'+tipLink(t.id)+'" aria-label="Read guide: '+esc(t.title)+'">See how →</a></div></article>';
  }).join("")||'<div class="empty-results"><h3>No exact answer yet</h3><p>Try a simpler word, a different phrase or browse one app. You can also suggest a new guide.</p><button class="button outline" type="button" data-reset="true">See all guides</button> <a class="button outline" href="https://github.com/edtechevans/MacBook/issues/new" target="_blank" rel="noopener noreferrer">Suggest a guide ↗</a></div>';
  $("#load-row").hidden=list.length<=state.shown;
