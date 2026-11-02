@@ -65,8 +65,12 @@ try {
   await page.locator("#menu-toggle").click();
   await check(await page.locator("#main-nav").isVisible(),"Mobile navigation opens");
   await page.locator("#menu-toggle").click();
-  const width=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,view:window.innerWidth}));
+  const width=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,view:window.innerWidth,offenders:[...document.querySelectorAll("body *")].filter(el=>{const r=el.getBoundingClientRect();return r.width>0&&r.right>window.innerWidth+2}).slice(0,8).map(el=>({tag:el.tagName,classes:el.className,id:el.id,right:Math.round(el.getBoundingClientRect().right)}))}));
   await check(width.scroll<=width.view+2,"No horizontal scrolling at 375px viewport: "+JSON.stringify(width));
+  await page.setViewportSize({width:320,height:760});
+  const narrow=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,view:window.innerWidth}));
+  await check(narrow.scroll<=narrow.view+2,"Content reflows at 320px viewport: "+JSON.stringify(narrow));
+  await page.setViewportSize({width:375,height:812});
   await page.locator("#popular-list [data-tip='t22']").click();
   await check(await page.locator("#lesson-dialog").isVisible(),"Phone lesson opens");
   await page.screenshot({path:"test-artifacts/guided-lesson-mobile.png"});
