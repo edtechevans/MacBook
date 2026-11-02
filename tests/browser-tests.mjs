@@ -45,6 +45,10 @@ try {
   await check((await page.locator("#step-visual img.vendor-shot").getAttribute("src")).includes("cdsassets.apple.com"),"Apple image is from original publisher");
   await check(await page.locator("#step-visual img.vendor-shot").evaluate(img=>getComputedStyle(img).objectFit==="contain"),"Screenshot is proportionally fitted without cropping");
   await check(await page.locator("#step-visual .visual-alternative").count()===1,"Illustrated fallback is retained");
+  await page.waitForFunction(()=>{const i=document.querySelector("#step-visual img.vendor-shot");return !i || i.complete;},{timeout:15000});
+  await check(await page.locator("#step-visual img.vendor-shot").evaluate(img=>img.naturalWidth>0&&img.naturalHeight>0),"Real Apple Screenshot image loads from publisher");
+  await page.screenshot({path:"test-artifacts/vendor-apple-toolbar.png"});
+
   await page.locator("#step-prev").click();
   await check(await page.locator("#step-prev").isDisabled(),"Step 1 has disabled previous control");
   for(let i=0;i<3;i++)await page.locator("#step-next").click();
@@ -102,6 +106,11 @@ try {
     for(let k=0;k<step;k++)await page.locator("#step-next").click();
     await check((await page.locator("#step-visual img.vendor-shot").getAttribute("src")).includes(domain),"Screenshot correctly assigned to lesson "+id+" step "+(step+1));
     await check(await page.locator("#step-visual .shot-links a").count()===2,"Full-size and official-source links visible for "+id);
+    await page.waitForFunction(()=>{const i=document.querySelector("#step-visual img.vendor-shot");return !i || i.complete;},{timeout:15000});
+    const isLoaded=await page.locator("#step-visual img.vendor-shot").count() && await page.locator("#step-visual img.vendor-shot").evaluate(img=>img.naturalWidth>0&&img.naturalHeight>0);
+    await check(isLoaded===true,"Real screenshot loads from source for "+id);
+    await page.screenshot({path:"test-artifacts/vendor-"+id+".png"});
+
     await page.locator("#lesson-close").click();
   }
   await page.goto(base+"print.html?tip=t22");
