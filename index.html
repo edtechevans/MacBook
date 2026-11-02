@@ -1,174 +1,90 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#14283e">
-  <meta name="description" content="Find practical MacBook, Outlook, Microsoft Teams and Chrome tips. Search 55 clear how-to guides with screenshots, shortcuts and printable instructions.">
-  <title>MacBook Productivity | Find it. Learn it. Use it.</title>
-  <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=20261102-3">
-  <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./styles.css?v=20261102-5">
-  <script defer src="./content.js"></script>
-  <script defer src="./lesson-media.js?v=20261102-4"></script>
-  <script defer src="./app.js?v=20261102-5"></script>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#14283e">
+<meta name="description" content="Get straight to the answer: practical, searchable MacBook, Outlook, Teams and Chrome guides for AISG faculty.">
+<meta property="og:type" content="website"><meta property="og:title" content="MacBook Productivity | Find a tip. Get it done.">
+<meta property="og:description" content="55 concise, visual how-to guides for the digital tools you use every day.">
+<meta property="og:url" content="https://edtechevans.github.io/MacBook/">
+<link rel="canonical" href="https://edtechevans.github.io/MacBook/">
+<title>MacBook Productivity | Find a tip. Get it done.</title>
+<link rel="icon" type="image/svg+xml" href="./favicon.svg?v=20261102-3">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="stylesheet" href="./styles.css?v=20261102-6">
+<script defer src="./content.js"></script>
+<script defer src="./search-terms.js?v=6"></script>
+<script defer src="./search.js?v=6"></script>
+<script defer src="./related-tips.js?v=6"></script>
+<script defer src="./app.js?v=6"></script>
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
+<a class="skip-link" href="#main">Skip to the tip library</a>
 <header class="site-header">
   <div class="shell header-inner">
-    <a class="wordmark" href="#top" aria-label="MacBook Productivity, return to home">
-      <span class="brand-mark" aria-hidden="true"><img src="./favicon.svg?v=20261102-3" width="48" height="48" alt=""></span>
-      <span class="brand-copy"><strong>MacBook Productivity</strong><small>AISG · Faculty resource</small></span>
-    </a>
+    <a class="wordmark" href="#top" aria-label="MacBook Productivity home"><span class="brand-mark" aria-hidden="true"><img src="./favicon.svg?v=20261102-3" width="48" height="48" alt=""></span><span class="brand-copy"><strong>MacBook Productivity</strong><small>AISG · Everyday digital tools</small></span></a>
     <nav class="main-nav" id="main-nav" aria-label="Main navigation">
-      <a href="#library" data-i18n="navTips">All tips</a>
-      <a href="#apps" data-i18n="navApps">Browse apps</a>
-      <a href="#collections" data-i18n="navCollections">Collections</a>
-      <a href="#shortcuts" data-i18n="navShortcuts">Shortcuts</a>
-      <a href="#saved" data-i18n="navSaved">Saved tips</a>
+      <a href="#library" data-i18n="navTips">Find tips</a><a href="#shortcuts" data-i18n="navShortcuts">Shortcuts</a><a href="#saved" data-i18n="navSaved">Saved</a>
     </nav>
-    <div class="header-tools">
-      <button class="header-search" id="header-search" type="button" aria-label="Go to search"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg><span data-i18n="search">Search</span></button>
-      <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle navigation">☰ <span data-i18n="menu">Menu</span></button>
-    </div>
+    <div class="header-tools"><button class="header-search" id="header-search" type="button" aria-label="Search the tips"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg><span data-i18n="search">Search</span></button><button class="menu-toggle" type="button" id="menu-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle navigation">☰ <span data-i18n="menu">Menu</span></button></div>
   </div>
 </header>
 <main id="main" tabindex="-1">
-  <section class="hero" id="top" aria-labelledby="hero-title">
-    <div class="shell hero-inner">
-      <div class="hero-copy">
-        <p class="eyebrow light" data-i18n="heroEyebrow">YOUR EVERYDAY PRODUCTIVITY REFERENCE</p>
-        <h1 id="hero-title"><span data-i18n="heroTitle">Less searching.</span><br><em data-i18n="heroTitleEm">More doing.</em></h1>
-        <p class="hero-lead" data-i18n="heroDesc">Need to change a setting, find a shortcut or get more from your apps? Find a practical answer, see where to click and get on with your day.</p>
-        <form id="hero-search" class="hero-search" role="search">
-          <label class="sr-only" for="hero-query">Find a productivity tip</label>
-          <span class="search-symbol" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg></span>
-          <input id="hero-query" type="search" enterkeyhint="search" autocomplete="off" placeholder="What would you like to do?" aria-describedby="hero-help">
-          <button type="submit" data-i18n="searchTips">Find a tip →</button>
-        </form>
-        <div id="hero-help" class="hero-suggestions">
-          <span data-i18n="trySearch">Try:</span>
-          <button type="button" data-search-term="screen recording" data-i18n="suggestScreen">record my screen</button>
-          <button type="button" data-search-term="snooze" data-i18n="suggestMail">snooze an email</button>
-          <button type="button" data-search-term="notification" data-i18n="suggestTeam">quiet Teams</button>
-        </div>
-        <p class="hero-detail"><span id="hero-count">55</span> <span data-i18n="heroCount">practical tips across four everyday tools</span></p>
-      </div>
-      <aside class="hero-feature" aria-label="Useful starting points">
-        <div class="feature-label"><span><span class="live-dot" aria-hidden="true"></span><span data-i18n="featureEyebrow">QUICK START</span></span><span class="feature-caption" data-i18n="featureCaption">HAND-PICKED TIPS</span></div>
-        <h2 data-i18n="featureTitle">A few useful places to begin.</h2>
-        <div class="feature-list" id="popular-list"></div>
-        <p class="feature-note" data-i18n="featureNote">Open a tip for the steps, visuals and official support links.</p>
-      </aside>
+<section class="hero quick-hero" id="top" aria-labelledby="hero-title">
+  <div class="shell compact-hero-inner">
+    <div class="quick-hero-copy">
+      <p class="eyebrow light" data-i18n="heroEyebrow">EVERYDAY PRODUCTIVITY · QUICK REFERENCE</p>
+      <h1 id="hero-title"><span data-i18n="heroTitle">Find a tip.</span> <em data-i18n="heroTitleEm">Get it done.</em></h1>
+      <p class="hero-lead" data-i18n="heroDesc">Clear answers for MacBook, Outlook, Teams and Chrome. Search what you want to do, then follow the steps.</p>
+      <form class="hero-search" id="hero-search" role="search">
+        <label class="sr-only" for="hero-query">What would you like to do?</label>
+        <span class="search-symbol" aria-hidden="true"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg></span>
+        <input id="hero-query" type="search" enterkeyhint="search" autocomplete="off" aria-autocomplete="list" aria-controls="hero-suggestions" aria-expanded="false" placeholder="e.g. mute Teams, record screen, restore a tab">
+        <button type="submit" data-i18n="find">Find a tip →</button>
+      </form>
+      <div class="suggestion-wrap"><ul id="hero-suggestions" class="live-suggestions" role="listbox" aria-label="Suggested matching tips" hidden></ul></div>
+      <div class="hero-suggestions quick-examples"><span data-i18n="try">Try:</span><button type="button" data-search-term="mute Teams messages">mute Teams</button><button type="button" data-search-term="two windows side by side">two windows side by side</button><button type="button" data-search-term="restore closed Chrome tab">restore a tab</button></div>
     </div>
-  </section>
+    <aside class="quick-app-panel" aria-labelledby="quick-app-title">
+      <h2 id="quick-app-title" data-i18n="browseApp">Or browse an app</h2>
+      <div class="quick-app-grid" id="category-grid" role="group" aria-label="Browse tips by app"></div>
+      <p class="quick-app-foot"><strong id="hero-count">55</strong> practical how-to guides · No account needed</p>
+    </aside>
+  </div>
+</section>
 
-  <section class="section apps-section" id="apps" aria-labelledby="apps-title">
-    <div class="shell">
-      <div class="section-heading">
-        <div><p class="eyebrow" data-i18n="appsEyebrow">BROWSE BY APPLICATION</p><h2 id="apps-title" data-i18n="appsTitle">Four tools. Everything in one place.</h2><p data-i18n="appsDesc">Choose the app you're working in, or head straight to the full tip library.</p></div>
-        <a href="#library" class="text-link" data-i18n="browseAll">View all 55 tips ↗</a>
-      </div>
-      <div class="category-grid" id="category-grid" role="group" aria-label="Browse tips by application"></div>
+<section class="section library-section compact-library" id="library" aria-labelledby="library-title">
+  <div class="shell">
+    <div class="section-heading compact-heading">
+      <div><p class="eyebrow" data-i18n="libraryEyebrow">FIND THE ANSWER</p><h2 id="library-title" data-i18n="libraryTitle">What do you need help with?</h2><p data-i18n="libraryDesc">Search with everyday language, filter by app, or choose a guide.</p></div>
+      <button class="reset-link" id="clear-filters" type="button" data-i18n="clearFilters">Clear filters ↺</button>
     </div>
-  </section>
-
-  <section class="section library-section" id="library" aria-labelledby="library-title">
-    <div class="shell">
-      <div class="section-heading library-heading">
-        <div><p class="eyebrow" data-i18n="libraryEyebrow">THE TIP LIBRARY</p><h2 id="library-title" data-i18n="libraryTitle">Find exactly what you need.</h2><p data-i18n="libraryDesc">Search a task or browse the collection. Every guide includes clear steps and a useful reference.</p></div>
-        <button class="reset-link" id="clear-filters" type="button" data-i18n="clearFilters">Clear filters ↺</button>
+    <div class="library-panel">
+      <div class="library-toolbar">
+        <div class="library-search"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg><label for="library-query" class="sr-only">Search all tips</label><input id="library-query" type="search" autocomplete="off" placeholder="Search a tip or task…"><span class="kbd-hint" aria-hidden="true">⌘ K</span></div>
+        <div class="filter-buttons" id="category-filters" role="group" aria-label="Filter by app"></div>
       </div>
-      <div class="library-panel">
-        <div class="library-toolbar">
-          <div class="library-search">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>
-            <label for="library-query" class="sr-only">Search tips</label>
-            <input type="search" id="library-query" placeholder="Search tips, shortcuts or tasks…" autocomplete="off">
-            <span class="kbd-hint" aria-hidden="true">⌘ K</span>
-          </div>
-          <div class="filter-buttons" id="category-filters" role="group" aria-label="Filter by application"></div>
-        </div>
-        <div class="library-meta">
-          <p id="result-count" role="status" aria-live="polite" aria-atomic="true">Loading tips…</p>
-          <div class="library-options">
-            <label class="saved-toggle"><input id="saved-only" type="checkbox"><span data-i18n="savedOnly">Saved only</span></label>
-            <label for="sort-by" class="sr-only">Sort tips</label>
-            <select id="sort-by"><option value="recommended">Recommended</option><option value="az">A–Z</option><option value="app">By app</option></select>
-          </div>
-        </div>
-        <div class="tips-grid" id="tips-grid"></div>
-        <div class="load-row" id="load-row"><button type="button" class="button outline" id="load-more" data-i18n="showMore">Show more tips ↓</button></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section collections-section" id="collections" aria-labelledby="collections-title">
-    <div class="shell">
-      <div class="section-heading"><div><p class="eyebrow" data-i18n="collectionsEyebrow">USEFUL COLLECTIONS</p><h2 id="collections-title" data-i18n="collectionsTitle">Sometimes you just need a starting point.</h2><p data-i18n="collectionsDesc">Hand-picked tips for the small tasks that come up throughout a school day.</p></div></div>
-      <div class="collection-grid" id="collection-grid"></div>
-    </div>
-  </section>
-
-  <section class="section shortcuts-section" id="shortcuts" aria-labelledby="shortcuts-title">
-    <div class="shell shortcut-layout">
-      <div class="shortcut-intro"><p class="eyebrow" data-i18n="shortcutsEyebrow">QUICK REFERENCE</p><h2 id="shortcuts-title" data-i18n="shortcutsTitle">Shortcuts worth keeping close.</h2><p data-i18n="shortcutsDesc">A few of the most useful Mac shortcuts in one place. No memorisation required—come back whenever you need them.</p><a class="button light-button" href="./print.html" data-i18n="printGuide">Open printable guide ↗</a></div>
-      <div class="shortcut-sheet" id="shortcut-sheet"></div>
-    </div>
-  </section>
-
-  <section class="section saved-section" id="saved" aria-labelledby="saved-title">
-    <div class="shell saved-layout">
-      <div class="saved-intro"><p class="eyebrow" data-i18n="savedEyebrow">YOUR OWN REFERENCE SHELF</p><h2 id="saved-title" data-i18n="savedTitle">Keep the useful ones handy.</h2><p data-i18n="savedDesc">Tap the heart beside a tip to save it. Your saved tips stay in this browser, with no account required.</p><div class="saved-buttons"><button type="button" class="button primary" id="view-saved" data-i18n="viewSaved">See all saved tips →</button><button type="button" class="button outline" id="clear-saved" data-i18n="clearSaved">Clear saved</button></div></div>
-      <div class="saved-board"><div class="saved-board-head"><strong data-i18n="savedBoard">Your saved tips</strong><span id="saved-count">0 saved</span></div><div id="saved-preview"></div><p class="saved-footnote" data-i18n="savedNote">Private to this browser. Nothing is sent to a school server.</p></div>
-    </div>
-  </section>
-
-  <section class="bottom-cta"><div class="shell bottom-cta-inner"><div><p class="eyebrow light" data-i18n="bottomEyebrow">ALWAYS HERE WHEN YOU NEED IT</p><h2 data-i18n="bottomTitle">A useful answer is never far away.</h2><p data-i18n="bottomDesc">Bookmark this website and come back whenever you need a reminder.</p></div><a href="#top" class="button light-button" data-i18n="backTop">Search for another tip ↑</a></div></section>
-</main>
-
-<footer class="site-footer"><div class="shell footer-inner">
-  <div class="footer-about"><strong class="footer-title">MacBook<span>·</span> Productivity</strong><p>Practical guides for the apps faculty use every day, designed for independent reference and learning.</p><p class="footer-small">Menus vary with software versions, account types and school-managed settings. Real screenshots are identified; others are illustrations.</p></div>
-  <div><h3>Official resources</h3><a href="https://support.apple.com/guide/mac-help/welcome/mac" target="_blank" rel="noopener noreferrer">Apple Mac help ↗</a><a href="https://support.microsoft.com/en-us/outlook" target="_blank" rel="noopener noreferrer">Outlook support ↗</a><a href="https://support.microsoft.com/en-us/teams" target="_blank" rel="noopener noreferrer">Teams support ↗</a><a href="https://support.google.com/chrome/" target="_blank" rel="noopener noreferrer">Chrome help ↗</a></div>
-  <div><h3>Helpful links</h3><a href="./print.html">Print the complete guide ↗</a><a href="https://github.com/edtechevans/MacBook" target="_blank" rel="noopener noreferrer">Website source ↗</a><label class="lang-label" for="language">Navigation language</label><select id="language"><option value="en">English</option><option value="zh">简体中文</option><option value="ko">한국어</option></select><p id="language-note" class="footer-small">Tip instructions are in English. Navigation can be translated.</p></div>
-</div></footer>
-
-<dialog class="tip-dialog" id="tip-dialog" aria-labelledby="tip-title" aria-describedby="tip-intro">
-  <div class="dialog-layout">
-    <header class="dialog-header"><a href="#library" class="dialog-back" id="tip-back">← <span data-i18n="backTips">All tips</span></a>
-      <div class="dialog-actions">
-        <button id="tip-fav" type="button" aria-pressed="false" aria-label="Save this tip" title="Save this tip" class="dialog-icon">♡</button>
-        <button id="tip-copy" type="button" aria-label="Copy link to this tip" title="Copy link" class="dialog-icon">↗</button>
-        <button id="tip-print" type="button" aria-label="Print tip" title="Print tip" class="dialog-icon">⎙</button>
-        <button id="tip-close" type="button" aria-label="Close tip" class="dialog-close">✕</button>
-      </div>
-    </header>
-    <div class="dialog-content">
-      <p class="tip-kicker" id="tip-kicker">MACBOOK / HOW TO</p>
-      <h2 id="tip-title" tabindex="-1"></h2>
-      <p id="tip-intro" class="tip-intro">Follow the instructions below on your own device.</p>
-      <div class="tip-modes" role="group" aria-label="How to view this tip">
-        <button id="mode-all" type="button" aria-pressed="true" data-i18n="modeAll">All steps</button>
-        <button id="mode-guided" type="button" aria-pressed="false" data-i18n="modeGuided">One step at a time</button>
-      </div>
-      <div class="tip-where"><span data-i18n="whereLabel">WHERE TO GO</span><strong id="tip-location"></strong></div>
-      <div id="all-steps">
-        <ol class="steps-list" id="tip-steps"></ol>
-        <div class="tip-illustration" id="tip-illustration"></div>
-      </div>
-      <div id="guided-steps" hidden>
-        <div class="guided-meta" id="guided-position" role="status" aria-live="polite">Step 1 of 3</div>
-        <div class="guided-card"><h3 id="guided-heading" tabindex="-1"></h3><p id="guided-text"></p><div id="guided-image"></div></div>
-        <div class="guided-actions"><button id="guided-prev" class="button outline" type="button">← Previous</button><button id="guided-next" class="button primary" type="button">Next step →</button></div>
-      </div>
-      <aside class="tip-to-try"><span data-i18n="tryHeading">PRACTICAL EXAMPLE</span><p id="tip-try"></p></aside>
-      <details class="help-details" id="tip-help"><summary data-i18n="helpHeading">Can't find the setting? Read this</summary><div id="tip-help-body"></div></details>
-      <div class="tip-source"><span id="tip-reviewed"></span><a id="tip-official" target="_blank" rel="noopener noreferrer">Official instructions ↗</a></div>
-      <div class="tip-related" id="related-wrap"><h3 data-i18n="relatedTitle">You might also find these useful</h3><div id="related-tips"></div></div>
+      <div class="library-meta"><p id="result-count" role="status" aria-live="polite" aria-atomic="true">Loading tips…</p><div class="library-options"><label class="saved-toggle"><input type="checkbox" id="saved-only"><span data-i18n="savedOnly">Saved only</span></label><label class="sr-only" for="sort-by">Sort tips</label><select id="sort-by"><option value="recommended">Most useful</option><option value="az">A–Z</option><option value="app">By app</option></select></div></div>
+      <div id="tips-grid" class="tips-grid"></div>
+      <div class="load-row" id="load-row"><button class="button outline" id="load-more" type="button" data-i18n="more">Show more tips ↓</button></div>
     </div>
   </div>
-</dialog>
+</section>
+
+<section class="section collections-section compact-collections" id="collections" aria-labelledby="collections-title">
+  <div class="shell">
+    <div class="section-heading"><div><p class="eyebrow" data-i18n="collectionsEyebrow">BROWSE BY TASK</p><h2 id="collections-title" data-i18n="collectionsTitle">A few good places to start.</h2><p data-i18n="collectionsDesc">Small, useful collections for everyday work.</p></div></div>
+    <div class="collection-grid" id="collection-grid"></div>
+  </div>
+</section>
+
+<section class="section shortcuts-section" id="shortcuts" aria-labelledby="shortcuts-title">
+  <div class="shell shortcut-layout"><div class="shortcut-intro"><p class="eyebrow light">QUICK REFERENCE</p><h2 id="shortcuts-title" data-i18n="shortcutsTitle">Shortcuts worth keeping close.</h2><p data-i18n="shortcutsDesc">A few quick keyboard reminders. Click any one to see the full instructions.</p><a class="button light-button" href="./print.html" data-i18n="print">Printable guide ↗</a></div><div id="shortcut-sheet" class="shortcut-sheet"></div></div>
+</section>
+
+<section class="section saved-section" id="saved" aria-labelledby="saved-title">
+  <div class="shell saved-layout"><div class="saved-intro"><p class="eyebrow" data-i18n="savedEyebrow">YOUR OWN REFERENCE SHELF</p><h2 id="saved-title" data-i18n="savedTitle">Keep useful tips handy.</h2><p data-i18n="savedDesc">Save guides with the heart icon. They stay in this browser, with no login required.</p><div class="saved-buttons"><button class="button primary" id="view-saved" type="button" data-i18n="savedView">View saved tips →</button><button class="button outline" id="clear-saved" type="button" data-i18n="savedClear">Clear saved</button></div></div><div class="saved-board"><div class="saved-board-head"><strong>Your saved tips</strong><span id="saved-count">0 saved</span></div><div id="saved-preview"></div><p class="saved-footnote">Saved locally on this device. No account or tracking.</p></div></div>
+</section>
+</main>
+<footer class="site-footer"><div class="shell footer-inner"><div class="footer-about"><strong class="footer-title">MacBook<span>·</span> Productivity</strong><p>Practical how-to guides for the digital tools faculty use every day.</p><p class="footer-small">App menus can differ by version and school account. Official sources accompany each guide.</p></div><div><h3>Useful links</h3><a href="./print.html">Print all 55 guides ↗</a><a href="https://github.com/edtechevans/MacBook/issues/new" target="_blank" rel="noopener noreferrer">Suggest a correction (GitHub account) ↗</a><a href="https://github.com/edtechevans/MacBook" target="_blank" rel="noopener noreferrer">Website source ↗</a></div><div><h3>Vendor support</h3><a href="https://support.apple.com/guide/mac-help/welcome/mac" target="_blank" rel="noopener noreferrer">Apple ↗</a><a href="https://support.microsoft.com/en-us/outlook" target="_blank" rel="noopener noreferrer">Outlook ↗</a><a href="https://support.microsoft.com/en-us/teams" target="_blank" rel="noopener noreferrer">Teams ↗</a><a href="https://support.google.com/chrome/" target="_blank" rel="noopener noreferrer">Chrome ↗</a><label for="language" class="lang-label">Navigation language</label><select id="language"><option value="en">English</option><option value="zh">简体中文</option><option value="ko">한국어</option></select><p id="language-note" class="footer-small">Detailed guide translations available for selected tips.</p></div></div></footer>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
-</body>
-</html>
+</body></html>
