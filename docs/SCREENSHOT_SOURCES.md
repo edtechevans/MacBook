@@ -4,9 +4,9 @@ This learning site contains unaltered official screenshots as source-linked visu
 
 | Lesson | Platform | Image | Publisher |
 |---|---|---|---|
-| t22 (steps 2–3) | macOS Tahoe | Screenshot toolbar | https://support.apple.com/en-in/102618 |
+| t22 (step 2) | macOS Tahoe | Screenshot toolbar | https://support.apple.com/en-in/102618 |
 | t24 (steps 2–3) | Outlook for Mac | Schedule Send and date picker | https://support.microsoft.com/en-us/outlook/use-schedule-send-in-outlook-for-mac |
-| t38 (steps 2–3) | Microsoft Teams | Calendar view dropdown | https://support.microsoft.com/en-us/teams/meetings/get-started-with-the-microsoft-teams-calendar |
+| t38 (step 2) | Microsoft Teams | Calendar view dropdown | https://support.microsoft.com/en-us/teams/meetings/get-started-with-the-microsoft-teams-calendar |
 | t48 (step 1) | Google Chrome | Tab grouping context menu | https://blog.google/products-and-platforms/products/chrome/help-me-out-how-to-organize-chrome-tabs/ |
 
 Sources and full-size images are linked in the lesson interface. Images are hosted by the publishers, **not stored in the GitHub repository**. We display complete original assets using CSS `object-fit:contain`, maintain aspect ratio, and never crop, recolour or annotate copyrighted screenshot files. We retain a text-based illustrated alternative for offline use, changes of UI layout, broken links or unsupported source images.

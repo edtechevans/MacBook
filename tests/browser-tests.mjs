@@ -53,7 +53,7 @@ try{
  await yes(await page.locator(".guide-step:not([hidden])").count()===3,"All steps can be restored");
 
  await load("tips/t22.html");
- await yes(await page.locator(".vendor-shot").count()===2,"Genuine Mac screenshots placed at relevant steps");
+ await yes(await page.locator(".vendor-shot").count()===1,"One genuine Mac screenshot avoids duplicate imagery");
  const image=page.locator(".vendor-shot").first();
  await yes(await image.evaluate(i=>getComputedStyle(i).objectFit==="contain"),"Publisher screenshot kept uncropped");
  await page.locator("[data-image-zoom]").first().click();
