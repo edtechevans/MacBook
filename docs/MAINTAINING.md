@@ -43,6 +43,9 @@ Each tip is a static HTML reference page in `tips/<id>.html`. Content lives in `
 
 Check typo and intent cases in `tests/search-check.mjs`; for example "mute teams messages", "reopen closed Chrome tab" and "two windows side by side". Correct the search metadata rather than hiding poor results.
 
-Translation drafts cover 15 selected guides, with their draft status visible to faculty; do not claim comprehensive translations. Have English-speaking and native Chinese/Korean faculty review vendor UI terminology before making them official.
 
-Individual pages have accessible, fully readable steps without JavaScript; optional saving, sharing, image zoom and translations enhance this. Each image uses proportional fit and labelled original source. On failed load, show the vendor source and step text.
+Individual pages have accessible, fully readable steps without JavaScript; optional saving, sharing and image zoom enhance this. Each image uses proportional fit and labelled original source. On failed load, show the vendor source and step text.
+
+## Language policy
+
+The public resource is English-only. Do not add AI-generated translations or language toggles without a separate documented expert review and school approval process. Keep instructions clear and use vendor menu names precisely.

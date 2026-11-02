@@ -29,7 +29,7 @@ The site does not collect identities, student information, analytics, account da
 - service-worker.js: optional offline caching after the first supported visit
 - docs/MAINTAINING.md: editorial and accessibility maintenance
 
-Menus and features change depending on app version, macOS version, account type and school-managed settings. Do not assume that any screenshot represents the exact AISG configuration. Detailed tips are in English; main navigation offers optional Chinese/Korean translation.
+Menus and features change depending on app version, macOS version, account type and school-managed settings. Do not assume that any screenshot represents the exact AISG configuration. All published guides and navigation are in English. Unverified translations are intentionally not offered.
 
 ## Development
 
@@ -57,8 +57,11 @@ This independent resource is not affiliated with Apple, Microsoft or Google.
 - Real screenshots show original publisher assets at their exact steps, can be viewed larger, and fall back when unavailable. Unlicensed cropping or annotation is avoided.
 - `related-tips.js` contains editorially curated next actions, one set for every guide.
 - Direct vendor references were replaced for 19 entries where a more precise verified document was found; unverified help links are labelled without pretending school-device validation.
-- `tip-translations.js` contains Chinese and Korean draft guidance for 15 common tasks. Other guides stay in English, and these drafts still need a fluent faculty/technical terminology review.
 - Tip correction flow opens a prefilled GitHub issue (GitHub account required), or copies details for manual sharing. No backend or analytics.
 - Safe use note for phone hotspot: school prohibits hotspotting on campus.
 
 Authoring: Edit `content.js` then regenerate the 55 static tip HTML articles whenever their steps or metadata change; they intentionally contain crawlable instructions instead of JS-only articles.
+
+## Language policy
+
+The website intentionally publishes its interface and all 55 walkthroughs in English only. Language selectors and unverified Chinese/Korean translation drafts were removed to protect instructional accuracy. Vendor menu labels remain as documented, and individual instructions should continue to be checked against the official sources.

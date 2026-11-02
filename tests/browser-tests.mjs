@@ -23,6 +23,7 @@ try{
  await yes(await page.locator("#category-grid .quick-app").count()===4,"Four compact app buttons");
  await yes(await page.locator("#tips-grid .tip-card").count()===12,"First useful answers immediately visible");
  await yes(await page.locator("#main-nav a").count()===3,"Simpler three-link navigation");
+ await yes(await page.locator("#language, #language-note, [data-i18n]").count()===0,"No homepage language selector or translation hooks");
  await yes(await page.locator(".hero-feature,.feature-tip,#quiz-options,#main-progress").count()===0,"Removed presentation and testing UI");
  await page.screenshot({path:"test-artifacts/answer-first-home-desktop.png",fullPage:true});
  await axe("Homepage");
@@ -60,13 +61,9 @@ try{
  await yes(await page.locator("#image-zoom").isVisible(),"Accessible image enlargement dialog opens");
  await page.locator("#zoom-close").click();
  await yes(!(await page.locator("#image-zoom").isVisible()),"Zoom closes and returns to guide");
- await page.locator("#tip-language").selectOption("zh");
- await yes((await page.locator("#guide-title").textContent()).includes("屏幕"),"Chinese draft is available for a priority guide");
- await yes(await page.locator("#translation-note").isVisible(),"Unreviewed draft disclosure visible");
- await page.locator("#tip-language").selectOption("ko");
- await yes((await page.locator("#guide-title").textContent()).includes("화면"),"Korean draft is available");
- await page.locator("#tip-language").selectOption("en");
- await yes((await page.locator("#guide-title").textContent()).includes("Capture"),"English original restored");
+ await yes(await page.locator("#tip-language, #translation-note, .language-strip, .translation-tag").count()===0,"No translation UI in screen recording guide");
+ await yes((await page.locator("#guide-title").textContent()).includes("Capture"),"Original English title is retained");
+ await yes((await page.locator(".article-steps").textContent()).includes("Press Shift + Command + 5"),"English guidance remains intact");
  await yes((await page.locator(".guide-feedback a").getAttribute("href")).includes("github.com"),"Correction link is actionable");
  await page.screenshot({path:"test-artifacts/answer-first-guide-screenshots.png",fullPage:true});
 
@@ -87,8 +84,8 @@ try{
  await page.locator("#clear-saved").click();
  await yes((await page.locator("#saved-count").textContent()).includes("0 saved"),"Saved references can be cleared");
  await load("tips/t49.html");
- await page.locator("#tip-language").selectOption("zh");
- await yes((await page.locator("#translation-note").textContent()).includes("英文原文"),"Untranslated tips disclose English-only fallback");
+ await yes(await page.locator("#tip-language, #translation-note, .language-strip, .translation-tag").count()===0,"No translation UI in Chrome guide");
+ await yes((await page.locator(".article-steps").textContent()).length>35,"English guide is still readable");
 
  await load("");
  await page.setViewportSize({width:375,height:812});

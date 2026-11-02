@@ -1,7 +1,7 @@
 name: Validate and publish MacBook Productivity reference v3
 on:
   push:
-    branches: [main, reference-v3-answer-first]
+    branches: [main, english-only-reference]
   workflow_dispatch:
 permissions:
   contents: read
