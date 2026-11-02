@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 455" role="img" aria-labelledby="title desc"><title id="title">MacBook with a colourful blue and violet desktop</title><desc id="desc">An illustrative laptop displaying a flowing cyan blue and violet desktop and everyday productivity app icons.</desc>
+<defs>
+<linearGradient id="screen" x1="0" x2="1" y1=".1" y2="1"><stop stop-color="#0C3B92"/><stop offset=".34" stop-color="#1862E0"/><stop offset=".68" stop-color="#05BCD6"/><stop offset="1" stop-color="#4837CF"/></linearGradient>
+<linearGradient id="wave1" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#71ECF5"/><stop offset=".58" stop-color="#138DE5"/><stop offset="1" stop-color="#3029B9"/></linearGradient>
+<linearGradient id="wave2" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#1D75E9"/><stop offset=".4" stop-color="#2A4DC2"/><stop offset=".85" stop-color="#9E50DE"/><stop offset="1" stop-color="#3B2BBF"/></linearGradient>
+<linearGradient id="wave3" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#0F49D2"/><stop offset=".42" stop-color="#0647C5"/><stop offset=".72" stop-color="#0DD2DA"/><stop offset="1" stop-color="#8C3FEB"/></linearGradient>
+<linearGradient id="frame" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#060C1C"/><stop offset=".28" stop-color="#090C17"/><stop offset=".7" stop-color="#161C2E"/><stop offset="1" stop-color="#080C17"/></linearGradient>
+<linearGradient id="metal" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#C3D1DF"/><stop offset=".32" stop-color="#F2F6FC"/><stop offset=".67" stop-color="#99A9BE"/><stop offset=".9" stop-color="#4F6075"/><stop offset="1" stop-color="#AFBDD0"/></linearGradient>
+<linearGradient id="base" x1="0" x2=".2" y1="0" y2="1"><stop stop-color="#DCE7F0"/><stop offset=".35" stop-color="#BAC8D7"/><stop offset=".72" stop-color="#6F8299"/><stop offset="1" stop-color="#CDD8E6"/></linearGradient>
+<radialGradient id="glow"><stop stop-color="#86F9FD" stop-opacity=".52"/><stop offset="1" stop-color="#86F9FD" stop-opacity="0"/></radialGradient>
+<filter id="shadow" x="-30%" width="160%" y="-40%" height="190%"><feGaussianBlur stdDeviation="13"/></filter>
+<filter id="shine"><feGaussianBlur stdDeviation="4"/></filter>
+<clipPath id="clip"><rect x="109" y="96" width="542" height="280" rx="5"/></clipPath>
+</defs>
+<ellipse cx="410" cy="408" rx="294" ry="31" fill="#08185B" opacity=".38" filter="url(#shadow)"/>
+<ellipse cx="568" cy="247" rx="310" ry="256" fill="url(#glow)" opacity=".7"/>
+<g>
+<rect x="95" y="79" width="570" height="309" rx="18" fill="url(#frame)" stroke="#C1D3E8" stroke-width="2.4"/>
+<rect x="104" y="90" width="552" height="289" rx="7" fill="#050D1A"/>
+<g clip-path="url(#clip)">
+<rect x="109" y="96" width="542" height="280" fill="url(#screen)"/>
+<path d="M109 96h542v172c-61 10-126-23-190-38-78-18-121 7-197-50-47-36-91-66-155-67Z" fill="url(#wave1)" opacity=".99"/>
+<path d="M109 142c106 18 154 93 216 115 92 34 191-58 326-7v126H109Z" fill="url(#wave2)" opacity=".92"/>
+<path d="M109 226c95-11 154 21 230 47 69 24 133 0 188-15 49-15 90 1 124 25v93H109Z" fill="url(#wave3)" opacity=".97"/>
+<path d="M109 267c96-26 162 42 243 62 106 26 174-41 299-10v57H109Z" fill="#153CC1" opacity=".54"/>
+<path d="M172 103c67 34 93 118 148 142 47 20 116-2 159-14 58-17 110 9 172 23" fill="none" stroke="#91FCF6" stroke-width="34" opacity=".13"/>
+</g>
+<path d="M341 90h75c-2 8-7 12-14 12h-47c-7 0-12-4-14-12Z" fill="#050914"/>
+<rect x="90" y="385" width="581" height="13" rx="5" fill="#34435C" opacity=".66"/>
+<path d="M83 391h594l49 26c8 5 9 9 2 12-12 6-41 9-66 9H104c-28 0-49-3-62-9-8-4-8-7 1-12Z" fill="url(#metal)" stroke="#CDD6E4" stroke-width="1.6"/>
+<path d="M85 392h590l38 22H46Z" fill="url(#base)" stroke="#F1F5F9" stroke-width="1.5"/>
+<path d="M323 397h129c-4 10-7 13-21 13h-83c-12 0-18-3-25-13Z" fill="#A4B3C8" opacity=".9"/>
+<path d="M46 427c35 9 653 9 680 0" fill="none" stroke="#F6FAFF" stroke-width="2.4" opacity=".9"/>
+<rect x="271" y="331" width="224" height="43" rx="14" fill="#CEE5F5" fill-opacity=".24" stroke="#E9F7FF" stroke-opacity=".32"/>
+<rect x="285" y="339" width="30" height="30" rx="6" fill="#BAEDFB"/>
+<path d="M301 339v30M288 350c6 1 9 1 13-2m-13 12c3 4 8 4 13 0m-2-10c3 2 7 2 12 0m-12 11c4 3 9 3 13-1" stroke="#1764C6" stroke-width="1.7" fill="none"/>
+<rect x="326" y="339" width="30" height="30" rx="6" fill="#0B91D7"/>
+<rect x="334" y="344" width="19" height="22" rx="3" fill="#E7F9FF"/><rect x="329" y="346" width="15" height="18" rx="2" fill="#1E5DCC"/><text x="337" y="360" font-family="Arial,sans-serif" font-size="13" font-weight="800" fill="#fff">O</text>
+<rect x="368" y="339" width="30" height="30" rx="6" fill="#8170ED"/><circle cx="387" cy="345" r="4" fill="#DAD4FF"/><circle cx="394" cy="351" r="3" fill="#C2B8FA"/><rect x="374" y="348" width="18" height="16" rx="4" fill="#554BD3"/><text x="380" y="360" font-family="Arial,sans-serif" font-size="12" font-weight="800" fill="#fff">T</text>
+<rect x="410" y="339" width="30" height="30" rx="6" fill="#F5F7FC"/><circle cx="425" cy="354" r="13" fill="#E94235"/><path d="M412 354h26L427 367c-7 0-13-6-15-13" fill="#0E9F55"/><path d="M425 341c8 0 13 5 13 13h-13l-7-12Z" fill="#F5CD35"/><circle cx="425" cy="354" r="6.5" fill="#F7FAFF"/><circle cx="425" cy="354" r="4.6" fill="#4187F5"/>
+<rect x="452" y="339" width="30" height="30" rx="6" fill="#D7E1EE"/><rect x="459" y="345" width="16" height="18" rx="2.7" fill="#F5F9FC" stroke="#B3C3D7"/>
+<circle cx="379" cy="383" r="1.7" fill="#F4F8FB" opacity=".75"/>
+</g></svg>
