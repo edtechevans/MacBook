@@ -7,7 +7,6 @@ const $$=s=>[...document.querySelectorAll(s)];
 const id=document.body.dataset.tipId;
 const tip=(window.TIPS||[]).find(t=>t.id===id);
 if(!tip)return;
-const locale=window.TIP_TRANSLATIONS?.[id]||null;
 let saved=new Set();
 try{const arr=JSON.parse(localStorage.getItem("macbook-favorites")||"[]");if(Array.isArray(arr))saved=new Set(arr.filter(x=>typeof x==="string"));}catch{}
 let noticeTimer=null;
@@ -94,25 +93,6 @@ $("#step-next").addEventListener("click",()=>{
  if(stepIndex===guideSteps.length-1){guided=false;renderStepView();$("#toggle-guided").focus();return;}
  stepIndex++;renderStepView();guideSteps[stepIndex].querySelector("h3")?.focus({preventScroll:true});
 });
-function setLanguage(choice){
- const selected=choice==="zh"||choice==="ko"?locale?.[choice]:null;
- const displayLanguage=selected?choice:"en";
- const heading=$("#guide-title"),headingOriginal=tip.title;
- heading.textContent=selected?.title||headingOriginal;
- heading.lang=displayLanguage;
- guideSteps.forEach((step,i)=>{const p=step.querySelector(".step-text");p.textContent=selected?.steps?.[i]||tip.steps[i];p.lang=displayLanguage;});
- const status=$("#translation-note");
- if(selected){status.textContent=choice==="zh"?"中文译文为供学习参考的草稿，软件界面名称请以实际英文标签为准。":"한국어 번역은 참고용 초안입니다. 실제 앱의 영문 메뉴 이름을 확인하세요.";status.hidden=false;}
- else if(choice!=="en"){status.textContent=choice==="zh"?"这项技巧的详细中文译文尚未完成审核；目前显示英文原文。":"이 팁의 한국어 상세 번역이 준비되지 않아 영어 원문을 표시합니다.";status.hidden=false;}
- else status.hidden=true;
- // Keep the site chrome in English; only translated title/steps receive a zh/ko lang attribute.
- document.documentElement.lang="en";
-}
-$("#tip-language").addEventListener("change",e=>{setLanguage(e.target.value);try{localStorage.setItem("macbook-lang",e.target.value);}catch{}});
-try{
- const pref=localStorage.getItem("macbook-lang")||"en";
- if(["en","zh","ko"].includes(pref)){$("#tip-language").value=pref;setLanguage(pref);}
-}catch{}
 function setPrintDate(){const n=$("#source-checked");if(!n)return;if(tip.sourceChecked)n.textContent="Official source checked 2 Nov 2026. Device menus may differ.";else n.textContent="Vendor help reference · verify menu labels for your app version.";}
 setPrintDate();
 setSaved();renderStepView();

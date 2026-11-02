@@ -1,7 +1,7 @@
 /* Offline support for the static productivity reference site. */
-const CACHE_NAME="macbook-productivity-v6-20261102-answer-first";
+const CACHE_NAME="macbook-productivity-v7-20261102-english-only";
 const STATIC_ASSETS=[
-  "./","./index.html","./styles.css?v=20261102-6","./app.js?v=6","./search.js?v=6","./search-terms.js?v=6","./related-tips.js?v=6","./tip-translations.js?v=6","./tip-page.js?v=6",
+  "./","./index.html","./styles.css?v=20261102-7","./app.js?v=7","./search.js?v=6","./search-terms.js?v=6","./related-tips.js?v=6","./tip-page.js?v=7",
   "./content.js","./lesson-media.js?v=20261102-4","./favicon.svg?v=20261102-3",
   "./print.html","./print.js","./manifest.webmanifest"
 ];

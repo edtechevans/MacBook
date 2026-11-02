@@ -18,24 +18,13 @@ const SHORTCUTS=[["Search your Mac","⌘ Space","t16"],["Switch apps","⌘ Tab",
 const $=q=>document.querySelector(q),$$=q=>[...document.querySelectorAll(q)];
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const tipLink=id=>"./tips/"+encodeURIComponent(id)+".html";
-let favourites=new Set,language="en",focusOption=-1,toastTimer=null;
+let favourites=new Set,focusOption=-1,toastTimer=null;
 let state={query:"",category:"All",savedOnly:false,sort:"recommended",shown:12,collection:null};
 try{const ids=JSON.parse(localStorage.getItem("macbook-favorites")||"[]");if(Array.isArray(ids))favourites=new Set(ids.filter(id=>byId.has(id)));}catch{}
-try{language=localStorage.getItem("macbook-lang")||"en";}catch{}
-const txt={
- en:{navTips:"Find tips",navShortcuts:"Shortcuts",navSaved:"Saved",search:"Search",menu:"Menu",heroEyebrow:"EVERYDAY PRODUCTIVITY · QUICK REFERENCE",heroTitle:"Find a tip.",heroTitleEm:"Get it done.",heroDesc:"Clear answers for MacBook, Outlook, Teams and Chrome. Search what you want to do, then follow the steps.",find:"Find a tip →",try:"Try:",browseApp:"Or browse an app",libraryEyebrow:"FIND THE ANSWER",libraryTitle:"What do you need help with?",libraryDesc:"Search with everyday language, filter by app, or choose a guide.",clearFilters:"Clear filters ↺",savedOnly:"Saved only",more:"Show more tips ↓",collectionsEyebrow:"BROWSE BY TASK",collectionsTitle:"A few good places to start.",collectionsDesc:"Small, useful collections for everyday work.",shortcutsTitle:"Shortcuts worth keeping close.",shortcutsDesc:"A few quick keyboard reminders. Click any one to see the full instructions.",print:"Printable guide ↗",savedEyebrow:"YOUR OWN REFERENCE SHELF",savedTitle:"Keep useful tips handy.",savedDesc:"Save guides with the heart icon. They stay in this browser, with no login required.",savedView:"View saved tips →",savedClear:"Clear saved"},
- zh:{navTips:"查找技巧",navShortcuts:"快捷键",navSaved:"已收藏",search:"搜索",menu:"菜单",heroEyebrow:"日常效率 · 快速参考",heroTitle:"找到技巧。",heroTitleEm:"马上完成。",heroDesc:"MacBook、Outlook、Teams 和 Chrome 的实用指导。搜索任务，按照步骤操作。",find:"查找技巧 →",try:"试试：",browseApp:"或按应用浏览",libraryEyebrow:"快速找到答案",libraryTitle:"你需要什么帮助？",libraryDesc:"使用日常语言搜索，按应用筛选，或选择指南。",clearFilters:"清除筛选 ↺",savedOnly:"仅看收藏",more:"更多技巧 ↓",collectionsEyebrow:"按任务浏览",collectionsTitle:"从这些任务开始。",collectionsDesc:"适用于日常工作的精选技巧。",shortcutsTitle:"常用快捷键。",shortcutsDesc:"点击快捷键查看完整说明。",print:"打印版指南 ↗",savedEyebrow:"个人收藏",savedTitle:"随时查阅实用技巧。",savedDesc:"点击心形图标收藏指南，仅保存在此浏览器中。",savedView:"查看收藏 →",savedClear:"清除收藏"},
- ko:{navTips:"팁 찾기",navShortcuts:"단축키",navSaved:"저장한 팁",search:"검색",menu:"메뉴",heroEyebrow:"일상 생산성 · 빠른 참고",heroTitle:"팁을 찾고.",heroTitleEm:"바로 해결하세요.",heroDesc:"MacBook, Outlook, Teams, Chrome의 실용적인 안내입니다. 원하는 작업을 검색하세요.",find:"팁 찾기 →",try:"예:",browseApp:"또는 앱별로 찾기",libraryEyebrow:"답 찾기",libraryTitle:"어떤 도움이 필요한가요?",libraryDesc:"일상적인 표현으로 검색하거나 앱별로 찾아보세요.",clearFilters:"필터 초기화 ↺",savedOnly:"저장한 항목만",more:"팁 더 보기 ↓",collectionsEyebrow:"작업별 탐색",collectionsTitle:"여기서 시작하세요.",collectionsDesc:"업무에 유용한 팁을 모았습니다.",shortcutsTitle:"자주 쓰는 단축키.",shortcutsDesc:"단축키를 눌러 전체 안내를 확인하세요.",print:"인쇄용 가이드 ↗",savedEyebrow:"개인 북마크",savedTitle:"유용한 팁을 저장하세요.",savedDesc:"하트 아이콘으로 저장하세요. 현재 브라우저에만 보관됩니다.",savedView:"저장한 팁 보기 →",savedClear:"저장 삭제"}
-};
 function notify(msg){const el=$("#toast");el.textContent=msg;el.classList.add("visible");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("visible"),2700);}
 function save(){try{localStorage.setItem("macbook-favorites",JSON.stringify([...favourites]));}catch{notify("Unable to save in this browser.");}}
 function hideNav(){$("#main-nav").classList.remove("open");$("#menu-toggle").setAttribute("aria-expanded","false");}
 function scrollToId(id){hideNav();document.getElementById(id)?.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});}
-function languageUI(){if(!txt[language])language="en";for(const el of $$("[data-i18n]")){const s=txt[language][el.dataset.i18n];if(s){el.textContent=s;el.lang=language;}}
- $("#language").value=language;$("#hero-query").placeholder=language==="zh"?"例如：关闭 Teams 通知、录制屏幕":language==="ko"?"예: Teams 알림 끄기, 화면 녹화":"e.g. mute Teams, record screen, restore a tab";
- $("#library-query").placeholder=language==="zh"?"搜索任务或技巧…":language==="ko"?"작업 또는 팁 검색…":"Search a task or tip…";
- $("#language-note").textContent=language==="zh"?"15 项常用技巧有中文指导草稿，尚待专业术语审核；其他内容为英文。":language==="ko"?"주요 15개 팁에 한국어 번역 초안이 있으며 전문 검토가 필요합니다. 나머지는 영어입니다.":"15 priority guides include Chinese/Korean drafts; technical terminology review is pending.";
-}
 function searchList(){let result=state.query?engine.search(all,state.query,{limit:55,category:state.category,savedOnly:state.savedOnly?favourites:null}):all.filter(t=>(state.category==="All"||t.category===state.category)&&(!state.savedOnly||favourites.has(t.id)));
  if(state.collection)result=result.filter(t=>state.collection.includes(t.id));
  if(state.sort==="az")result.sort((a,b)=>a.title.localeCompare(b.title));
@@ -48,7 +37,7 @@ function renderGrid(){
  $("#result-count").textContent=list.length+" guide"+(list.length===1?"":"s")+" found"+(state.query?' for "'+state.query+'"':"");
  $("#tips-grid").innerHTML=list.slice(0,state.shown).map(t=>{
   const action=t.id==="t09"?"Off campus only · "+t.where:(t.where.length<53?t.where:t.steps[0]);
-  return '<article class="tip-card answer-card"><div class="tip-card-top"><span class="tip-app">'+esc(t.category)+'</span><button class="save-tip" type="button" data-save="'+t.id+'" aria-pressed="'+favourites.has(t.id)+'" aria-label="'+(favourites.has(t.id)?"Remove saved guide: ":"Save guide: ")+esc(t.title)+'">'+(favourites.has(t.id)?"♥":"♡")+'</button></div><h3><a href="'+tipLink(t.id)+'">'+esc(t.title)+'</a></h3><p class="card-answer">'+esc(action)+'</p><div class="tip-card-bottom"><small>'+((window.TIP_TRANSLATIONS||{})[t.id]?"EN · 中文 · 한국어":"English")+'</small><a class="tip-open" href="'+tipLink(t.id)+'" aria-label="Read guide: '+esc(t.title)+'">See how →</a></div></article>';
+  return '<article class="tip-card answer-card"><div class="tip-card-top"><span class="tip-app">'+esc(t.category)+'</span><button class="save-tip" type="button" data-save="'+t.id+'" aria-pressed="'+favourites.has(t.id)+'" aria-label="'+(favourites.has(t.id)?"Remove saved guide: ":"Save guide: ")+esc(t.title)+'">'+(favourites.has(t.id)?"♥":"♡")+'</button></div><h3><a href="'+tipLink(t.id)+'">'+esc(t.title)+'</a></h3><p class="card-answer">'+esc(action)+'</p><div class="tip-card-bottom"><small>'+t.steps.length+" clear steps"+'</small><a class="tip-open" href="'+tipLink(t.id)+'" aria-label="Read guide: '+esc(t.title)+'">See how →</a></div></article>';
  }).join("")||'<div class="empty-results"><h3>No exact answer yet</h3><p>Try a simpler word, a different phrase or browse one app. You can also suggest a new guide.</p><button class="button outline" type="button" data-reset="true">See all guides</button> <a class="button outline" href="https://github.com/edtechevans/MacBook/issues/new" target="_blank" rel="noopener noreferrer">Suggest a guide ↗</a></div>';
  $("#load-row").hidden=list.length<=state.shown;
  for(const b of $$("[data-filter]"))b.setAttribute("aria-pressed",String(b.dataset.filter===state.category));
@@ -126,7 +115,6 @@ function setup(){
  for(const a of $$(".main-nav a"))a.addEventListener("click",hideNav);
  $("#view-saved").addEventListener("click",()=>{clearFilters();state.savedOnly=true;state.shown=55;renderGrid();scrollToId("library");});
  $("#clear-saved").addEventListener("click",()=>{if(!favourites.size||!confirm("Remove all saved guides from this browser?"))return;favourites.clear();save();renderGrid();renderSaved();notify("Saved guides cleared.");});
- $("#language").addEventListener("change",e=>{language=e.target.value;try{localStorage.setItem("macbook-lang",language);}catch{}languageUI();});
  document.addEventListener("click",e=>{
   const btn=e.target.closest("button");if(!btn)return;
   if(btn.dataset.save){toggle(btn.dataset.save,true);return;}
@@ -143,7 +131,7 @@ function init(){
  if(old&&byId.has(old[1])){location.replace(tipLink(old[1]));return;}
  const tag=location.hash.match(/^#library\?app=(MacBook|Outlook|Teams|Chrome)$/);
  $("#hero-count").textContent=all.length;
- renderCategories();renderGrid();renderCollections();renderShortcuts();renderSaved();languageUI();setup();
+ renderCategories();renderGrid();renderCollections();renderShortcuts();renderSaved();setup();
  if(tag)category(tag[1]);
  if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js").catch(()=>{}));
 }
