@@ -216,6 +216,7 @@
     $("#view-saved").addEventListener("click",()=>{resetFilters();state.savedOnly=true;state.visible=55;renderTips();scrollToId("library");$("#library-query").focus();});
     $("#view-incomplete").addEventListener("click",()=>{const next=allTips.find(t=>!done.has(t.id));if(next)goToTip(next.id);else notify("You've practised every lesson. Well done!");});
     $("#export-progress").addEventListener("click",exportProgress);
+    $("#import-button").addEventListener("click",()=>$("#import-progress").click());
     $("#import-progress").addEventListener("change",e=>importProgress(e.target.files[0]));
     $("#reset-progress").addEventListener("click",()=>{if(!window.confirm("Reset all saved and completed lessons on this browser? This cannot be undone unless you exported a backup."))return;done.clear();faves.clear();recent=[];saveLocal();refreshProgress();renderTips();notify("Learning progress cleared.");});
     $("#quiz-next").addEventListener("click",advanceQuiz);$("#quiz-restart").addEventListener("click",restartQuiz);
