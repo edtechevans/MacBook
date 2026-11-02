@@ -678,7 +678,7 @@ window.TIPS = [
     ],
     "try": "Compare Week and Work week views.",
     "note": "Available views may change as Teams evolves.",
-    "source": "https://support.microsoft.com/en-us/teams/meetings/get-started-with-the-microsoft-teams-calendar",
+    "source": "https://support.microsoft.com/en-us/teams/meetings/customize-your-calendar-in-microsoft-teams",
     "bonus": false,
     "sourceStatus": "vendor-reference",
     "sourceChecked": null,
@@ -860,8 +860,8 @@ window.TIPS = [
     "note": "",
     "source": "https://support.google.com/chrome/answer/2391819?hl=en",
     "bonus": false,
-    "sourceStatus": "vendor-reference",
-    "sourceChecked": null,
+    "sourceStatus": "verified-reference",
+    "sourceChecked": "2026-11-02",
     "platformHint": "Chrome on Mac • browser version may differ"
   },
   {

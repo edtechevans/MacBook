@@ -60,7 +60,7 @@ function imageReady(img){
  const error=()=>{
   const figure=img.closest(".platform-shot");
   if(!figure||!figure.isConnected)return;
-  const note=document.createElement("p");note.className="screenshot-unavailable";note.textContent="This publisher image is unavailable right now. The written instructions and official reference remain below.";
+  const note=document.createElement("p");note.className="screenshot-unavailable";note.textContent="This visual is temporarily unavailable. The written instructions and official reference are still available below.";
   frame.replaceWith(note);
   figure.querySelector("[data-image-zoom]")?.remove();
  };

@@ -22,6 +22,11 @@ try{
  await yes((await page.locator("#result-count").textContent()).includes("55 guides"),"All 55 guides accessible");
  await yes(await page.locator("#category-grid .quick-app").count()===4,"Four pastel application buttons");
  await yes(await page.locator("#popular-grid .popular-card").count()===4,"Four illustrated popular tips render");
+ await yes(await page.locator("#category-grid .quick-app-icon").evaluateAll(images=>images.length===4&&images.every(i=>i.complete&&i.naturalWidth>0)),"All four updated application icons load");
+ await yes(await page.locator("#popular-grid .popular-art img").evaluateAll(images=>images.length===4&&images.every(i=>i.complete&&i.naturalWidth>0)),"All task illustration previews load");
+ const chromeSource=await page.evaluate(()=>fetch("./assets/app-chrome.svg?v=10").then(r=>r.text()));
+ await yes(chromeSource.includes("#ea4335")&&chromeSource.includes("#1a73e8"),"Chrome logo colours match the sourced SVG");
+
  const heroBox=await page.locator(".hero-search").boundingBox();
  const deviceBox=await page.locator(".hero-device").boundingBox();
  await yes(heroBox.x+heroBox.width<=deviceBox.x+deviceBox.width*95/750+8,"Search bar does not overlap the visible laptop screen");
@@ -81,6 +86,22 @@ try{
  await yes((await page.locator(".article-steps").textContent()).includes("Press Shift + Command + 5"),"English guidance remains intact");
  await yes((await page.locator(".guide-feedback a").getAttribute("href")).includes("github.com"),"Correction link is actionable");
  await page.screenshot({path:"test-artifacts/answer-first-guide-screenshots.png",fullPage:true});
+ for(const id of ["t24","t38","t48"]){
+   await load("tips/"+id+".html");
+   const firstImage=page.locator(".vendor-shot").first();
+   if(await firstImage.count())await firstImage.scrollIntoViewIfNeeded();
+   await page.waitForTimeout(1700);
+   const status=await page.locator(".vendor-shot").evaluateAll(items=>items.map(i=>({src:i.currentSrc||i.src,ready:i.complete&&i.naturalWidth>0})));
+   const unavailable=await page.locator(".screenshot-unavailable").count();
+   console.log("SOURCE_IMAGE_AUDIT "+JSON.stringify({tip:id,images:status,unavailable}));
+   if(id==="t48"){
+     await yes(await page.locator(".illustrated-guide").count()===1,"Chrome uses a clearly disclosed original instructional diagram");
+     await yes(await page.locator(".illustrated-guide .vendor-shot").evaluate(i=>i.complete&&i.naturalWidth>0),"Chrome illustrated steps load");
+     await yes(!(await page.locator(".platform-shot-heading").textContent()).includes("REAL PLATFORM SCREENSHOT"),"No false screenshot claim in Chrome guide");
+   }
+   await page.screenshot({path:"test-artifacts/image-audit-"+id+".png",fullPage:true});
+ }
+
 
  await load("");
  await page.locator("#library-query").fill("put two windows side by side");

@@ -38,7 +38,7 @@ window.LESSON_MEDIA = Object.freeze({
       "alt": "Microsoft Teams Calendar with the Work week menu expanded, listing Day, Work week, Week and Month.",
       "caption": "Choose your calendar view · Microsoft Teams",
       "vendor": "Microsoft Support",
-      "source": "https://support.microsoft.com/en-us/teams/meetings/get-started-with-the-microsoft-teams-calendar",
+      "source": "https://support.microsoft.com/en-us/teams/meetings/customize-your-calendar-in-microsoft-teams",
       "note": "Unaltered official image; some calendar layouts differ by account."
     }
   ],
@@ -46,7 +46,7 @@ window.LESSON_MEDIA = Object.freeze({
     {
       "kind": "illustration",
       "step": 0,
-      "src": "./assets/guide-chrome-groups.svg",
+      "src": "./assets/guide-chrome-groups.svg?v=10",
       "alt": "Illustration of the Chrome menu path: Add tab to group, then New group.",
       "caption": "Group a tab in Chrome",
       "vendor": "MacBook Productivity",

@@ -46,7 +46,7 @@ assert(!/tip-translations|id="language"|language-note|data-i18n/.test(home),"No 
 assert(!/macbook-lang|TIP_TRANSLATIONS|languageUI|setLanguage/.test(read("app.js")+read("tip-page.js")),"No language preferences or translation logic");
 assert(/prefers-reduced-motion/.test(css)&&/focus-visible/.test(css),"Accessible motion and focus");
 assert(/object-fit:contain/.test(css),"Platform screenshot is not cropped");
-assert(read("service-worker.js").includes("v9-20261102"),"Offline cache version bumped");
+assert(read("service-worker.js").includes("v10-20261102"),"Offline cache version bumped");
 assert(read("manifest.webmanifest").includes("favicon.svg?v=20261102-8"),"Installable theme references new favicon");
 assert(read("brand-mark.svg").includes("#21C5E9"),"New laptop-and-spark master asset present");
 assert(read("favicon.svg").includes("#162A4C"),"New branded favicon present");
@@ -57,4 +57,23 @@ assert(home.includes("assets/hero-device.svg"),"Hero MacBook illustration visibl
 for(const name of ["hero-device","thumb-screen","thumb-outlook","thumb-teams","thumb-chrome","app-macbook","app-outlook","app-teams","app-chrome"])assert(existsSync(new URL("assets/"+name+".svg",path)),"Branded local graphic "+name);
 assert(/\.popular-grid\{/.test(css)&&/\.quick-app-grid\{/.test(css),"New visual sections styled");
 assert(read("service-worker.js").includes("assets/hero-device.svg"),"Hero illustration is cached offline");
+for(const p of ["app-chrome","app-outlook","app-teams","app-macbook","hero-device","thumb-chrome","thumb-outlook","guide-chrome-groups"]){
+ const svg=read("assets/"+p+".svg");
+ assert(svg.startsWith("<svg")&&!svg.includes("<script")&&!svg.includes("<foreignObject"),"Safe local SVG: "+p);
+}
+const chrome=read("assets/app-chrome.svg");
+assert(chrome.includes("#ea4335")&&chrome.includes("#1a73e8")&&chrome.includes("#34a853"),"Google Chrome brand geometry and primary colours sourced");
+assert(chrome.includes('viewBox="0 0 512 512"'),"Chrome is the 2022+ vector, not our previous inaccurate redraw");
+assert(read("assets/app-teams.svg").includes('viewBox="4 4 36 38"'),"Current 2025 Teams vector present");
+assert(read("assets/app-outlook.svg").includes('viewBox="60 90.4 570.02 539.67"'),"Current 2025 Outlook vector present");
+assert(!read("assets/app-macbook.svg").includes("Finder"),"MacBook category does not pretend to be the Finder application");
+assert(!read("assets/hero-device.svg").includes('<text x="337"'),"No fake app logos remain in hero dock");
+assert(read("assets/hero-device.svg").includes("#ea4335"),"Hero has accurate Chrome artwork");
+assert(read("assets/thumb-chrome.svg").includes("#ea4335"),"Popular Chrome art uses exact badge");
+assert(read("tips/t48.html").includes("ILLUSTRATED MENU PATH"),"Chrome diagram correctly labelled as illustration");
+assert(!read("tips/t48.html").includes("gweb-uniblog"),"Outdated Chrome 2022 screenshot has been retired");
+assert(read("tips/t38.html").includes("customize-your-calendar-in-microsoft-teams"),"Teams screenshot points to relevant official document");
+assert(read("service-worker.js").includes("guide-chrome-groups.svg?v=10"),"Chrome diagram cached offline");
+assert(existsSync(new URL("docs/ICON_PROVENANCE.md",path)),"Icon sourcing documented");
+
 console.log("Source integrity: 55 English-only articles, semantic index, official sources and accessible HTML verified.");
