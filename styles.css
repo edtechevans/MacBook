@@ -1168,3 +1168,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
  .main-nav a{font-size:1.1rem;padding-inline:22px}
  .main-nav{gap:7px}
 }
+
+/* Verified vendor marks are shown without recolouring, stretching or cropping. */
+.quick-app-icon,.popular-meta img,.tip-app img{object-fit:contain;object-position:center}
+.quick-app-icon{background:transparent!important;border-radius:0!important;box-shadow:none!important}
+.illustrated-guide .platform-shot-heading{color:#214E94;background:#EAF2FF}
+.illustrated-guide .platform-shot-frame{background:#F8FBFF}
+.illustrated-guide .vendor-shot{box-shadow:none;border-radius:10px}

@@ -75,3 +75,7 @@ Do not restore the old M badge, the old AISG red/navy styling, or translation se
 ## V9 screenshot-matched visual experience
 
 The site now uses a bright white brand header, a luminous cobalt/cyan/violet hero with a dedicated illustrated MacBook, pastel application cards, and a first-fold row of four visual productivity tips, directly following the supplied design reference. Keep the practical search and exact guide content fully accessible in English. App counts are computed from `content.js` (24 MacBook, 15 Outlook, 8 Teams and 8 Chrome), rather than copying illustrative counts from a design mockup. All assets are local, authored SVGs in `assets/` — no external trackers, image CDNs or account dependencies. Permanent tip pages share the masthead, gradient heading, copyable quick-answer card, readable steps and branded footer.
+
+## Verified visual audit — November 2026
+
+Chrome, Outlook, and Teams badges now use current sourced product vectors, not hand-drawn approximations. The MacBook category uses a laptop illustration instead of pretending to be the Finder app. The approved independent spark/laptop brand mark and favicon remain unchanged. See `docs/ICON_PROVENANCE.md` and `docs/SCREENSHOT_SOURCES.md` for exact sources, icon versions, copyright limits, screenshots and illustration disclosure. The home hero displays sourced product vectors in its illustrative dock; popular-tip artwork is decorative and never labelled a genuine app screenshot.

@@ -40,7 +40,7 @@ function renderGrid(){
  $("#result-count").textContent=list.length+" guide"+(list.length===1?"":"s")+" found"+(state.query?' for "'+state.query+'"':"");
  $("#tips-grid").innerHTML=list.slice(0,state.shown).map(t=>{
   const action=t.id==="t09"?"Off campus only · "+t.where:(t.where.length<53?t.where:t.steps[0]);
-  return '<article class="tip-card answer-card"><div class="tip-card-top"><span class="tip-app"><img src="./assets/app-'+appArt[t.category]+'.svg" width="22" height="22" alt="" aria-hidden="true">'+esc(t.category)+'</span><button class="save-tip" type="button" data-save="'+t.id+'" aria-pressed="'+favourites.has(t.id)+'" aria-label="'+(favourites.has(t.id)?"Remove saved guide: ":"Save guide: ")+esc(t.title)+'">'+(favourites.has(t.id)?"♥":"♡")+'</button></div><h3><a href="'+tipLink(t.id)+'">'+esc(t.title)+'</a></h3><p class="card-answer">'+esc(action)+'</p><div class="tip-card-bottom"><small>'+t.steps.length+" clear steps"+'</small><a class="tip-open" href="'+tipLink(t.id)+'" aria-label="Read guide: '+esc(t.title)+'">See how →</a></div></article>';
+  return '<article class="tip-card answer-card"><div class="tip-card-top"><span class="tip-app"><img src="./assets/app-'+appArt[t.category]+'.svg?v=10" width="22" height="22" alt="" aria-hidden="true">'+esc(t.category)+'</span><button class="save-tip" type="button" data-save="'+t.id+'" aria-pressed="'+favourites.has(t.id)+'" aria-label="'+(favourites.has(t.id)?"Remove saved guide: ":"Save guide: ")+esc(t.title)+'">'+(favourites.has(t.id)?"♥":"♡")+'</button></div><h3><a href="'+tipLink(t.id)+'">'+esc(t.title)+'</a></h3><p class="card-answer">'+esc(action)+'</p><div class="tip-card-bottom"><small>'+t.steps.length+" clear steps"+'</small><a class="tip-open" href="'+tipLink(t.id)+'" aria-label="Read guide: '+esc(t.title)+'">See how →</a></div></article>';
  }).join("")||'<div class="empty-results"><h3>No exact answer yet</h3><p>Try a simpler word, a different phrase or browse one app. You can also suggest a new guide.</p><button class="button outline" type="button" data-reset="true">See all guides</button> <a class="button outline" href="https://github.com/edtechevans/MacBook/issues/new" target="_blank" rel="noopener noreferrer">Suggest a guide ↗</a></div>';
  $("#load-row").hidden=list.length<=state.shown;
  for(const b of $$("[data-filter]"))b.setAttribute("aria-pressed",String(b.dataset.filter===state.category));
@@ -50,14 +50,14 @@ function renderGrid(){
 function renderCategories(){
  $("#category-grid").innerHTML=cats.slice(1).map(c=>{
   const count=all.filter(t=>t.category===c).length;
-  return '<button class="quick-app app-'+c.toLowerCase()+'" type="button" data-category="'+c+'" aria-label="Browse '+count+' '+c+' tips"><img class="quick-app-icon" src="./assets/app-'+appArt[c]+'.svg" width="62" height="62" alt="" aria-hidden="true"><span class="quick-app-content"><strong>'+c+'</strong><small>'+count+' tips</small></span><span class="quick-app-chevron" aria-hidden="true">→</span></button>';
+  return '<button class="quick-app app-'+c.toLowerCase()+'" type="button" data-category="'+c+'" aria-label="Browse '+count+' '+c+' tips"><img class="quick-app-icon" src="./assets/app-'+appArt[c]+'.svg?v=10" width="62" height="62" alt="" aria-hidden="true"><span class="quick-app-content"><strong>'+c+'</strong><small>'+count+' tips</small></span><span class="quick-app-chevron" aria-hidden="true">→</span></button>';
  }).join("");
  $("#category-filters").innerHTML=cats.map(c=>'<button type="button" data-filter="'+c+'" aria-pressed="'+(state.category===c)+'">'+c+'</button>').join("");
 }
 function renderPopular(){
  $("#popular-grid").innerHTML=popularIDs.map(id=>{
   const t=byId.get(id);if(!t)return "";
-  return '<a class="popular-card" href="'+tipLink(t.id)+'" aria-label="View guide: '+esc(t.title)+'"><span class="popular-art"><img src="./assets/thumb-'+popularArt[id]+'.svg" width="150" height="132" alt=""></span><span class="popular-info"><strong>'+esc(popularTitles[id]||t.title)+'</strong><span class="popular-meta"><img src="./assets/app-'+appArt[t.category]+'.svg" width="22" height="22" alt="">'+esc(t.category)+'</span></span><span class="popular-arrow" aria-hidden="true">→</span></a>';
+  return '<a class="popular-card" href="'+tipLink(t.id)+'" aria-label="View guide: '+esc(t.title)+'"><span class="popular-art"><img src="./assets/thumb-'+popularArt[id]+'.svg?v=10" width="150" height="132" alt=""></span><span class="popular-info"><strong>'+esc(popularTitles[id]||t.title)+'</strong><span class="popular-meta"><img src="./assets/app-'+appArt[t.category]+'.svg?v=10" width="22" height="22" alt="">'+esc(t.category)+'</span></span><span class="popular-arrow" aria-hidden="true">→</span></a>';
  }).join("");
 }
 function renderCollections(){
