@@ -71,3 +71,7 @@ The website intentionally publishes its interface and all 55 walkthroughs in Eng
 The reference now has its own spark-and-laptop identity instead of using the AISG red/navy palette. `brand-mark.svg` is the accessible transparent vector master used in site headers; `favicon.svg` is the same mark on a pale rounded tile for tabs and installable icons. Core colours: deep ink `#172D53`, blue `#2454B8`, cyan `#28D7E9`, violet `#6757D9`, and soft canvas `#F7F9FE`. High-contrast text and neutral content surfaces remain intentionally readable. See `styles.css` for the responsive theme.
 
 Do not restore the old M badge, the old AISG red/navy styling, or translation selectors without review.
+
+## V9 screenshot-matched visual experience
+
+The site now uses a bright white brand header, a luminous cobalt/cyan/violet hero with a dedicated illustrated MacBook, pastel application cards, and a first-fold row of four visual productivity tips, directly following the supplied design reference. Keep the practical search and exact guide content fully accessible in English. App counts are computed from `content.js` (24 MacBook, 15 Outlook, 8 Teams and 8 Chrome), rather than copying illustrative counts from a design mockup. All assets are local, authored SVGs in `assets/` — no external trackers, image CDNs or account dependencies. Permanent tip pages share the masthead, gradient heading, copyable quick-answer card, readable steps and branded footer.

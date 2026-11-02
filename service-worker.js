@@ -1,9 +1,12 @@
 /* Offline support for the static productivity reference site. */
-const CACHE_NAME="macbook-productivity-v8-20261102-spark-identity";
+const CACHE_NAME="macbook-productivity-v9-20261102-visual-match";
 const STATIC_ASSETS=[
-  "./","./index.html","./styles.css?v=20261102-8","./app.js?v=7","./search.js?v=6","./search-terms.js?v=6","./related-tips.js?v=6","./tip-page.js?v=7",
+  "./","./index.html","./styles.css?v=20261102-9","./app.js?v=9","./search.js?v=6","./search-terms.js?v=6","./related-tips.js?v=6","./tip-page.js?v=7",
   "./content.js","./lesson-media.js?v=20261102-4","./favicon.svg?v=20261102-8","./brand-mark.svg?v=20261102-8",
-  "./print.html","./print.js","./manifest.webmanifest"
+  "./print.html","./print.js","./manifest.webmanifest",
+  "./assets/hero-device.svg","./assets/thumb-screen.svg","./assets/thumb-outlook.svg",
+  "./assets/thumb-teams.svg","./assets/thumb-chrome.svg","./assets/app-macbook.svg",
+  "./assets/app-outlook.svg","./assets/app-teams.svg","./assets/app-chrome.svg"
 ];
 self.addEventListener("install",event=>event.waitUntil(
   caches.open(CACHE_NAME).then(c=>c.addAll(STATIC_ASSETS)).then(()=>self.skipWaiting())

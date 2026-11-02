@@ -53,3 +53,7 @@ The public resource is English-only. Do not add AI-generated translations or lan
 ## Brand treatment
 
 Use the transparent laptop-and-spark icon in `brand-mark.svg` for the header, and the matching light-tile icon in `favicon.svg` for browser UI. The shared visual language uses blue–cyan–violet gradients sparingly in hero, active actions and section backgrounds, with dark ink text and white reading surfaces for accessibility. Avoid AISG red/navy combinations. For new content do not add decorative graphics at the expense of quickly finding instructions. Check contrast and mobile reflow in GitHub Actions before publishing.
+
+## V9 visual system
+
+Keep the reference composition consistent: clean white header and dark ink text, fluid luminous blue-cyan-violet gradient, large welcoming search, app-specific pastel tiles, and cropped card artwork (but never crop instructional publisher screenshots). The four homepage popular picks are data-backed and link to permanent guide pages. Store decorative SVGs locally in `assets/`; no image network dependence. Ensure application counts derive from `content.js`. Test 320px and 375px mobile, desktop, colour contrast and keyboard navigation on every design update.

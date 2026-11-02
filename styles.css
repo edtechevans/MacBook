@@ -1122,3 +1122,15 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
  .quick-answer{border:1px solid #C8D5E6}
  .guide-step{box-shadow:none;page-break-inside:avoid}
 }
+
+/* Article navigation and footer match the shared masthead exactly. */
+.article-top-nav .nav-current{color:#153A95;background:#D3F2FF}
+.article-top-nav .nav-current:hover{background:#BCEBFF}
+.article-footer-brand{display:inline-flex;align-items:center;gap:11px;white-space:nowrap}
+.article-footer-brand img{background:#fff;border-radius:8px;padding:3px}
+@media(max-width:925px){
+ .article-top-nav a:nth-child(2),.article-top-nav a:nth-child(3),.article-top-nav a:nth-child(4){display:none}
+ .article-top-nav a:first-child{display:inline-flex}
+ .article-top-nav .article-search-link{display:inline-flex;margin-left:0}
+}
+@media(max-width:630px){.article-top-nav .article-search-link{display:none}}

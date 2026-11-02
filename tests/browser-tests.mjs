@@ -20,12 +20,18 @@ try{
  await load("");
  await yes(await page.locator("#hero-title").isVisible(),"Homepage loads with visible search");
  await yes((await page.locator("#result-count").textContent()).includes("55 guides"),"All 55 guides accessible");
- await yes(await page.locator("#category-grid .quick-app").count()===4,"Four compact app buttons");
+ await yes(await page.locator("#category-grid .quick-app").count()===4,"Four pastel application buttons");
+ await yes(await page.locator("#popular-grid .popular-card").count()===4,"Four illustrated popular tips render");
+ await yes(await page.locator(".hero-device img").evaluate(img=>img.complete&&img.naturalWidth>0),"Homepage MacBook artwork is loaded");
+ await yes(await page.locator('#category-grid [data-category="MacBook"] small').textContent().then(t=>t.includes("24 tips")),"Counts use real MacBook guides");
+ await yes(await page.locator('#category-grid [data-category="Outlook"] small').textContent().then(t=>t.includes("15 tips")),"Counts use real Outlook guides");
+ await yes(await page.locator('#popular-grid a[href="./tips/t22.html"]').count()===1,"Popular guide links to permanent Mac help");
+ await yes(await page.locator('#main-nav [href="#collections"]').count()===1,"Collections is in the primary navigation");
  await yes(await page.locator(".brand-mark img").getAttribute("src").then(s=>s.includes("brand-mark.svg")),"New laptop-and-spark mark used on homepage");
  await yes(await page.locator(".brand-mark img").evaluate(img=>img.complete&&img.naturalWidth>0),"New logo renders successfully");
  await yes(await page.locator("link[rel=icon]").getAttribute("href").then(s=>s.includes("favicon.svg?v=20261102-8")),"New favicon linked from homepage");
  await yes(await page.locator("#tips-grid .tip-card").count()===12,"First useful answers immediately visible");
- await yes(await page.locator("#main-nav a").count()===3,"Simpler three-link navigation");
+ await yes(await page.locator("#main-nav a").count()===4,"All four reference navigation sections");
  await yes(await page.locator("#language, #language-note, [data-i18n]").count()===0,"No homepage language selector or translation hooks");
  await yes(await page.locator(".hero-feature,.feature-tip,#quiz-options,#main-progress").count()===0,"Removed presentation and testing UI");
  await page.screenshot({path:"test-artifacts/answer-first-home-desktop.png",fullPage:true});
@@ -37,6 +43,8 @@ try{
  await page.locator("#hero-query").press("Enter");
  await yes(page.url().endsWith("/tips/t41.html"),"Keyboard selection opens permanent guide");
  await yes(await page.locator("#guide-title").isVisible(),"Answer-first article loads");
+ await yes(await page.locator('.article-top-nav [href="../index.html#collections"]').count()===1,"Article has sitewide Collections navigation");
+ await yes(await page.locator(".article-heading").evaluate(x=>getComputedStyle(x).backgroundImage.includes("gradient")),"Article heading carries the branded gradient");
  await yes(await page.locator(".brand-mark img").getAttribute("src").then(s=>s.includes("brand-mark.svg")),"Logo appears on individual guides");
  await yes(await page.locator("#guide-title").textContent().then(t=>t.includes("notification")),"Correct guide title");
  await yes(await page.locator("#copy-answer").count()===1,"Prominent copyable quick action");
@@ -96,6 +104,7 @@ try{
  await yes(await page.locator("#menu-toggle").isVisible(),"Mobile navigation appears");
  await page.screenshot({path:"test-artifacts/answer-first-home-mobile.png",fullPage:true});
  await yes(await page.locator("#library-title").isVisible(),"Tip library present on mobile");
+ await yes(await page.locator("#popular-grid .popular-card").count()===4,"Visual popular tips remain on mobile");
  await yes(await page.locator("#category-filters button").evaluateAll(items=>items.every(b=>Math.abs(b.getBoundingClientRect().top-items[0].getBoundingClientRect().top)<2)),"Mobile application filters stay on one accessible row");
  for(const width of [375,320]){
   await page.setViewportSize({width,height:760});
