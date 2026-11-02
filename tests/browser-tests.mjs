@@ -26,6 +26,7 @@ try {
   await verify(cards.length===4&&cards.every(r=>Math.abs(r.x-cards[0].x)<1&&Math.abs(r.w-cards[0].w)<1),"Homepage cards share aligned left edge and width");
   await page.screenshot({path:"test-artifacts/reference-home-desktop.png",fullPage:true});
   const homeAxe=await new AxeBuilder({page}).withTags(["wcag2a","wcag2aa","wcag21aa","wcag22aa"]).analyze();
+  if(homeAxe.violations.length)console.log("ACCESSIBILITY FINDINGS",JSON.stringify(homeAxe.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary})).slice(0,10)}))));
   await verify(homeAxe.violations.length===0,"Homepage automated WCAG 2.2 AA: "+homeAxe.violations.map(v=>v.id).join(", "));
 
   await page.locator("#hero-query").fill("record my screen");

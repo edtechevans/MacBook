@@ -154,6 +154,7 @@ section[id]{scroll-margin-top:calc(var(--top) + 24px)}
 /* Shortcuts */
 .shortcuts-section{background:var(--navy);color:#fff}
 .shortcut-layout{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(30px,5vw,70px);align-items:center}
+.shortcuts-section .eyebrow{color:#f2c7d0}
 .shortcut-intro h2{font-size:clamp(2rem,3.2vw,2.95rem);margin:13px 0}
 .shortcut-intro>p:not(.eyebrow){color:#d6e1e9;max-width:410px;margin:0 0 22px;font-size:1rem;line-height:1.7}
 .shortcut-sheet{background:#fff;border:1px solid #cfdbe1;border-radius:17px;padding:16px;color:#172c42;display:grid;gap:0;box-shadow:0 20px 50px #081a2b30}
