@@ -8,7 +8,7 @@ The website distinguishes between **genuine platform screenshots**, **original h
 | --- | --- | --- | --- |
 | `t22`, step 2 | macOS Tahoe 26 Screenshot toolbar: recording mode and Options | Apple Support: https://support.apple.com/en-in/102618 | Original screenshot visually checked against Apple Support; shown uncropped |
 | `t24`, step 2 | Outlook for Mac Send dropdown → Schedule Send | Microsoft Support: https://support.microsoft.com/en-us/outlook/use-schedule-send-in-outlook-for-mac | Original image and text verified |
-| `t24`, step 3 | Outlook for Mac scheduling date/time dialog | Same official Outlook guidance | Source references “Select Time”; external image availability can vary |
+| `t24`, step 3 | Outlook for Mac scheduling date/time dialog | Same official Outlook guidance | Microsoft screenshot includes a September 2022 sample date; it is genuine but the interface may have changed. |
 | `t38`, step 2 | Teams Calendar Work week dropdown, with Day, Week, Month | Microsoft Support: https://support.microsoft.com/en-us/teams/meetings/customize-your-calendar-in-microsoft-teams | Original image visually checked against Microsoft Support |
 
 Publisher screenshots remain hosted by their owners; they are not redistributed in the repository. They are displayed with proportional sizing (`object-fit:contain`), direct source links and a clear fallback. Exact menus depend on app versions, policies and school accounts. Only images traceable to vendor materials should carry the **Real platform screenshot** label.

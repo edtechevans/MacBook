@@ -27,6 +27,10 @@ for(const t of tips){
  assert(html.includes("../styles.css?v=20261102-9"),"Branded stylesheet used by "+t.id);
  assert(html.includes('../index.html#collections'),"Sitewide navigation in "+t.id);
  assert(html.includes("favicon.svg?v=20261102-8"),"New favicon referenced from "+t.id);
+ const escapeValue=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ assert(html.includes(escapeValue(t.where)),"Quick answer agrees with source data in "+t.id);
+ for(const step of t.steps)assert(html.includes('<p class="step-text">'+escapeValue(step)+'</p>'),"Static guide step agrees with source data in "+t.id);
+
  assert(html.includes('id="copy-answer"')&&html.includes('id="copy-link"'),"Share and copy controls "+t.id);
  assert(html.includes('id="source-checked"')&&html.includes(t.source),"Source and version info "+t.id);
  assert(!/tip-translations|tip-language|translation-note|language-strip|translation-tag|Chinese\/Korean/.test(html),"English-only guide "+t.id);
@@ -102,6 +106,7 @@ for(const [tipId,images] of Object.entries(allMedia)){
 
 assert(read("assets/thumb-chrome.svg").includes("#ea4335"),"Popular Chrome art uses exact badge");
 assert(read("tips/t48.html").includes("ILLUSTRATED MENU PATH"),"Chrome diagram correctly labelled as illustration");
+assert(read("tips/t48.html").includes("Add tab to group → New group"),"Chrome guide uses updated menu wording");
 assert(!read("tips/t48.html").includes("gweb-uniblog"),"Outdated Chrome 2022 screenshot has been retired");
 assert(read("tips/t38.html").includes("customize-your-calendar-in-microsoft-teams"),"Teams screenshot points to relevant official document");
 assert(read("service-worker.js").includes("guide-chrome-groups.svg?v=10"),"Chrome diagram cached offline");

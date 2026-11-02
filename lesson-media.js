@@ -28,7 +28,7 @@ window.LESSON_MEDIA = Object.freeze({
       "caption": "Choose the send date and time",
       "vendor": "Microsoft Support",
       "source": "https://support.microsoft.com/en-us/outlook/use-schedule-send-in-outlook-for-mac",
-      "note": "Microsoft Support image; exact controls depend on your Outlook version."
+      "note": "Microsoft's example shows a September 2022 date; the current Outlook dialog may look different."
     }
   ],
   "t38": [
