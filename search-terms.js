@@ -15,7 +15,7 @@ window.SEARCH_TERMS = {
   "t13": "stage manager focus windows",
   "t14": "mission control spaces virtual desktops switch",
   "t15": "favorites favourites pin frequent files finder",
-  "t16": "spotlight find app calculator search files quickly",
+  "t16": "spotlight spotlite find app calculator search files quickly",
   "t17": "command tab switch apps multitask window",
   "t18": "quit force close app switcher",
   "t19": "do not disturb mute alerts focus notification silence",

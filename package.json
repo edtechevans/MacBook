@@ -4,7 +4,7 @@
   "version": "2.0.0",
   "description": "Static, accessible faculty learning resource",
   "scripts": {
-    "check": "node tests/content-check.mjs",
+    "check": "node tests/content-check.mjs && node tests/search-check.mjs",
     "test:browser": "node tests/browser-tests.mjs",
     "test": "npm run check && npm run test:browser"
   },

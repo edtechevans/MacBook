@@ -83,8 +83,9 @@ try{
  await page.locator("#clear-filters").click();
  await page.locator("#view-saved").click();
  await yes((await page.locator("#result-count").textContent()).includes("1 guide"),"Saved library shows saved guide");
- await page.locator("#clear-saved").click().catch(()=>{});
- // The clear button presents a native confirmation; dismiss safely if open.
+ await page.once("dialog",d=>d.accept());
+ await page.locator("#clear-saved").click();
+ await yes((await page.locator("#saved-count").textContent()).includes("0 saved"),"Saved references can be cleared");
  await load("tips/t49.html");
  await page.locator("#tip-language").selectOption("zh");
  await yes((await page.locator("#translation-note").textContent()).includes("英文原文"),"Untranslated tips disclose English-only fallback");
