@@ -65,3 +65,9 @@ Authoring: Edit `content.js` then regenerate the 55 static tip HTML articles whe
 ## Language policy
 
 The website intentionally publishes its interface and all 55 walkthroughs in English only. Language selectors and unverified Chinese/Korean translation drafts were removed to protect instructional accuracy. Vendor menu labels remain as documented, and individual instructions should continue to be checked against the official sources.
+
+## Visual identity
+
+The reference now has its own spark-and-laptop identity instead of using the AISG red/navy palette. `brand-mark.svg` is the accessible transparent vector master used in site headers; `favicon.svg` is the same mark on a pale rounded tile for tabs and installable icons. Core colours: deep ink `#172D53`, blue `#2454B8`, cyan `#28D7E9`, violet `#6757D9`, and soft canvas `#F7F9FE`. High-contrast text and neutral content surfaces remain intentionally readable. See `styles.css` for the responsive theme.
+
+Do not restore the old M badge, the old AISG red/navy styling, or translation selectors without review.

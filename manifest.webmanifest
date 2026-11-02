@@ -1,5 +1,5 @@
 {
-  "name": "MacBook Productivity | Tips Reference",
+  "name": "MacBook Productivity | Everyday Digital Tools",
   "short_name": "MacBook Tips",
   "description": "A searchable, printable collection of MacBook, Outlook, Teams and Chrome productivity tips.",
   "id": "./",
@@ -7,11 +7,17 @@
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#f8f8f6",
-  "theme_color": "#14283e",
+  "background_color": "#F7F9FE",
+  "theme_color": "#FFFFFF",
   "icons": [
     {
-      "src": "./favicon.svg",
+      "src": "./favicon.svg?v=20261102-8",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./brand-mark.svg?v=20261102-8",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"

@@ -49,3 +49,7 @@ Individual pages have accessible, fully readable steps without JavaScript; optio
 ## Language policy
 
 The public resource is English-only. Do not add AI-generated translations or language toggles without a separate documented expert review and school approval process. Keep instructions clear and use vendor menu names precisely.
+
+## Brand treatment
+
+Use the transparent laptop-and-spark icon in `brand-mark.svg` for the header, and the matching light-tile icon in `favicon.svg` for browser UI. The shared visual language uses blue–cyan–violet gradients sparingly in hero, active actions and section backgrounds, with dark ink text and white reading surfaces for accessibility. Avoid AISG red/navy combinations. For new content do not add decorative graphics at the expense of quickly finding instructions. Check contrast and mobile reflow in GitHub Actions before publishing.

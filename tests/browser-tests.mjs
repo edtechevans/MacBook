@@ -21,6 +21,9 @@ try{
  await yes(await page.locator("#hero-title").isVisible(),"Homepage loads with visible search");
  await yes((await page.locator("#result-count").textContent()).includes("55 guides"),"All 55 guides accessible");
  await yes(await page.locator("#category-grid .quick-app").count()===4,"Four compact app buttons");
+ await yes(await page.locator(".brand-mark img").getAttribute("src").then(s=>s.includes("brand-mark.svg")),"New laptop-and-spark mark used on homepage");
+ await yes(await page.locator(".brand-mark img").evaluate(img=>img.complete&&img.naturalWidth>0),"New logo renders successfully");
+ await yes(await page.locator("link[rel=icon]").getAttribute("href").then(s=>s.includes("favicon.svg?v=20261102-8")),"New favicon linked from homepage");
  await yes(await page.locator("#tips-grid .tip-card").count()===12,"First useful answers immediately visible");
  await yes(await page.locator("#main-nav a").count()===3,"Simpler three-link navigation");
  await yes(await page.locator("#language, #language-note, [data-i18n]").count()===0,"No homepage language selector or translation hooks");
@@ -34,6 +37,7 @@ try{
  await page.locator("#hero-query").press("Enter");
  await yes(page.url().endsWith("/tips/t41.html"),"Keyboard selection opens permanent guide");
  await yes(await page.locator("#guide-title").isVisible(),"Answer-first article loads");
+ await yes(await page.locator(".brand-mark img").getAttribute("src").then(s=>s.includes("brand-mark.svg")),"Logo appears on individual guides");
  await yes(await page.locator("#guide-title").textContent().then(t=>t.includes("notification")),"Correct guide title");
  await yes(await page.locator("#copy-answer").count()===1,"Prominent copyable quick action");
  await yes(await page.locator(".guide-step").count()===3,"Full text steps visible without JavaScript interaction");

@@ -1,8 +1,8 @@
 /* Offline support for the static productivity reference site. */
-const CACHE_NAME="macbook-productivity-v7-20261102-english-only";
+const CACHE_NAME="macbook-productivity-v8-20261102-spark-identity";
 const STATIC_ASSETS=[
-  "./","./index.html","./styles.css?v=20261102-7","./app.js?v=7","./search.js?v=6","./search-terms.js?v=6","./related-tips.js?v=6","./tip-page.js?v=7",
-  "./content.js","./lesson-media.js?v=20261102-4","./favicon.svg?v=20261102-3",
+  "./","./index.html","./styles.css?v=20261102-8","./app.js?v=7","./search.js?v=6","./search-terms.js?v=6","./related-tips.js?v=6","./tip-page.js?v=7",
+  "./content.js","./lesson-media.js?v=20261102-4","./favicon.svg?v=20261102-8","./brand-mark.svg?v=20261102-8",
   "./print.html","./print.js","./manifest.webmanifest"
 ];
 self.addEventListener("install",event=>event.waitUntil(

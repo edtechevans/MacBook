@@ -23,6 +23,8 @@ for(const t of tips){
  const escapedTitle=t.title.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/\x27/g,"&#39;");
  assert(html.includes("<h1 id=\"guide-title\">"+escapedTitle),"Answer-first heading matches source "+t.id);
  assert(html.includes("<meta property=\"og:title\""),"Independent social preview "+t.id);
+ assert(html.includes("brand-mark.svg?v=20261102-8"),"New brand mark shown on "+t.id);
+ assert(html.includes("favicon.svg?v=20261102-8"),"New favicon referenced from "+t.id);
  assert(html.includes('id="copy-answer"')&&html.includes('id="copy-link"'),"Share and copy controls "+t.id);
  assert(html.includes('id="source-checked"')&&html.includes(t.source),"Source and version info "+t.id);
  assert(!/tip-translations|tip-language|translation-note|language-strip|translation-tag|Chinese\/Korean/.test(html),"English-only guide "+t.id);
@@ -42,5 +44,10 @@ assert(!/tip-translations|id="language"|language-note|data-i18n/.test(home),"No 
 assert(!/macbook-lang|TIP_TRANSLATIONS|languageUI|setLanguage/.test(read("app.js")+read("tip-page.js")),"No language preferences or translation logic");
 assert(/prefers-reduced-motion/.test(css)&&/focus-visible/.test(css),"Accessible motion and focus");
 assert(/object-fit:contain/.test(css),"Platform screenshot is not cropped");
-assert(read("service-worker.js").includes("v7-20261102"),"Offline cache version bumped");
+assert(read("service-worker.js").includes("v8-20261102"),"Offline cache version bumped");
+assert(read("manifest.webmanifest").includes("favicon.svg?v=20261102-8"),"Installable theme references new favicon");
+assert(read("brand-mark.svg").includes("#21C5E9"),"New laptop-and-spark master asset present");
+assert(read("favicon.svg").includes("#162A4C"),"New branded favicon present");
+assert(!/#942b3c|#96283b/i.test(css),"Old AISG red is removed from site CSS");
+assert(home.includes("brand-mark.svg?v=20261102-8"),"Homepage uses new logo");
 console.log("Source integrity: 55 English-only articles, semantic index, official sources and accessible HTML verified.");
