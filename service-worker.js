@@ -1,6 +1,6 @@
 /* Offline support for static, non-sensitive learning content. */
-const CACHE_NAME="macbook-productivity-v2-20261102";
-const STATIC_ASSETS=["./","./index.html","./styles.css","./content.js","./app.js","./favicon.svg","./print.html","./print.js","./manifest.webmanifest"];
+const CACHE_NAME="macbook-productivity-v3-20261102-logo";
+const STATIC_ASSETS=["./","./index.html","./styles.css?v=20261102-3","./content.js","./app.js?v=20261102-3","./favicon.svg?v=20261102-3","./print.html","./print.js","./manifest.webmanifest"];
 self.addEventListener("install",event=>{
   event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(STATIC_ASSETS)).then(()=>self.skipWaiting()));
 });

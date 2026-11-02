@@ -232,8 +232,6 @@
     $("#menu-toggle").addEventListener("click",()=>{const open=$("#main-nav").classList.toggle("is-open");$("#menu-toggle").setAttribute("aria-expanded",String(open));});
     $$(".main-nav a").forEach(a=>a.addEventListener("click",closeNav));
     $("#header-search").addEventListener("click",()=>{scrollToId("top");$("#hero-query").focus();});
-    $("#text-toggle").addEventListener("click",()=>{const on=document.documentElement.dataset.largeText!=="true";document.documentElement.dataset.largeText=String(on);$("#text-toggle").setAttribute("aria-pressed",String(on));$("#text-toggle").setAttribute("aria-label",on?"Use standard text size":"Increase text size");try{localStorage.setItem("macbook-large",JSON.stringify(on));}catch{}});
-    $("#theme-toggle").addEventListener("click",()=>{const dark=document.documentElement.dataset.theme!=="dark";document.documentElement.dataset.theme=dark?"dark":"light";$("#theme-toggle").setAttribute("aria-pressed",String(dark));$("#theme-toggle").setAttribute("aria-label",dark?"Switch to light appearance":"Switch to dark appearance");try{localStorage.setItem("macbook-theme",JSON.stringify(dark?"dark":"light"));}catch{}});
     $("#language").addEventListener("change",e=>{lang=e.target.value;try{localStorage.setItem("macbook-lang",JSON.stringify(lang));}catch{}applyTranslations();});
     $("#view-saved").addEventListener("click",()=>{resetFilters();state.savedOnly=true;state.visible=55;renderTips();scrollToId("library");$("#library-query").focus();});
     $("#view-incomplete").addEventListener("click",()=>{const next=allTips.find(t=>!done.has(t.id));if(next)goToTip(next.id);else notify("You've practised every lesson. Well done!");});
@@ -264,8 +262,7 @@
     document.addEventListener("keydown",e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="k"){e.preventDefault();if(dialog.open)requestClose();scrollToId("library");$("#library-query").focus();}});
     window.addEventListener("popstate",showFromUrl);window.addEventListener("hashchange",showFromUrl);
   }
-  function init(){const savedTheme=localRead("macbook-theme","light");document.documentElement.dataset.theme=savedTheme==="dark"?"dark":"light";$("#theme-toggle").setAttribute("aria-pressed",String(savedTheme==="dark"));
-    const large=localRead("macbook-large",false)===true;document.documentElement.dataset.largeText=String(large);$("#text-toggle").setAttribute("aria-pressed",String(large));
+  function init(){
     $("#hero-count").textContent=String(allTips.length);renderPopular();renderCategories();renderFilters();renderShortcuts();renderTips();refreshProgress();renderQuiz();applyTranslations();mountSpeakButton();setupEvents();
     if(location.hash.startsWith("#tip-"))showFromUrl();
     if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js").catch(()=>{}));

@@ -14,6 +14,10 @@ for(const t of tips){
   assert(/^https:\/\//.test(t.source),"Secure official reference: "+t.id);
 }
 const html=read("index.html");const css=read("styles.css");const print=read("print.html");
+assert(!/id="(?:text-toggle|theme-toggle)"/.test(html),"No font-size or theme controls in header");
+assert(!/macbook-(?:large|theme)/.test(read("app.js")),"No obsolete appearance feature handlers");
+assert(/<img[^>]*favicon\.svg/.test(html),"Brand icon image present");
+assert(!/transform:rotate\(\.7deg\)/.test(css),"No tilted feature panel");
 for(const [re,name] of [[/<main\b/,"main landmark"],[/<dialog\b/,"native accessible dialog"],[/class="skip-link"/,"skip navigation"],[/id="hero-query"/,"real hero search"],[/id="library-query"/,"lesson search"],[/id="lesson-progress"/,"step progress"],[/id="import-button"/,"keyboard-accessible data import"],[/id="language"/,"interface language selection"]])assert(re.test(html),"Missing "+name);
 assert(/prefers-reduced-motion/.test(css),"Respect reduced motion");
 assert(/focus-visible/.test(css),"Visible keyboard focus");

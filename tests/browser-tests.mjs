@@ -16,6 +16,17 @@ try {
   await page.screenshot({path:"test-artifacts/homepage-desktop.png",fullPage:true});
   await check(await page.locator("#category-grid .category-card").count()===4,"All four application categories render");
   await check(await page.locator("#popular-list button").count()===4,"Quick tasks are working buttons");
+
+  await check(await page.locator("#text-toggle, #theme-toggle").count()===0,"Removed font-size and dark-mode controls");
+  await check(await page.locator(".brand-mark img").count()===1,"Header uses custom vector brand mark");
+  await check(await page.locator(".brand-mark img").evaluate(img=>img.complete && img.naturalWidth>0),"Logo SVG loads correctly");
+  const geometry=await page.evaluate(()=>{
+    const panel=document.querySelector(".hero-board");
+    const rects=Array.from(document.querySelectorAll("#popular-list .popular-item"),el=>{const r=el.getBoundingClientRect();return {x:r.x,width:r.width,height:r.height};});
+    return {transform:getComputedStyle(panel).transform,rects};
+  });
+  await check(geometry.transform==="none","Homepage feature panel is not skewed");
+  await check(geometry.rects.length===4&&geometry.rects.every(r=>Math.abs(r.x-geometry.rects[0].x)<1 && Math.abs(r.width-geometry.rects[0].width)<1 && Math.abs(r.height-geometry.rects[0].height)<1),"All four feature tiles are evenly squared and aligned: "+JSON.stringify(geometry.rects));
   await check((await page.locator("#result-count").textContent()).includes("55 lessons"),"All 55 lessons available");
   const accessibility=await new AxeBuilder({page}).withTags(["wcag2a","wcag2aa","wcag21aa","wcag22aa"]).analyze();
   await check(accessibility.violations.length===0,"Homepage WCAG 2.2 AA axe checks: "+accessibility.violations.map(x=>x.id+" "+x.description).join("; "));
