@@ -1,300 +1,391 @@
-/* MacBook Productivity / accessible, client-only learning experience */
-(function () {
-  "use strict";
-  const allTips = Array.isArray(window.TIPS) ? window.TIPS : [];
-  const lessonMedia = window.LESSON_MEDIA || {};
-  const validIds = new Set(allTips.map(t => t.id));
-  const tipById = new Map(allTips.map(t => [t.id, t]));
-  const CATEGORIES = ["All", "MacBook", "Outlook", "Teams", "Chrome"];
-  const SYMBOLS = {MacBook:"⌘", Outlook:"✉", Teams:"▦", Chrome:"◎"};
-  const CATEGORY_SUMMARY = {
-    MacBook:"Get comfortable with settings, windows and shortcuts.",
-    Outlook:"Spend less time in your inbox and calendar.",
-    Teams:"Make meetings and communication work for you.",
-    Chrome:"Find pages, manage tabs and browse with confidence."
-  };
-  const FEATURED = ["t16","t24","t40","t51","t22","t27","t41","t48","t17","t31","t38","t47"];
-  const POPULAR = ["t22","t24","t41","t51"];
-  const PATHS = [
-    {title:"Feel at home on your Mac",intro:"Set up your device, move faster and make everyday actions feel natural.",ids:["t01","t11","t12","t16","t17","t21"],symbol:"⌘"},
-    {title:"Take back your inbox",intro:"Create a calmer, more purposeful email routine you can maintain.",ids:["t23","t24","t25","t27","t28","t31"],symbol:"✉"},
-    {title:"Protect your attention",intro:"Reduce unnecessary interruptions and stay organised across apps.",ids:["t19","t34","t41","t42","t46","t50"],symbol:"◉"}
-  ];
-  const QUIZ = [
-    {question:"Which shortcut opens Spotlight search?",choices:["⌘ Space","⌘ T","⌘ F","Control + Space"],answer:0,tip:"t16"},
-    {question:"How do you preview a selected file in Finder?",choices:["⌘ P","Space","⌘ L","⇧ ⌘ T"],answer:1,tip:"t21"},
-    {question:"Which shortcut restores a closed Chrome tab?",choices:["⌘ W","⌘ R","⇧ ⌘ T","⌘ D"],answer:2,tip:"t51"},
-    {question:"Which shortcut opens Mac screenshot controls?",choices:["⌘ 5","⇧ ⌘ 5","Control + 5","⌘ F"],answer:1,tip:"t22"},
-    {question:"How do you quickly switch between open apps?",choices:["⌘ Tab","⌘ L","⌘ D","⌘ P"],answer:0,tip:"t17"},
-    {question:"Which shortcut focuses the Chrome address bar?",choices:["⌘ E","⌘ L","⌘ T","⌘ H"],answer:1,tip:"t47"},
-    {question:"What searches open Chrome tabs in the address bar?",choices:["@history","@bookmarks","@tabs","@files"],answer:2,tip:"t45"},
-    {question:"What is Chrome's bookmark shortcut?",choices:["⌘ D","⇧ ⌘ D","⌘ P","⌘ S"],answer:0,tip:"t50"}
-  ];
-  const I18N = {
-    en:{navLearn:"Explore",navPaths:"Learning paths",navPractice:"Practice",navProgress:"My learning",search:"Search",menu:"Menu",heroLabel:"THE EVERYDAY PRODUCTIVITY LAB",heroTitle:"A little more confident.",heroEm:"A lot more productive.",heroDesc:"Clear, practical help for the tools you use every day. Find an answer in seconds, or follow a guided lesson at your own pace.",findHelp:"Find help →",heroHint:"Try “record my screen”, “quiet Teams”, “schedule email”, or “restore tabs”.",walkthroughs:"walkthroughs",selfPaced:"Self-paced • No account needed",startHere:"START HERE",commonTasks:"Common tasks",oneUsefulThing:"What’s one useful thing you could learn today?",popularNote:"Each lesson includes clear steps, a visual guide, and something to try.",chooseToolLabel:"01 / CHOOSE WHAT YOU NEED",chooseToolTitle:"Find help that fits your day.",chooseToolDesc:"Start with an app, or search for a task. No need to know the technical name.",browseAll:"Browse all lessons ↗",tipLibrary:"The learning library",libraryDesc:"Search, filter and open any lesson. Save your favourites for later.",clearFilters:"Clear filters ↺",savedOnly:"Saved only",pathsLabel:"02 / LEARN WITH PURPOSE",pathsTitle:"Not sure where to start?",pathsDesc:"Choose a short learning path. Each one builds confidence through six useful skills.",practiceLabel:"03 / LEARN BY DOING",practiceTitle:"Try it. Remember it.",practiceDesc:"Practice the shortcuts that save small moments every day. Your result is for you, not a grade.",progressLabel:"04 / YOUR LEARNING",progressTitle:"Pick up where you left off.",progressDesc:"Save useful tips, track what you've actually tried and get a practical suggestion for what to explore next.",yourProgress:"Your progress",progressLocal:"Saved privately in this browser. Nothing is sent to a school server.",dataSettings:"Manage my learning data",backLessons:"Back to lessons",showMore:"Show more lessons ↓",tryAgain:"Try again ↺"},
-    zh:{navLearn:"探索技巧",navPaths:"学习路径",navPractice:"练习",navProgress:"我的学习",search:"搜索",menu:"菜单",heroLabel:"日常效率学习中心",heroTitle:"多一点自信。",heroEm:"多一些效率。",heroDesc:"使用 MacBook、Outlook、Teams 和 Chrome 的实用指引。快速查找答案，或按自己的节奏逐步学习。",findHelp:"查找帮助 →",heroHint:"例如：录制屏幕、关闭 Teams 通知、定时发送邮件、恢复标签页。",walkthroughs:"项操作指引",selfPaced:"自主学习 · 无需账户",startHere:"从这里开始",commonTasks:"常见任务",oneUsefulThing:"今天想学会哪项实用技能？",popularNote:"每节课都包含操作步骤、示意图和练习。",chooseToolLabel:"01 / 选择需要的工具",chooseToolTitle:"轻松找到适合自己的帮助。",chooseToolDesc:"选择应用程序或直接搜索任务，无需知道技术术语。",browseAll:"浏览全部课程 ↗",tipLibrary:"学习资源库",libraryDesc:"搜索、筛选并打开课程，还可以收藏技巧。",clearFilters:"清除筛选 ↺",savedOnly:"仅看收藏",pathsLabel:"02 / 有目标地学习",pathsTitle:"不知道从哪里开始？",pathsDesc:"选择简短的学习路径，逐步建立信心。",practiceLabel:"03 / 动手练习",practiceTitle:"练一练，记得牢。",practiceDesc:"练习每天都能用到的快捷键。",progressLabel:"04 / 我的学习",progressTitle:"继续上次的学习。",progressDesc:"收藏技巧，记录练习进度并获得下一步建议。",yourProgress:"学习进度",progressLocal:"进度仅保存在此浏览器，不会发送到学校服务器。",dataSettings:"管理我的学习记录",backLessons:"返回课程",showMore:"显示更多课程 ↓",tryAgain:"再试一次 ↺"},
-    ko:{navLearn:"팁 살펴보기",navPaths:"학습 경로",navPractice:"연습",navProgress:"내 학습",search:"검색",menu:"메뉴",heroLabel:"일상 생산성 학습 공간",heroTitle:"조금 더 자신 있게.",heroEm:"훨씬 더 효율적으로.",heroDesc:"MacBook, Outlook, Teams, Chrome를 위한 실용적인 안내입니다. 빠르게 답을 찾거나 차근차근 따라 해 보세요.",findHelp:"도움말 찾기 →",heroHint:"예: 화면 녹화, Teams 알림 줄이기, 이메일 예약, 탭 복원",walkthroughs:"개 안내",selfPaced:"자기 주도 학습 · 계정 불필요",startHere:"여기서 시작",commonTasks:"자주 하는 작업",oneUsefulThing:"오늘 어떤 기술을 배우고 싶나요?",popularNote:"각 수업에 단계별 설명과 그림, 연습이 있습니다.",chooseToolLabel:"01 / 필요한 도구 선택",chooseToolTitle:"나에게 맞는 도움을 찾아보세요.",chooseToolDesc:"앱을 고르거나 원하는 작업을 검색하세요.",browseAll:"모든 수업 보기 ↗",tipLibrary:"학습 자료실",libraryDesc:"수업을 검색하고 필터링하여 즐겨찾기에 저장하세요.",clearFilters:"필터 초기화 ↺",savedOnly:"저장한 항목만",pathsLabel:"02 / 목표별 학습",pathsTitle:"어디서 시작할지 모르겠나요?",pathsDesc:"짧은 학습 경로를 선택하고 차근차근 배워보세요.",practiceLabel:"03 / 직접 해 보기",practiceTitle:"연습하고 기억하세요.",practiceDesc:"매일 유용한 단축키를 연습해 보세요.",progressLabel:"04 / 나의 학습",progressTitle:"이어서 학습하세요.",progressDesc:"유용한 팁을 저장하고 진행 상황을 확인하세요.",yourProgress:"학습 진행",progressLocal:"진행 상황은 이 브라우저에만 저장됩니다.",dataSettings:"학습 데이터 관리",backLessons:"수업 목록으로",showMore:"수업 더 보기 ↓",tryAgain:"다시 시도 ↺"}
-  };
-  const $=s=>document.querySelector(s);
-  const $$=s=>Array.from(document.querySelectorAll(s));
-  const localRead=(key,fallback)=>{
-    try {const raw=localStorage.getItem(key);return raw===null?fallback:JSON.parse(raw);}
-    catch{return fallback;}
-  };
-  const cleanIds=arr=>Array.isArray(arr)?arr.filter(id=>typeof id==="string"&&validIds.has(id)):[];
-  let done=new Set(cleanIds(localRead("macbook-completed",[])));
-  let faves=new Set(cleanIds(localRead("macbook-favorites",[])));
-  let recent=cleanIds(localRead("macbook-recent",[])).slice(0,8);
-  let lang=["en","zh","ko"].includes(localRead("macbook-lang","en"))?localRead("macbook-lang","en"):"en";
-  let state={query:"",category:"All",savedOnly:false,sort:"useful",visible:9,path:null,lesson:null,mode:"guided",step:0,fromPush:false,quizIndex:0,quizChoice:null,quizCorrect:0,quizWrong:[],quizDone:false};
-  let previousFocus=null,noticeTimer=null,readAloud=null;
-  function escapeHTML(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-  function saveLocal(){try{localStorage.setItem("macbook-completed",JSON.stringify([...done]));localStorage.setItem("macbook-favorites",JSON.stringify([...faves]));localStorage.setItem("macbook-recent",JSON.stringify(recent));}catch{notify("This browser did not allow progress to be saved.");}}
-  function notify(message){const t=$("#toast");t.textContent=message;t.classList.add("visible");clearTimeout(noticeTimer);noticeTimer=setTimeout(()=>t.classList.remove("visible"),3500);}
-  function scrollToId(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});closeNav();}
-  function closeNav(){$("#main-nav").classList.remove("is-open");$("#menu-toggle").setAttribute("aria-expanded","false");}
-  function applyTranslations(){const dict=I18N[lang]||I18N.en;$$("[data-i18n]").forEach(el=>{const key=el.dataset.i18n;if(dict[key]){el.textContent=dict[key];el.setAttribute("lang",lang);}});$("#hero-query").placeholder=lang==="zh"?"您想做什么？":lang==="ko"?"어떤 작업을 배우고 싶나요?":"What would you like to do?";$("#library-query").placeholder=lang==="zh"?"搜索课程、快捷键或任务":lang==="ko"?"수업, 단축키, 작업 검색":"Search lessons, shortcuts, or tasks";$("#language-note").textContent=lang==="zh"?"导航提供中文；详细操作说明目前为英文。":lang==="ko"?"메뉴는 한국어로 제공되지만 세부 사용 안내는 영어입니다.":"Lesson instructions remain in English; navigation can be translated.";$("#language").value=lang;}
-  function renderPopular(){$("#popular-list").innerHTML=POPULAR.map(id=>{const t=tipById.get(id);return '<button type="button" class="popular-item" data-tip="'+id+'"><span class="popular-icon" aria-hidden="true">'+SYMBOLS[t.category]+'</span><span class="popular-text"><strong>'+escapeHTML(t.title)+'</strong><small>'+escapeHTML(t.category)+' · 3 clear steps</small></span><span class="popular-arrow" aria-hidden="true">→</span></button>';}).join("");}
-  function renderCategories(){$("#category-grid").innerHTML=CATEGORIES.slice(1).map(c=>'<button type="button" class="category-card" data-category="'+escapeHTML(c)+'"><span class="category-icon" aria-hidden="true">'+SYMBOLS[c]+'</span><span class="category-title">'+escapeHTML(c)+'</span><span class="category-detail">'+escapeHTML(CATEGORY_SUMMARY[c])+'</span><span class="category-count">'+allTips.filter(t=>!t.bonus&&t.category===c).length+' core lessons · Explore →</span></button>').join("");}
-  function renderFilters(){$("#category-filters").innerHTML=CATEGORIES.map(c=>'<button type="button" data-filter="'+c+'" aria-pressed="false">'+c+'</button>').join("");updateFilterStates();}
-  function updateFilterStates(){$$("[data-filter]").forEach(b=>{const yes=b.dataset.filter===state.category;b.setAttribute("aria-pressed",String(yes));});$("#saved-only").checked=state.savedOnly;$("#sort-by").value=state.sort;$("#clear-filters").disabled=!state.query&&state.category==="All"&&!state.savedOnly&&!state.path;}
-  function scoreSearch(t,q){const stopwords=new Set(["my","the","to","a","an","how","do","i","can","on","in","with","for","please","this","that","me","is","of"]);const terms=q.trim().toLowerCase().split(/\s+/).filter(word=>word&&!stopwords.has(word));if(!terms.length)return 1;
-    const title=t.title.toLowerCase(),corpus=[t.title,t.category,t.where,...t.steps,t.try,t.note].join(" ").toLowerCase();
-    const synonyms={record:["screen record","capture","screenshot"],quiet:["mute","do not disturb","notification","focus"],find:["search","spotlight","locate"],schedule:["send","meeting","calendar"],tabs:["tab","chrome","browser"],email:["outlook","message","mail"],shortcut:["command","keyboard","⌘"],organize:["tidy","folder","stacks","group"],organise:["tidy","folder","stacks","group"]};
-    return terms.every(word=>corpus.includes(word)||(synonyms[word]||[]).some(x=>corpus.includes(x)))?terms.reduce((n,word)=>n+(title.includes(word)?6:corpus.includes(word)?2:1),0):0;
+/* MacBook Productivity: reference-first, no assessments or completion tracking. */
+(()=>{
+"use strict";
+const tips=Array.isArray(window.TIPS)?window.TIPS:[];
+const tipMap=new Map(tips.map(t=>[t.id,t]));
+const media=window.LESSON_MEDIA||{};
+const categories=["All","MacBook","Outlook","Teams","Chrome"];
+const symbols={MacBook:"⌘",Outlook:"✉",Teams:"▦",Chrome:"◎"};
+const categoryText={
+  MacBook:"Settings, windows, screen tools and everyday shortcuts.",
+  Outlook:"Email, calendar, useful follow-ups and a calmer inbox.",
+  Teams:"Meetings, chats, channels and fewer distractions.",
+  Chrome:"Tabs, bookmarks, search and faster browsing."
+};
+const FEATURED=["t22","t24","t41","t51","t16","t28","t39","t48","t17","t31","t45","t50"];
+const POPULAR=["t22","t24","t41","t51"];
+const COLLECTIONS=[
+  {title:"Everyday Mac essentials",desc:"The small Mac shortcuts and settings that make a big difference.",ids:["t16","t17","t21","t22","b01","t19"]},
+  {title:"An easier inbox",desc:"Make email more purposeful, organise follow-ups and save time.",ids:["t24","t25","t27","t28","t31","t37"]},
+  {title:"Fewer clicks, fewer interruptions",desc:"Keep the right things close and the unnecessary noise away.",ids:["t19","t41","t42","t44","t45","t48"]}
+];
+const SHORTCUTS=[
+  ["Search your Mac","⌘ Space","t16"],
+  ["Switch applications","⌘ Tab","t17"],
+  ["Preview a file","Space","t21"],
+  ["Screenshot and record","⇧ ⌘ 5","t22"],
+  ["Find text on a page","⌘ F","t47"],
+  ["Reopen a closed tab","⇧ ⌘ T","t51"]
+];
+const $=q=>document.querySelector(q);
+const $$=q=>Array.from(document.querySelectorAll(q));
+const escapeHTML=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function safeRead(key,fallback){try{const raw=localStorage.getItem(key);return raw===null?fallback:JSON.parse(raw);}catch{return fallback;}}
+const validIds=new Set(tips.map(t=>t.id));
+const cleanIds=v=>Array.isArray(v)?v.filter(id=>typeof id==="string"&&validIds.has(id)):[];
+let favourites=new Set(cleanIds(safeRead("macbook-favorites",[])));
+let lang=["en","zh","ko"].includes(safeRead("macbook-lang","en"))?safeRead("macbook-lang","en"):"en";
+let state={query:"",category:"All",savedOnly:false,sort:"recommended",shown:12,collection:null,tip:null,mode:"all",step:0,fromPush:false};
+let previousFocus=null,announcementTimer=null,reading=null;
+const TRANSLATIONS={
+en:{
+navTips:"All tips",navApps:"Browse apps",navCollections:"Collections",navShortcuts:"Shortcuts",navSaved:"Saved tips",search:"Search",menu:"Menu",
+heroEyebrow:"YOUR EVERYDAY PRODUCTIVITY REFERENCE",heroTitle:"Less searching.",heroTitleEm:"More doing.",heroDesc:"Need to change a setting, find a shortcut or get more from your apps? Find a practical answer, see where to click and get on with your day.",searchTips:"Find a tip →",trySearch:"Try:",suggestScreen:"record my screen",suggestMail:"snooze an email",suggestTeam:"quiet Teams",heroCount:"practical tips across four everyday tools",
+featureEyebrow:"QUICK START",featureCaption:"HAND-PICKED TIPS",featureTitle:"A few useful places to begin.",featureNote:"Open a tip for the steps, visuals and official support links.",
+appsEyebrow:"BROWSE BY APPLICATION",appsTitle:"Four tools. Everything in one place.",appsDesc:"Choose the app you're working in, or head straight to the full tip library.",browseAll:"View all 55 tips ↗",
+libraryEyebrow:"THE TIP LIBRARY",libraryTitle:"Find exactly what you need.",libraryDesc:"Search a task or browse the collection. Every guide includes clear steps and a useful reference.",clearFilters:"Clear filters ↺",savedOnly:"Saved only",showMore:"Show more tips ↓",
+collectionsEyebrow:"USEFUL COLLECTIONS",collectionsTitle:"Sometimes you just need a starting point.",collectionsDesc:"Hand-picked tips for the small tasks that come up throughout a school day.",
+shortcutsEyebrow:"QUICK REFERENCE",shortcutsTitle:"Shortcuts worth keeping close.",shortcutsDesc:"A few of the most useful Mac shortcuts in one place. No memorisation required—come back whenever you need them.",printGuide:"Open printable guide ↗",
+savedEyebrow:"YOUR OWN REFERENCE SHELF",savedTitle:"Keep the useful ones handy.",savedDesc:"Tap the bookmark on a tip to save it. Your saved tips stay in this browser, with no account required.",viewSaved:"See all saved tips →",clearSaved:"Clear saved",savedBoard:"Your saved tips",savedNote:"Private to this browser. Nothing is sent to a school server.",
+bottomEyebrow:"ALWAYS HERE WHEN YOU NEED IT",bottomTitle:"A useful answer is never far away.",bottomDesc:"Bookmark this website and come back whenever you need a reminder.",backTop:"Search for another tip ↑",
+backTips:"All tips",modeAll:"All steps",modeGuided:"One step at a time",whereLabel:"WHERE TO GO",tryHeading:"USEFUL TO TRY",helpHeading:"Can't find the setting? Read this",relatedTitle:"You might also find these useful"
+},
+zh:{
+navTips:"所有技巧",navApps:"按应用浏览",navCollections:"精选合集",navShortcuts:"快捷键",navSaved:"已收藏",search:"搜索",menu:"菜单",
+heroEyebrow:"日常效率参考指南",heroTitle:"少一点寻找。",heroTitleEm:"多一点行动。",heroDesc:"想调整设置、查找快捷键或提高应用效率？找到实用说明，了解操作位置，然后继续工作。",searchTips:"查找技巧 →",trySearch:"例如：",suggestScreen:"录制屏幕",suggestMail:"暂缓处理邮件",suggestTeam:"减少 Teams 通知",heroCount:"条实用技巧，涵盖四种日常工具",
+featureEyebrow:"快速开始",featureCaption:"精选技巧",featureTitle:"从这些实用技巧开始。",featureNote:"打开技巧，查看步骤、图片和官方参考资料。",
+appsEyebrow:"按应用浏览",appsTitle:"四种工具，集中查找。",appsDesc:"选择正在使用的应用，或直接查看全部技巧。",browseAll:"查看全部 55 条技巧 ↗",
+libraryEyebrow:"技巧资源库",libraryTitle:"快速找到所需内容。",libraryDesc:"搜索任务或浏览合集，每条技巧都有明确步骤和参考资料。",clearFilters:"清除筛选 ↺",savedOnly:"只看收藏",showMore:"显示更多技巧 ↓",
+collectionsEyebrow:"精选合集",collectionsTitle:"从这里轻松开始。",collectionsDesc:"为日常学校工作精选的实用技巧。",
+shortcutsEyebrow:"快捷参考",shortcutsTitle:"值得收藏的快捷键。",shortcutsDesc:"常用 Mac 快捷键集中呈现，随时回来查阅。",printGuide:"打开打印版指南 ↗",
+savedEyebrow:"我的参考收藏",savedTitle:"把实用技巧留在身边。",savedDesc:"点击书签收藏技巧，内容仅保存在当前浏览器中。",viewSaved:"查看已收藏技巧 →",clearSaved:"清除收藏",savedBoard:"我的收藏",savedNote:"仅保存在此浏览器，不会发送到学校服务器。",
+bottomEyebrow:"随时可查",bottomTitle:"实用答案就在这里。",bottomDesc:"收藏本网站，随时回来查阅。",backTop:"搜索其他技巧 ↑",
+backTips:"全部技巧",modeAll:"查看全部步骤",modeGuided:"逐步查看",whereLabel:"操作位置",tryHeading:"可以试试",helpHeading:"找不到设置？查看帮助",relatedTitle:"你可能也会用到"
+},
+ko:{
+navTips:"전체 팁",navApps:"앱별 보기",navCollections:"추천 모음",navShortcuts:"단축키",navSaved:"저장한 팁",search:"검색",menu:"메뉴",
+heroEyebrow:"일상 생산성 참고 가이드",heroTitle:"찾는 시간은 줄이고.",heroTitleEm:"실행은 더 빠르게.",heroDesc:"설정 변경, 단축키 찾기, 앱 활용이 필요하신가요? 명확한 단계와 화면 안내로 바로 해결하세요.",searchTips:"팁 찾기 →",trySearch:"예:",suggestScreen:"화면 녹화",suggestMail:"이메일 다시 알림",suggestTeam:"Teams 알림 줄이기",heroCount:"개의 실용 팁 · 4가지 도구",
+featureEyebrow:"빠른 시작",featureCaption:"추천 팁",featureTitle:"이 팁부터 살펴보세요.",featureNote:"팁을 열어 단계와 이미지, 공식 안내를 확인하세요.",
+appsEyebrow:"앱별 탐색",appsTitle:"네 가지 도구를 한곳에서.",appsDesc:"사용 중인 앱을 선택하거나 전체 팁을 살펴보세요.",browseAll:"팁 55개 모두 보기 ↗",
+libraryEyebrow:"팁 자료실",libraryTitle:"필요한 답을 바로 찾으세요.",libraryDesc:"작업을 검색하거나 모음을 탐색하세요. 모든 팁에는 명확한 설명과 참고 자료가 있습니다.",clearFilters:"필터 초기화 ↺",savedOnly:"저장한 항목만",showMore:"팁 더 보기 ↓",
+collectionsEyebrow:"추천 모음",collectionsTitle:"여기서 시작해 보세요.",collectionsDesc:"학교 일상에서 유용한 팁을 모았습니다.",
+shortcutsEyebrow:"빠른 참고",shortcutsTitle:"자주 쓰는 단축키.",shortcutsDesc:"매일 유용한 Mac 단축키를 쉽게 찾아보세요.",printGuide:"인쇄용 가이드 열기 ↗",
+savedEyebrow:"나만의 참고 자료",savedTitle:"필요한 팁을 저장하세요.",savedDesc:"북마크를 눌러 팁을 저장하세요. 현재 브라우저에만 보관됩니다.",viewSaved:"저장한 팁 보기 →",clearSaved:"저장 삭제",savedBoard:"저장한 팁",savedNote:"이 브라우저에만 저장되며 학교 서버로 전송하지 않습니다.",
+bottomEyebrow:"필요할 때 언제든",bottomTitle:"유용한 답을 언제든 찾으세요.",bottomDesc:"웹사이트를 북마크하고 필요할 때 다시 찾아보세요.",backTop:"다른 팁 검색 ↑",
+backTips:"전체 팁",modeAll:"모든 단계",modeGuided:"한 단계씩",whereLabel:"찾아갈 위치",tryHeading:"직접 해 보기",helpHeading:"설정을 찾을 수 없나요?",relatedTitle:"함께 보면 좋은 팁"
+}
+};
+function saveFavourites(){try{localStorage.setItem("macbook-favorites",JSON.stringify([...favourites]));}catch{announce("Your browser could not save bookmarks.");}}
+function announce(s){const n=$("#toast");n.textContent=s;n.classList.add("visible");clearTimeout(announcementTimer);announcementTimer=setTimeout(()=>n.classList.remove("visible"),2800);}
+function navClose(){$("#main-nav").classList.remove("open");$("#menu-toggle").setAttribute("aria-expanded","false");}
+function scrollToID(id){document.getElementById(id)?.scrollIntoView({block:"start",behavior:window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});navClose();}
+function translate(){
+  const d=TRANSLATIONS[lang]||TRANSLATIONS.en;
+  $$("[data-i18n]").forEach(el=>{if(d[el.dataset.i18n]){el.textContent=d[el.dataset.i18n];el.lang=lang;}});
+  $("#hero-query").placeholder=lang==="zh"?"你想做什么？":lang==="ko"?"무엇을 찾고 싶으세요?":"What would you like to do?";
+  $("#library-query").placeholder=lang==="zh"?"搜索技巧、快捷键或任务":lang==="ko"?"팁, 단축키 또는 작업 검색":"Search tips, shortcuts or tasks…";
+  $("#language-note").textContent=lang==="zh"?"导航支持中文；技巧说明目前以英文提供。":lang==="ko"?"메뉴는 한국어로 제공되며, 팁의 상세 설명은 영어입니다.":"Tip instructions are in English. Navigation can be translated.";
+  $("#language").value=lang;
+}
+function renderPopular(){
+  $("#popular-list").innerHTML=POPULAR.map(id=>{
+    const t=tipMap.get(id);
+    return '<button class="feature-tip" type="button" data-tip="'+id+'"><span class="feature-icon" aria-hidden="true">'+symbols[t.category]+'</span><span class="feature-content"><strong>'+escapeHTML(t.title)+'</strong><small>'+escapeHTML(t.category)+' · Clear instructions</small></span><span class="feature-arrow" aria-hidden="true">→</span></button>';
+  }).join("");
+}
+function renderCategories(){
+  $("#category-grid").innerHTML=categories.slice(1).map(c=>{
+    const count=tips.filter(t=>t.category===c).length;
+    return '<button class="category-card" type="button" data-category="'+c+'"><span class="category-icon" aria-hidden="true">'+symbols[c]+'</span><span class="category-name">'+c+'</span><span class="category-summary">'+escapeHTML(categoryText[c])+'</span><span class="category-footer">'+count+' tips · Explore →</span></button>';
+  }).join("");
+}
+function renderFilters(){
+  $("#category-filters").innerHTML=categories.map(c=>'<button type="button" data-filter="'+c+'" aria-pressed="'+(c===state.category)+'">'+c+'</button>').join("");
+}
+function filterStatus(){
+  $$("[data-filter]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.filter===state.category)));
+  $("#saved-only").checked=state.savedOnly;$("#sort-by").value=state.sort;
+  $("#clear-filters").disabled=!(state.query||state.category!=="All"||state.collection||state.savedOnly||state.sort!=="recommended");
+}
+const STOP=new Set(["how","do","i","to","my","can","the","a","an","of","in","for","with","me","is","you","please","on","this"]);
+const ALIASES={
+  quiet:["notifications","mute","focus","disturb"],screen:["record","capture","screenshot"],record:["recording","screenshot","capture"],
+  email:["outlook","mail","message"],tab:["tabs","chrome","browser"],close:["quit","closed","restore"],
+  organise:["organize","folders","stacks","groups"],organize:["organise","folders","stacks","groups"],
+  find:["search","spotlight","locate"],schedule:["meeting","calendar","send"],
+  privacy:["focus","mute","notification"],shortcut:["command","keyboard","⌘"],
+  screenshot:["screen","capture","record"],restore:["reopen","closed"]
+};
+function termScore(t,q){
+  const words=q.toLowerCase().trim().split(/\s+/).filter(w=>w&&!STOP.has(w));
+  if(!words.length)return 1;
+  const title=t.title.toLowerCase(),body=[t.title,t.category,t.where,...t.steps,t.try,t.note].join(" ").toLowerCase();
+  if(!words.every(w=>body.includes(w)||(ALIASES[w]||[]).some(a=>body.includes(a))))return 0;
+  return words.reduce((n,w)=>n+(title.includes(w)?7:body.includes(w)?3:1),0);
+}
+function getResults(){
+  const list=tips.filter(t=>(state.category==="All"||t.category===state.category)&&(!state.savedOnly||favourites.has(t.id))&&(!state.collection||state.collection.includes(t.id))&&termScore(t,state.query)>0);
+  if(state.sort==="az")return list.sort((a,b)=>a.title.localeCompare(b.title));
+  if(state.sort==="app")return list.sort((a,b)=>a.category.localeCompare(b.category)||a.title.localeCompare(b.title));
+  if(state.query)return list.sort((a,b)=>termScore(b,state.query)-termScore(a,state.query)||a.title.localeCompare(b.title));
+  const order=[...FEATURED,...tips.map(t=>t.id)];
+  return list.sort((a,b)=>order.indexOf(a.id)-order.indexOf(b.id));
+}
+function renderTips(focusId){
+  filterStatus();
+  const results=getResults();
+  $("#result-count").textContent=(state.savedOnly?"Saved · ":state.collection?"Collection · ":"")+results.length+" tip"+(results.length===1?"":"s")+" found"+(state.query?' for "'+state.query+'"':"");
+  $("#tips-grid").innerHTML=results.slice(0,state.shown).map(t=>'<article class="tip-card"><div class="tip-card-top"><span class="tip-app">'+escapeHTML(t.category)+(t.bonus?" · BONUS":"")+'</span><button type="button" class="save-tip" data-save="'+t.id+'" aria-pressed="'+favourites.has(t.id)+'" aria-label="'+(favourites.has(t.id)?"Remove saved tip: ":"Save tip: ")+escapeHTML(t.title)+'" title="'+(favourites.has(t.id)?"Remove bookmark":"Save for later")+'">'+(favourites.has(t.id)?"♥":"♡")+'</button></div><h3>'+escapeHTML(t.title)+'</h3><p>'+escapeHTML(t.where)+'</p><div class="tip-card-bottom"><small>'+t.steps.length+' clear steps</small><button class="tip-open" data-tip="'+t.id+'" type="button" aria-label="Open tip: '+escapeHTML(t.title)+'">View tip →</button></div></article>').join("")||
+    '<div class="empty-results"><h3>No matching tips</h3><p>Try another search or clear the filters.</p><button type="button" class="button outline" data-reset="true">See all tips</button></div>';
+  $("#load-row").hidden=results.length<=state.shown;
+  if(focusId){const next=$('[data-save="'+focusId+'"]');if(next)next.focus();else $("#library-query").focus();}
+}
+function renderCollections(){
+  $("#collection-grid").innerHTML=COLLECTIONS.map((item,i)=>'<button class="collection-card" type="button" data-collection="'+i+'"><span class="collection-number">COLLECTION '+String(i+1).padStart(2,"0")+'</span><h3>'+escapeHTML(item.title)+'</h3><p>'+escapeHTML(item.desc)+'</p><span class="collection-count">'+item.ids.length+' tips</span><span class="collection-link">Explore collection →</span></button>').join("");
+}
+function renderShortcuts(){
+  $("#shortcut-sheet").innerHTML=SHORTCUTS.map(([title,shortcut,id])=>'<button class="shortcut-row" type="button" data-tip="'+id+'" aria-label="'+escapeHTML(title)+": "+escapeHTML(shortcut)+'. Open tip"><span class="shortcut-label">'+escapeHTML(title)+'</span><kbd>'+escapeHTML(shortcut)+'</kbd><span class="shortcut-open" aria-hidden="true">↗</span></button>').join("");
+}
+function renderSaved(){
+  const items=[...favourites].map(id=>tipMap.get(id)).filter(Boolean);
+  $("#saved-count").textContent=items.length+" saved";
+  $("#clear-saved").disabled=items.length===0;
+  $("#saved-preview").innerHTML=items.length?items.slice(0,4).map(t=>'<div class="saved-item"><button type="button" data-tip="'+t.id+'">'+escapeHTML(t.title)+'</button><span>'+escapeHTML(t.category)+'</span></div>').join(""):'<div class="saved-empty"><strong>No bookmarks yet</strong><p>Save any useful tip with the heart icon. It will appear here when you return.</p></div>';
+}
+function changeFavourite(id,restoreFocus){
+  if(!tipMap.has(id))return;
+  const was=favourites.has(id);was?favourites.delete(id):favourites.add(id);
+  saveFavourites();renderTips(restoreFocus?id:null);renderSaved();
+  if(state.tip===id){
+    const b=$("#tip-fav");b.setAttribute("aria-pressed",String(favourites.has(id)));b.textContent=favourites.has(id)?"♥":"♡";b.setAttribute("aria-label",favourites.has(id)?"Remove saved tip":"Save this tip");
   }
-  function sortedResults(){const results=allTips.filter(t=>(state.category==="All"||state.category===t.category)&&(!state.savedOnly||faves.has(t.id))&&(!state.path||state.path.includes(t.id))&&scoreSearch(t,state.query)>0);
-    if(state.sort==="az")return results.sort((a,b)=>a.title.localeCompare(b.title));
-    if(state.sort==="app")return results.sort((a,b)=>a.category.localeCompare(b.category)||a.title.localeCompare(b.title));
-    if(state.query)return results.sort((a,b)=>scoreSearch(b,state.query)-scoreSearch(a,state.query)||a.title.localeCompare(b.title));
-    const order=[...FEATURED,...allTips.map(t=>t.id)];
-    return results.sort((a,b)=>order.indexOf(a.id)-order.indexOf(b.id));
+  announce(was?"Removed from saved tips.":"Saved for quick access.");
+}
+function reset(){
+  state.query="";state.category="All";state.savedOnly=false;state.sort="recommended";state.collection=null;state.shown=12;
+  $("#hero-query").value="";$("#library-query").value="";
+  renderTips();
+}
+function selectCategory(cat){
+  state.category=categories.includes(cat)?cat:"All";state.query="";state.collection=null;state.savedOnly=false;state.shown=55;
+  $("#hero-query").value="";$("#library-query").value="";renderTips();scrollToID("library");
+}
+function searchFor(s,focus=true){
+  state.query=s.trim();state.category="All";state.collection=null;state.savedOnly=false;state.shown=55;
+  $("#hero-query").value=s;$("#library-query").value=s;renderTips();if(focus){scrollToID("library");$("#library-query").focus();}
+}
+function selectCollection(i){
+  const c=COLLECTIONS[i];if(!c)return;state.collection=c.ids;state.category="All";state.query="";state.savedOnly=false;state.shown=55;
+  $("#hero-query").value="";$("#library-query").value="";renderTips();scrollToID("library");announce("Showing "+c.title+".");
+}
+function safeSource(url){return /^https:\/\//.test(url||"")?url:"https://support.apple.com/guide/mac-help/welcome/mac";}
+function visualMap(t,index){
+  const parts=t.where.replace(/\s*;\s*/g," → ").split(/\s*→\s*/).map(s=>s.trim()).filter(Boolean).slice(0,5);
+  const route=parts.length?parts:[t.category];const shortcut=route.at(-1)||"";
+  const keyboard=/[⌘⇧⌥]/.test(shortcut)||/^Control\s*\+|^Space$/i.test(shortcut);
+  const caption='<p class="visual-caption"><strong>Illustrative guide, not a screenshot.</strong> Names and menus may vary with software version.</p>';
+  let interior="";
+  if(keyboard){
+    const keys=shortcut.replace(/Command/g,"⌘").replace(/Shift/g,"⇧").replace(/Option/g,"⌥").split(/\s*\+\s*|\s+/).filter(Boolean);
+    interior='<div class="key-visual"><p class="key-visual-label">KEYBOARD SHORTCUT</p><div class="key-row">'+keys.map(x=>'<kbd>'+escapeHTML(x)+'</kbd>').join('<span class="key-plus" aria-hidden="true">+</span>')+'</div><p class="key-visual-note">Press these keys while working in the relevant app.</p></div>';
+    if(t.id==="t22"||t.id==="b02")interior+='<div class="mock-toolbar"><span>Screenshot controls</span><div class="toolbar-items"><span>▣ Capture</span><span class="toolbar-feature">◉ Record</span><span>⚙ Options</span></div></div>';
+  }else{
+    const nav={
+      MacBook:["System Settings","General","Desktop & Dock","Trackpad","Control Center"],
+      Outlook:["Mail","Inbox","Calendar","Settings","Rules"],
+      Teams:["Activity","Chat","Teams","Calendar","Settings"],
+      Chrome:["Tabs","Address bar","Bookmarks","History","Settings"]
+    }[t.category];
+    const label={MacBook:"macOS",Outlook:"Outlook",Teams:"Microsoft Teams",Chrome:"Google Chrome"}[t.category];
+    const target=route[Math.min(index,route.length-1)];
+    interior='<div class="visual-screen"><div class="visual-sidebar"><b>'+escapeHTML(label)+'</b>'+nav.map(n=>'<span class="visual-sidebar-entry '+(t.where.toLowerCase().includes(n.toLowerCase())?"is-related":"")+'">'+escapeHTML(n)+'</span>').join("")+'</div><div class="visual-main"><div class="visual-main-title"><h4>Where to look</h4><span class="visual-active-badge">'+escapeHTML(t.category)+'</span></div>'+(t.category==="Chrome"?'<div class="visual-address">⌕ &nbsp; Address bar</div>':"")+'<div class="visual-crumbs">'+route.map((n,i)=>'<span class="visual-crumb '+(i===Math.min(index,route.length-1)?"current":"")+'">'+escapeHTML(n)+'</span>').join('<span class="visual-chevron" aria-hidden="true">›</span>')+'</div><div class="visual-target"><span class="visual-target-dot" aria-hidden="true"></span><div><strong>'+escapeHTML(target)+'</strong><small>Find this control or a similarly named menu</small></div><span class="visual-target-arrow" aria-hidden="true">◀</span></div></div></div>';
   }
-  function renderTips(focusFavId){updateFilterStates();const results=sortedResults();
-    const title=state.path?"Learning path · ":state.savedOnly?"Saved lessons · ":"";
-    $("#result-count").textContent=title+results.length+" lesson"+(results.length===1?"":"s")+" found"+(state.query?' for "'+state.query+'"':"");
-    const shown=results.slice(0,state.visible);
-    $("#tips-grid").innerHTML=shown.map(t=>'<article class="tip-card"><div class="tip-top"><span class="tip-type">'+escapeHTML(t.category)+(t.bonus?" · BONUS":"")+'</span><button type="button" class="save-button" data-save="'+t.id+'" aria-pressed="'+faves.has(t.id)+'" aria-label="'+(faves.has(t.id)?"Remove saved lesson: ":"Save lesson: ")+escapeHTML(t.title)+'" title="'+(faves.has(t.id)?"Remove from saved":"Save for later")+'">'+(faves.has(t.id)?"♥":"♡")+'</button></div><h4>'+escapeHTML(t.title)+'</h4><p>'+escapeHTML(t.where)+'</p><div class="tip-bottom"><span class="status-small '+(done.has(t.id)?"complete":"")+'">'+(done.has(t.id)?"✓ Practised":t.steps.length+" short steps")+'</span><button type="button" class="tip-open" data-tip="'+t.id+'" aria-label="Open walkthrough: '+escapeHTML(t.title)+'">Open lesson →</button></div></article>').join("")||'<div class="empty-results"><h4>No lessons found</h4><p>Try a different word or remove your filters.</p><button class="button outline-button" type="button" data-reset="true">See all lessons</button></div>';
-    $("#load-row").hidden=results.length<=state.visible;
-    if(focusFavId){const b=$('[data-save="'+focusFavId+'"]');if(b)b.focus();else $("#library-query").focus();}
-  }
-  function setSearch(query,focus){state.query=query.trim();state.visible=55;$("#library-query").value=query;$("#hero-query").value=query;renderTips();if(focus){scrollToId("library");$("#library-query").focus();}}
-  function setCategory(category,focusLibrary){state.category=CATEGORIES.includes(category)?category:"All";state.query="";$("#hero-query").value="";$("#library-query").value="";state.path=null;state.savedOnly=false;state.visible=18;renderTips();if(focusLibrary)scrollToId("library");}
-  function resetFilters(){state.category="All";state.query="";state.path=null;state.savedOnly=false;state.sort="useful";state.visible=9;$("#hero-query").value="";$("#library-query").value="";renderTips();}
-  function renderPaths(){$("#path-grid").innerHTML=PATHS.map((p,i)=>{const n=p.ids.filter(id=>done.has(id)).length;return '<button type="button" class="path-card" data-path="'+i+'"><span class="path-number">PATH '+String(i+1).padStart(2,"0")+' · '+p.ids.length+' SKILLS</span><h3>'+escapeHTML(p.title)+'</h3><p>'+escapeHTML(p.intro)+'</p><span class="path-progress">'+n+' of '+p.ids.length+' practised</span><progress max="'+p.ids.length+'" value="'+n+'" aria-label="'+escapeHTML(p.title)+' progress: '+n+' of '+p.ids.length+'">'+n+' / '+p.ids.length+'</progress><span class="path-start">Explore this path →</span></button>';}).join("");}
-  function showPath(i){const p=PATHS[i];if(!p)return;state.path=p.ids;state.category="All";state.query="";state.savedOnly=false;state.visible=55;$("#hero-query").value="";$("#library-query").value="";renderTips();scrollToId("library");$("#library-query").focus();notify("Showing "+p.title);}
-  function refreshProgress(){
-    $("#hero-count").textContent=String(allTips.length);
-    $("#progress-count").innerHTML=done.size+' <small>of '+allTips.length+' lessons</small>';
-    const pc=Math.round(done.size/allTips.length*100);
-    $("#progress-percent").textContent=pc+"%";$("#main-progress").value=done.size;$("#main-progress").max=allTips.length;
-    const preferred=recent.length?tipById.get(recent[0])?.category:null;
-    let next=allTips.find(t=>!done.has(t.id)&&t.category===preferred);
-    if(!next)next=FEATURED.map(id=>tipById.get(id)).find(t=>t&&!done.has(t.id));
-    if(!next)next=allTips.find(t=>!done.has(t.id))||allTips[0];
-    if(next){$("#next-title").textContent=next.title;$("#next-description").textContent=next.where+" · "+next.steps.length+" steps to try";$("#next-open").dataset.tip=next.id;}
-    renderPaths();
-  }
-  function toggleSaved(id,originButton){if(!tipById.has(id))return;if(faves.has(id))faves.delete(id);else faves.add(id);saveLocal();
-    if(state.lesson===id){const b=$("#lesson-save");b.setAttribute("aria-pressed",String(faves.has(id)));b.textContent=faves.has(id)?"♥":"♡";b.setAttribute("aria-label",faves.has(id)?"Remove saved lesson":"Save this lesson");}
-    renderTips(originButton?id:null);refreshProgress();notify(faves.has(id)?"Saved for later.":"Removed from your saved lessons.");
-  }
-  function markPractised(id){if(!tipById.has(id))return;done.add(id);saveLocal();refreshProgress();renderTips();$("#lesson-feedback").hidden=false;$("#lesson-feedback").textContent="Nicely done. This lesson is now in your completed list. You can return to it any time.";notify("Lesson marked as practised.");}
-  function helpContent(t){const extra=t.note?'<p><strong>For this tip:</strong> '+escapeHTML(t.note)+'</p>':"";
-    const appNote=t.category==="Outlook"?"Mac app and browser Outlook may have different labels. Check the account type and switch between Mail and Calendar as needed.":t.category==="Teams"?"Teams can display combined Chat and Teams views. Check the menu beside the chat or channel as well as Settings.":t.category==="Chrome"?"Make sure Chrome is the frontmost app and try its main menu if a shortcut is unavailable.":"Mac menus can differ by macOS version, keyboard layout and school-managed settings.";
-    return extra+'<ul><li>Make sure the correct app is open and up to date.</li><li>'+escapeHTML(appNote)+'</li><li>If your screen is different, use the official help link below or ask the school technology team.</li></ul>';
-  }
-  function getSegments(t){let steps=t.where.replace(/\s*;\s*/g," → ").split(/\s*→\s*/).map(s=>s.trim()).filter(Boolean);
-    if(steps.length>5)steps=steps.slice(0,5);return steps.length?steps:[t.category];}
-  function visualMap(t,index){
-    const parts=getSegments(t), current=Math.min(index,parts.length-1);
-    const caption='<p class="visual-caption"><strong>Illustrative guide, not a screenshot.</strong> Use the written directions above; exact menus vary by device and app version.</p>';
-    const rawShortcut=parts[parts.length-1];
-    const isShortcut=/[⌘⇧⌥]/.test(rawShortcut)||/^Control\s*\+|^Space$|^Spacebar$/i.test(rawShortcut);
-    let inner="";
-    if(isShortcut){
-      const keys=rawShortcut.replace(/Command/g,"⌘").replace(/Shift/g,"⇧").replace(/Option/g,"⌥").split(/\s*\+\s*|\s+/).filter(Boolean);
-      inner='<div class="key-visual"><p class="key-visual-label">USE YOUR KEYBOARD</p><div class="key-row">'+keys.map(k=>'<kbd>'+escapeHTML(k)+'</kbd>').join('<span class="key-plus" aria-hidden="true">+</span>')+'</div><p class="key-visual-note">'+(t.category==="Chrome"?"Keep Chrome selected when using this shortcut.":"Press the keys together while working in the relevant app.")+'</p></div>';
-      if(t.id==="t22"||t.id==="b02"){
-        inner+='<div class="mock-toolbar"><span>Screenshot controls</span><div class="toolbar-items"><span>▣ Capture</span><span class="toolbar-feature">◉ Record screen</span><span>⚙ Options</span></div></div>';
-      }
-    }else{
-      const sidebar={
-        MacBook:["System Settings","General","Desktop & Dock","Trackpad","Control Center"],
-        Outlook:["Inbox","Mail","Calendar","Settings","Rules"],
-        Teams:["Activity","Chat","Teams","Calendar","Settings"],
-        Chrome:["Tabs","Address bar","Bookmarks","History","Settings"]
-      }[t.category];
-      const appName={MacBook:"macOS",Outlook:"Outlook",Teams:"Microsoft Teams",Chrome:"Google Chrome"}[t.category];
-      const currentLabel=parts[current]||parts[0];
-      inner='<div class="visual-screen"><div class="visual-sidebar"><b>'+escapeHTML(appName)+'</b>'+sidebar.map(label=>'<div class="visual-sidebar-entry '+(t.where.toLowerCase().includes(label.toLowerCase())?"is-related":"")+'">'+escapeHTML(label)+'</div>').join("")+'</div><div class="visual-main"><div class="visual-main-title"><h4>Find this area in '+escapeHTML(appName)+'</h4><span class="visual-active-badge">Step '+(index+1)+'</span></div>'+(t.category==="Chrome"?'<div class="visual-address">⌕ &nbsp; '+escapeHTML(parts.includes("@tabs")?"@tabs":parts.includes("@history")?"@history":parts.includes("@bookmarks")?"@bookmarks":"Search or enter a website address")+'</div>':"")+'<div class="visual-crumbs">'+parts.map((part,i)=>'<span class="visual-crumb '+(i===current?"current":"")+'">'+escapeHTML(part)+'</span>').join('<span class="visual-chevron" aria-hidden="true">›</span>')+'</div><div class="visual-target"><span class="visual-target-dot" aria-hidden="true"></span><div><strong>'+escapeHTML(currentLabel)+'</strong><small>Look for this label or equivalent control</small></div><span class="visual-target-arrow" aria-hidden="true">◀</span></div></div></div>';
-    }
-    return '<div class="visual-map" aria-hidden="true"><div class="visual-top"><span class="visual-dots"><i></i><i></i><i></i></span><span>'+escapeHTML(t.category)+' · Visual orientation</span><span class="visual-top-right">GUIDE</span></div>'+inner+'</div>'+caption;
-  }
-  const dialog=$("#lesson-dialog");
-  function renderLesson(id,historyEntry){const t=tipById.get(id);if(!t)return;
-    state.lesson=id;state.mode="guided";state.step=0;state.fromPush=!!historyEntry;
-    if(!dialog.open){previousFocus=document.activeElement;dialog.showModal();}
-    $("#lesson-kicker").textContent=t.category.toUpperCase()+(t.bonus?" · BONUS TIP":" · FACULTY GUIDE");
-    $("#lesson-title").textContent=t.title;
-    $("#lesson-intro").textContent="Follow these steps on your own Mac, or switch to Quick answer if you already know the basics.";
-    $("#quick-where").textContent=t.where;
-    $("#quick-steps").innerHTML=t.steps.map(s=>'<li>'+escapeHTML(s)+'</li>').join("");
-    $("#quick-try").textContent=t.try;
-    $("#help-body").innerHTML=helpContent(t);
-    $("#lesson-help").open=false;
-    $("#lesson-feedback").hidden=true;
-    $("#lesson-save").setAttribute("aria-pressed",String(faves.has(id)));$("#lesson-save").textContent=faves.has(id)?"♥":"♡";
-    $("#lesson-save").setAttribute("aria-label",faves.has(id)?"Remove saved lesson":"Save this lesson");
-    $("#official-source").href=t.source&&/^https:\/\//.test(t.source)?t.source:"https://support.apple.com/guide/mac-help/welcome/mac";
-    $("#last-reviewed").textContent="Content reviewed 2 Nov 2026 · menus may vary";
-    $("#lesson-print").dataset.print=id;
-    $("#mode-guided").setAttribute("aria-pressed","true");$("#mode-quick").setAttribute("aria-pressed","false");$("#guided-panel").hidden=false;$("#quick-panel").hidden=true;
-    recent=[id,...recent.filter(x=>x!==id)].slice(0,8);saveLocal();refreshProgress();renderGuided();
-    $(".lesson-body").scrollTop=0;$("#lesson-title").focus({preventScroll:true});
-  }
-  function goToTip(id){if(!tipById.has(id))return;if(dialog.open&&state.lesson===id)return;
-    history.pushState({tip:id},"","#tip-"+id);renderLesson(id,true);}
-  function showFromUrl(){const found=location.hash.match(/^#tip-([tb][0-9]{2})$/);if(found&&tipById.has(found[1])){
-      if(dialog.open&&state.lesson===found[1])return;
-      renderLesson(found[1],false);return;
-    }
-    if(dialog.open){dialog.close();state.lesson=null;state.fromPush=false;window.speechSynthesis?.cancel();document.body.classList.remove("dialog-active");
-      if(previousFocus&&previousFocus.isConnected){previousFocus.focus({preventScroll:true});}else{$("#library-query").focus({preventScroll:true});}
-    }
-  }
-  function requestClose(){if(!dialog.open)return;
-    if(state.fromPush){history.back();return;}
-    history.replaceState({},"","#library");showFromUrl();
-  }
-
-  function visualForStep(t,step){
-    const m=(lessonMedia[t.id]||[]).find(x=>x.step===step);
-    if(!m)return visualMap(t,step);
-    if(!/^https:\/\//.test(m.src)||!/^https:\/\//.test(m.source))return visualMap(t,step);
-    const credit=m.vendor==="Microsoft Support"?"Used with permission from Microsoft.":"Source: "+m.vendor+".";
-    return '<figure class="platform-shot"><div class="platform-shot-heading"><span class="shot-signal" aria-hidden="true"></span>REAL PLATFORM SCREENSHOT<span class="shot-source">'+escapeHTML(m.vendor)+'</span></div>'+
-      '<div class="platform-shot-frame"><img class="vendor-shot" src="'+escapeHTML(m.src)+'" alt="'+escapeHTML(m.alt)+'" loading="eager" decoding="async"></div>'+
-      '<figcaption><strong>'+escapeHTML(m.caption)+'</strong><p>'+escapeHTML(m.note)+'</p><div class="shot-links">'+
-      '<a href="'+escapeHTML(m.source)+'" target="_blank" rel="noopener noreferrer">Official instructions ↗</a>'+
-      '<a href="'+escapeHTML(m.src)+'" target="_blank" rel="noopener noreferrer">Full-size image ↗</a></div>'+
-      '<small class="shot-credit">'+escapeHTML(credit)+' Displayed in full, without cropping, distortion or annotations.</small></figcaption></figure>'+
-      '<details class="visual-alternative"><summary>View the illustrated alternative</summary>'+visualMap(t,step)+'</details>';
-  }
-  function wireVisualFallback(){
-    const img=$("#step-visual img.vendor-shot");
-    if(!img)return;
-    const fail=()=>{
-      const figure=img.closest(".platform-shot");
-      if(!figure||!figure.isConnected)return;
-      const p=document.createElement("p");p.className="screenshot-unavailable";p.textContent="The publisher's screenshot could not load. The illustrated guide is available below.";
-      figure.replaceWith(p);const details=$("#step-visual .visual-alternative");if(details)details.open=true;
+  return '<div class="visual-map" aria-hidden="true"><div class="visual-top"><span class="visual-dots"><i></i><i></i><i></i></span><span>'+escapeHTML(t.category)+' · Visual guide</span><span class="visual-top-right">GUIDE</span></div>'+interior+'</div>'+caption;
+}
+function mediaAt(t,index){return (media[t.id]||[]).find(m=>m.step===index)||null;}
+function visualAt(t,index){
+  const m=mediaAt(t,index);
+  if(!m||!/^https:\/\//.test(m.src)||!/^https:\/\//.test(m.source))return visualMap(t,index);
+  const credit=m.vendor==="Microsoft Support"?"Used with permission from Microsoft.":"Source: "+m.vendor+".";
+  return '<figure class="platform-shot"><div class="platform-shot-heading"><span>REAL PLATFORM SCREENSHOT</span><span class="shot-source">'+escapeHTML(m.vendor)+'</span></div>'+
+    '<div class="platform-shot-frame"><img class="vendor-shot" src="'+escapeHTML(m.src)+'" alt="'+escapeHTML(m.alt)+'" decoding="async" loading="lazy"></div>'+
+    '<figcaption><strong>'+escapeHTML(m.caption)+'</strong><p>'+escapeHTML(m.note)+'</p><div class="shot-links"><a href="'+escapeHTML(m.source)+'" target="_blank" rel="noopener noreferrer">Official guidance ↗</a><a href="'+escapeHTML(m.src)+'" target="_blank" rel="noopener noreferrer">Full-size original ↗</a></div><small class="shot-credit">'+escapeHTML(credit)+' Displayed without cropping or annotation.</small></figcaption></figure>'+
+    '<details class="visual-alternative"><summary>Show illustrated alternative</summary>'+visualMap(t,index)+'</details>';
+}
+function attachVisualFallback(scope){
+  scope.querySelectorAll("img.vendor-shot").forEach(img=>{
+    const failed=()=>{
+      const frame=img.closest(".platform-shot");if(!frame||!frame.isConnected)return;
+      const p=document.createElement("p");p.className="screenshot-unavailable";p.textContent="The publisher's image could not load. An illustrated alternative is available below.";
+      frame.replaceWith(p);const detail=p.nextElementSibling;if(detail?.classList.contains("visual-alternative"))detail.open=true;
     };
-    img.addEventListener("error",fail,{once:true});
-    if(img.complete&&!img.naturalWidth)fail();
+    img.addEventListener("error",failed,{once:true});
+    if(img.complete&&!img.naturalWidth)failed();
+  });
+}
+function renderAll(t){
+  const originals=(media[t.id]||[]);
+  $("#tip-steps").innerHTML=t.steps.map((s,i)=>'<li><div class="step-copy">'+escapeHTML(s)+'</div>'+(originals.some(m=>m.step===i)?'<div class="step-visual">'+visualAt(t,i)+'</div>':"")+'</li>').join("");
+  $("#tip-illustration").innerHTML=originals.length?"":visualMap(t,0);
+  attachVisualFallback($("#all-steps"));
+}
+function renderGuided(){
+  const t=tipMap.get(state.tip);if(!t)return;
+  const i=state.step;
+  $("#guided-position").textContent="Step "+(i+1)+" of "+t.steps.length;
+  $("#guided-heading").textContent="Step "+(i+1);
+  $("#guided-text").textContent=t.steps[i];
+  $("#guided-image").innerHTML=visualAt(t,i);
+  $("#guided-prev").disabled=i===0;
+  $("#guided-next").textContent=i===t.steps.length-1?"See all steps →":"Next step →";
+  attachVisualFallback($("#guided-steps"));
+}
+function setMode(mode){
+  state.mode=mode==="guided"?"guided":"all";
+  $("#mode-all").setAttribute("aria-pressed",String(state.mode==="all"));
+  $("#mode-guided").setAttribute("aria-pressed",String(state.mode==="guided"));
+  $("#all-steps").hidden=state.mode!=="all";
+  $("#guided-steps").hidden=state.mode!=="guided";
+  if(state.mode==="guided")renderGuided();
+  $(".dialog-content").scrollTop=0;
+}
+function renderRelated(t){
+  const same=tips.filter(x=>x.category===t.category&&x.id!==t.id);
+  const selected=same.slice(0,2);
+  $("#related-wrap").hidden=selected.length===0;
+  $("#related-tips").innerHTML='<div class="related-grid">'+selected.map(x=>'<button class="related-tip" data-tip="'+x.id+'" type="button"><span>'+escapeHTML(x.title)+'</span><span aria-hidden="true">→</span></button>').join("")+'</div>';
+}
+function helpFor(t){
+  const byApp={
+    MacBook:"Mac settings and controls can differ by macOS version, keyboard and school-managed restrictions.",
+    Outlook:"New Outlook for Mac and Outlook in the browser may show different menus. The account type can also affect availability.",
+    Teams:"Teams can show combined Chat and Teams views, depending on the version and school account.",
+    Chrome:"Make sure Chrome is the active application. Some menu options depend on your Chrome version."
+  }[t.category];
+  return (t.note?"<p><strong>For this tip:</strong> "+escapeHTML(t.note)+"</p>":"")+
+    "<ul><li>Check that you're using the correct app and the latest available version.</li><li>"+escapeHTML(byApp)+"</li><li>Use the official support link below for current, vendor-specific instructions.</li></ul>";
+}
+const dialog=$("#tip-dialog");
+function renderTip(id,pushed=false){
+  const t=tipMap.get(id);if(!t)return;
+  cancelSpeech();
+  state.tip=id;state.mode="all";state.step=0;state.fromPush=pushed;
+  if(!dialog.open){previousFocus=document.activeElement;dialog.showModal();}
+  $("#tip-kicker").textContent=t.category.toUpperCase()+(t.bonus?" · BONUS TIP":" · HOW-TO GUIDE");
+  $("#tip-title").textContent=t.title;
+  $("#tip-intro").textContent="A practical reference to follow on your own device. Use the step-by-step view if you'd prefer one instruction at a time.";
+  $("#tip-location").textContent=t.where;
+  $("#tip-try").textContent=t.try;
+  $("#tip-help-body").innerHTML=helpFor(t);
+  $("#tip-help").open=false;
+  $("#tip-reviewed").textContent="Content reviewed 2 Nov 2026 · menus may vary";
+  $("#tip-official").href=safeSource(t.source);
+  $("#tip-fav").textContent=favourites.has(id)?"♥":"♡";
+  $("#tip-fav").setAttribute("aria-pressed",String(favourites.has(id)));
+  $("#tip-fav").setAttribute("aria-label",favourites.has(id)?"Remove saved tip":"Save this tip");
+  $("#mode-all").setAttribute("aria-pressed","true");
+  $("#mode-guided").setAttribute("aria-pressed","false");
+  $("#all-steps").hidden=false;$("#guided-steps").hidden=true;
+  renderAll(t);renderRelated(t);
+  $(".dialog-content").scrollTop=0;$("#tip-title").focus({preventScroll:true});
+}
+function openTip(id){
+  if(!tipMap.has(id))return;
+  if(dialog.open&&state.tip===id)return;
+  if(dialog.open){
+    history.replaceState({tip:id},"","#tip-"+id);
+    renderTip(id,true);
+  }else{
+    history.pushState({tip:id},"","#tip-"+id);
+    renderTip(id,true);
   }
-
-  function renderGuided(){const t=tipById.get(state.lesson);if(!t)return;
-    const count=t.steps.length+1,index=state.step,practice=index===t.steps.length;
-    $("#step-count").textContent=practice?"Practice and check":"Step "+(index+1)+" of "+t.steps.length;
-    $("#step-percent").textContent=Math.round((index+1)/count*100)+"%";
-    $("#lesson-progress").max=count;$("#lesson-progress").value=index+1;
-    $("#step-heading").textContent=practice?"Try it yourself":("Step "+(index+1)+": "+(index===0?"Find the control":index===1?"Make the change":"Check and finish"));
-    $("#step-description").textContent=practice?t.try:t.steps[index];
-    $("#step-visual").innerHTML=practice?'<div class="try-box"><strong>CHECK YOUR LEARNING</strong><p>Try it on your own device. Did it work?</p></div><div class="lesson-outcome"><button type="button" class="button primary-button" data-outcome="worked">✓ Yes, it worked</button><button type="button" class="button outline-button" data-outcome="help">Not yet — help me</button></div>':visualForStep(t,index);
-    if(!practice)wireVisualFallback();
-    $("#step-prev").disabled=index===0;$("#step-next").hidden=practice;
-    $("#step-next").textContent=index===t.steps.length-1?"Try it yourself →":"Next step →";
-    $("#lesson-feedback").hidden=true;
+}
+function syncLocation(){
+  const match=location.hash.match(/^#tip-([tb][0-9]{2})$/);
+  if(match&&tipMap.has(match[1])){
+    if(!dialog.open||state.tip!==match[1])renderTip(match[1],false);
+    return;
   }
-  function setMode(mode){state.mode=mode==="quick"?"quick":"guided";
-    $("#mode-guided").setAttribute("aria-pressed",String(state.mode==="guided"));
-    $("#mode-quick").setAttribute("aria-pressed",String(state.mode==="quick"));
-    $("#guided-panel").hidden=state.mode!=="guided";$("#quick-panel").hidden=state.mode!=="quick";$("#lesson-feedback").hidden=true;
-    $(".lesson-body").scrollTop=0;
+  if(dialog.open){
+    cancelSpeech();dialog.close();state.tip=null;state.fromPush=false;
+    if(previousFocus?.isConnected)previousFocus.focus({preventScroll:true});
+    else $("#library-query").focus({preventScroll:true});
   }
-  function helpNow(){const details=$("#lesson-help");details.open=true;details.querySelector("summary").focus();details.scrollIntoView({block:"nearest"});notify("Try the alternative suggestions below.");}
-  function copyLessonLink(){const url=location.origin+location.pathname+"#tip-"+state.lesson;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(()=>notify("Link copied.")).catch(()=>window.prompt("Copy this link:",url));}else window.prompt("Copy this link:",url);}
-  function startSpeech(){if(!("speechSynthesis" in window)||!state.lesson)return;
-    const btn=$("#speak-lesson");if(readAloud){speechSynthesis.cancel();readAloud=null;btn.textContent="▶ Listen to instructions";return;}
-    const t=tipById.get(state.lesson);const content=[t.title,"Where to go: "+t.where,...t.steps.map((s,i)=>"Step "+(i+1)+". "+s),"Try it: "+t.try].join(". ");
-    const utterance=new SpeechSynthesisUtterance(content);utterance.lang="en-US";utterance.rate=.92;utterance.onend=()=>{readAloud=null;btn.textContent="▶ Listen to instructions";};utterance.onerror=()=>{readAloud=null;btn.textContent="▶ Listen to instructions";};
-    readAloud=utterance;speechSynthesis.speak(utterance);btn.textContent="■ Stop reading";
-  }
-  function mountSpeakButton(){if(!("speechSynthesis" in window))return;const btn=document.createElement("button");btn.id="speak-lesson";btn.className="listen-button";btn.type="button";btn.textContent="▶ Listen to instructions";btn.addEventListener("click",startSpeech);$(".mode-toolbar").insertAdjacentElement("afterend",btn);}
-  function renderShortcuts(){const items=[["Spotlight","⌘ Space"],["Switch apps","⌘ Tab"],["Screen recording","⇧ ⌘ 5"],["Chrome: find on page","⌘ F"],["Restore closed tab","⇧ ⌘ T"]];$("#shortcut-list").innerHTML=items.map(i=>'<div class="shortcut-item"><span>'+escapeHTML(i[0])+'</span><kbd>'+escapeHTML(i[1])+'</kbd></div>').join("");}
-  function renderQuiz(){if(state.quizDone){const total=QUIZ.length;$("#quiz-active").hidden=true;$("#quiz-results").hidden=false;$("#quiz-progress").textContent=total+" / "+total;
-      $("#quiz-score").textContent=state.quizCorrect+" of "+total+" correct";
-      $("#quiz-summary").textContent=state.quizCorrect===total?"You know these shortcuts well. Try them during your next working day.":"Great effort. Review any unfamiliar shortcuts below, then try another round.";
-      $("#quiz-review").innerHTML=state.quizWrong.length?'<p>Good lessons to revisit:</p>'+state.quizWrong.map(id=>'<button class="button outline-button quiz-review-link" type="button" data-tip="'+id+'">'+escapeHTML(tipById.get(id)?.title||id)+' →</button>').join(""):"";return;
+}
+function closeTip(){
+  if(!dialog.open)return;
+  if(state.fromPush)history.back();
+  else{history.replaceState({},"","#library");syncLocation();}
+}
+function copyTip(){
+  const url=location.origin+location.pathname+"#tip-"+state.tip;
+  if(navigator.clipboard?.writeText)navigator.clipboard.writeText(url).then(()=>announce("Tip link copied.")).catch(()=>prompt("Copy this link:",url));
+  else prompt("Copy this link:",url);
+}
+function cancelSpeech(){if(reading){window.speechSynthesis?.cancel();reading=null;}const b=$("#listen-tip");if(b)b.textContent="▶ Listen to instructions";}
+function listen(){
+  const t=tipMap.get(state.tip);
+  if(!t||!("speechSynthesis" in window))return;
+  if(reading){cancelSpeech();return;}
+  const words=[t.title,"Where to go: "+t.where,...t.steps.map((s,i)=>"Step "+(i+1)+". "+s),"Useful to try: "+t.try].join(". ");
+  const utterance=new SpeechSynthesisUtterance(words);utterance.lang="en-US";utterance.rate=.92;
+  utterance.onend=()=>{reading=null;$("#listen-tip").textContent="▶ Listen to instructions";};
+  utterance.onerror=()=>{reading=null;$("#listen-tip").textContent="▶ Listen to instructions";};
+  reading=utterance;speechSynthesis.speak(utterance);$("#listen-tip").textContent="■ Stop reading";
+}
+function mountListen(){
+  if(!("speechSynthesis" in window))return;
+  const button=document.createElement("button");button.id="listen-tip";button.className="listen-button";button.type="button";button.textContent="▶ Listen to instructions";button.addEventListener("click",listen);
+  $(".tip-modes").insertAdjacentElement("afterend",button);
+}
+function setupEvents(){
+  $("#hero-search").addEventListener("submit",e=>{e.preventDefault();searchFor($("#hero-query").value);});
+  $("#library-query").addEventListener("input",e=>{state.query=e.target.value.trim();state.shown=55;$("#hero-query").value=e.target.value;renderTips();});
+  $("#sort-by").addEventListener("change",e=>{state.sort=e.target.value;renderTips();});
+  $("#saved-only").addEventListener("change",e=>{state.savedOnly=e.target.checked;state.collection=null;state.shown=55;renderTips();});
+  $("#clear-filters").addEventListener("click",()=>{reset();$("#library-query").focus();});
+  $("#load-more").addEventListener("click",()=>{state.shown=Math.min(state.shown+15,tips.length);renderTips();});
+  $("#header-search").addEventListener("click",()=>{scrollToID("top");$("#hero-query").focus();});
+  $("#menu-toggle").addEventListener("click",()=>{const isOpen=$("#main-nav").classList.toggle("open");$("#menu-toggle").setAttribute("aria-expanded",String(isOpen));});
+  $$(".main-nav a").forEach(a=>a.addEventListener("click",navClose));
+  $("#view-saved").addEventListener("click",()=>{reset();state.savedOnly=true;state.shown=55;renderTips();scrollToID("library");$("#library-query").focus();});
+  $("#clear-saved").addEventListener("click",()=>{if(favourites.size===0)return;if(!confirm("Remove all saved tips from this browser?"))return;favourites.clear();saveFavourites();renderTips();renderSaved();announce("Saved tips cleared.");});
+  $("#language").addEventListener("change",e=>{lang=e.target.value;try{localStorage.setItem("macbook-lang",JSON.stringify(lang));}catch{}translate();});
+  $("#mode-all").addEventListener("click",()=>setMode("all"));$("#mode-guided").addEventListener("click",()=>setMode("guided"));
+  $("#guided-prev").addEventListener("click",()=>{state.step=Math.max(0,state.step-1);renderGuided();$("#guided-heading").focus();});
+  $("#guided-next").addEventListener("click",()=>{const t=tipMap.get(state.tip);if(state.step===t.steps.length-1){setMode("all");$("#mode-all").focus();return;}state.step++;renderGuided();$("#guided-heading").focus();});
+  $("#tip-back").addEventListener("click",e=>{e.preventDefault();closeTip();});
+  $("#tip-close").addEventListener("click",closeTip);
+  $("#tip-fav").addEventListener("click",()=>changeFavourite(state.tip,false));
+  $("#tip-copy").addEventListener("click",copyTip);
+  $("#tip-print").addEventListener("click",()=>window.open("./print.html?tip="+encodeURIComponent(state.tip),"_blank","noopener"));
+  dialog.addEventListener("cancel",e=>{e.preventDefault();closeTip();});
+  dialog.addEventListener("click",e=>{if(e.target===dialog)closeTip();});
+  document.addEventListener("click",e=>{
+    const button=e.target.closest("button");if(!button)return;
+    if(button.dataset.tip){openTip(button.dataset.tip);return;}
+    if(button.dataset.save){changeFavourite(button.dataset.save,true);return;}
+    if(button.dataset.category){selectCategory(button.dataset.category);return;}
+    if(button.dataset.filter){state.category=button.dataset.filter;state.collection=null;state.query="";state.shown=55;$("#hero-query").value="";$("#library-query").value="";renderTips();return;}
+    if(button.dataset.searchTerm){searchFor(button.dataset.searchTerm);return;}
+    if(button.dataset.collection){selectCollection(Number(button.dataset.collection));return;}
+    if(button.dataset.reset){reset();$("#library-query").focus();}
+  });
+  document.addEventListener("keydown",e=>{
+    if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="k"){
+      e.preventDefault();
+      if(dialog.open)closeTip();
+      scrollToID("library");$("#library-query").focus();
     }
-    $("#quiz-active").hidden=false;$("#quiz-results").hidden=true;const q=QUIZ[state.quizIndex];
-    $("#quiz-progress").textContent=(state.quizIndex+1)+" / "+QUIZ.length;
-    $("#quiz-question").textContent=q.question;
-    $("#quiz-options").innerHTML=q.choices.map((choice,i)=>'<button type="button" data-quiz-choice="'+i+'" aria-label="'+escapeHTML(choice)+'">'+escapeHTML(choice)+'</button>').join("");
-    $("#quiz-next").disabled=true;
-    $("#quiz-next").textContent=state.quizIndex===QUIZ.length-1?"See my result →":"Next question →";
-    $("#quiz-feedback").textContent="Choose an answer.";
-  }
-  function chooseQuizAnswer(choice){if(state.quizChoice!==null)return;const q=QUIZ[state.quizIndex];state.quizChoice=choice;
-    if(choice===q.answer)state.quizCorrect++;else state.quizWrong.push(q.tip);
-    $$("[data-quiz-choice]").forEach(btn=>{const i=Number(btn.dataset.quizChoice);btn.disabled=true;if(i===q.answer)btn.classList.add("correct");else if(i===choice)btn.classList.add("incorrect");});
-    $("#quiz-feedback").textContent=choice===q.answer?"Correct! Try this shortcut the next time you work.":"The answer is "+q.choices[q.answer]+". You can revisit the related lesson.";
-    $("#quiz-next").disabled=false;
-  }
-  function advanceQuiz(){if(state.quizChoice===null)return;if(state.quizIndex===QUIZ.length-1)state.quizDone=true;else state.quizIndex++;state.quizChoice=null;renderQuiz();if(state.quizDone)$("#quiz-score").focus?.();}
-  function restartQuiz(){state.quizIndex=0;state.quizChoice=null;state.quizCorrect=0;state.quizWrong=[];state.quizDone=false;renderQuiz();$("#quiz-question").focus();}
-  function exportProgress(){const record={version:1,site:"MacBook Productivity",exportedAt:new Date().toISOString(),completed:[...done],favorites:[...faves],recent:recent};const blob=new Blob([JSON.stringify(record,null,2)],{type:"application/json"});
-    const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="macbook-learning-progress.json";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);notify("Your local progress file has been downloaded.");}
-  async function importProgress(file){if(!file)return;if(file.size>100000){notify("This progress file is too large.");return;}
-    try{const j=JSON.parse(await file.text());if(j.version!==1||!Array.isArray(j.completed)||!Array.isArray(j.favorites))throw new Error("Unexpected file format");
-      if(!window.confirm("Replace the saved progress on this browser with the data in this file?"))return;
-      done=new Set(cleanIds(j.completed));faves=new Set(cleanIds(j.favorites));recent=cleanIds(j.recent).slice(0,8);saveLocal();refreshProgress();renderTips();notify("Progress imported.");
-    }catch{notify("Import failed. Please use a progress file exported from this website.");}finally{$("#import-progress").value="";}}
-  function setupEvents(){
-    $("#hero-search").addEventListener("submit",e=>{e.preventDefault();state.category="All";state.path=null;state.savedOnly=false;setSearch($("#hero-query").value,true);});
-    $("#library-query").addEventListener("input",e=>{state.query=e.target.value.trim();state.visible=55;$("#hero-query").value=e.target.value;renderTips();});
-    $("#sort-by").addEventListener("change",e=>{state.sort=e.target.value;renderTips();});
-    $("#saved-only").addEventListener("change",e=>{state.savedOnly=e.target.checked;state.visible=55;state.path=null;renderTips();});
-    $("#clear-filters").addEventListener("click",()=>{resetFilters();$("#library-query").focus();});
-    $("#load-more").addEventListener("click",()=>{state.visible=Math.min(state.visible+15,allTips.length);renderTips();});
-    $("#menu-toggle").addEventListener("click",()=>{const open=$("#main-nav").classList.toggle("is-open");$("#menu-toggle").setAttribute("aria-expanded",String(open));});
-    $$(".main-nav a").forEach(a=>a.addEventListener("click",closeNav));
-    $("#header-search").addEventListener("click",()=>{scrollToId("top");$("#hero-query").focus();});
-    $("#language").addEventListener("change",e=>{lang=e.target.value;try{localStorage.setItem("macbook-lang",JSON.stringify(lang));}catch{}applyTranslations();});
-    $("#view-saved").addEventListener("click",()=>{resetFilters();state.savedOnly=true;state.visible=55;renderTips();scrollToId("library");$("#library-query").focus();});
-    $("#view-incomplete").addEventListener("click",()=>{const next=allTips.find(t=>!done.has(t.id));if(next)goToTip(next.id);else notify("You've practised every lesson. Well done!");});
-    $("#export-progress").addEventListener("click",exportProgress);
-    $("#import-button").addEventListener("click",()=>$("#import-progress").click());
-    $("#import-progress").addEventListener("change",e=>importProgress(e.target.files[0]));
-    $("#reset-progress").addEventListener("click",()=>{if(!window.confirm("Reset all saved and completed lessons on this browser? This cannot be undone unless you exported a backup."))return;done.clear();faves.clear();recent=[];saveLocal();refreshProgress();renderTips();notify("Learning progress cleared.");});
-    $("#quiz-next").addEventListener("click",advanceQuiz);$("#quiz-restart").addEventListener("click",restartQuiz);
-    $("#lesson-close").addEventListener("click",requestClose);$("#lesson-back").addEventListener("click",e=>{e.preventDefault();requestClose();});
-    $("#lesson-save").addEventListener("click",()=>toggleSaved(state.lesson,false));
-    $("#lesson-print").addEventListener("click",()=>window.open("./print.html?tip="+encodeURIComponent(state.lesson),"_blank","noopener"));
-    $("#lesson-copy").addEventListener("click",copyLessonLink);
-    $("#mode-guided").addEventListener("click",()=>setMode("guided"));$("#mode-quick").addEventListener("click",()=>setMode("quick"));
-    $("#step-prev").addEventListener("click",()=>{state.step=Math.max(0,state.step-1);renderGuided();$("#step-heading").focus?.();});
-    $("#step-next").addEventListener("click",()=>{const t=tipById.get(state.lesson);state.step=Math.min(t.steps.length,state.step+1);renderGuided();$("#step-heading").setAttribute("tabindex","-1");$("#step-heading").focus();});
-    $("#quick-complete").addEventListener("click",()=>markPractised(state.lesson));$("#quick-help").addEventListener("click",helpNow);
-    dialog.addEventListener("cancel",e=>{e.preventDefault();requestClose();});
-    dialog.addEventListener("click",e=>{if(e.target===dialog)requestClose();});
-    document.addEventListener("click",e=>{const tip=e.target.closest("[data-tip]");if(tip){goToTip(tip.dataset.tip);return;}
-      const fav=e.target.closest("[data-save]");if(fav){toggleSaved(fav.dataset.save,true);return;}
-      const cat=e.target.closest("[data-category]");if(cat){setCategory(cat.dataset.category,true);return;}
-      const filter=e.target.closest("[data-filter]");if(filter){setCategory(filter.dataset.filter,false);return;}
-      const path=e.target.closest("[data-path]");if(path){showPath(Number(path.dataset.path));return;}
-      const choice=e.target.closest("[data-quiz-choice]");if(choice){chooseQuizAnswer(Number(choice.dataset.quizChoice));return;}
-      if(e.target.closest("[data-reset]")){resetFilters();$("#library-query").focus();}
-      const outcome=e.target.closest("[data-outcome]");if(outcome){outcome.dataset.outcome==="worked"?markPractised(state.lesson):helpNow();}
-    });
-    document.addEventListener("keydown",e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="k"){e.preventDefault();if(dialog.open)requestClose();scrollToId("library");$("#library-query").focus();}});
-    window.addEventListener("popstate",showFromUrl);window.addEventListener("hashchange",showFromUrl);
-  }
-  function init(){
-    $("#hero-count").textContent=String(allTips.length);renderPopular();renderCategories();renderFilters();renderShortcuts();renderTips();refreshProgress();renderQuiz();applyTranslations();mountSpeakButton();setupEvents();
-    if(location.hash.startsWith("#tip-"))showFromUrl();
-    if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js").catch(()=>{}));
-  }
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+  });
+  window.addEventListener("popstate",syncLocation);
+  window.addEventListener("hashchange",syncLocation);
+}
+function init(){
+  $("#hero-count").textContent=String(tips.length);
+  renderPopular();renderCategories();renderFilters();renderTips();renderCollections();renderShortcuts();renderSaved();translate();mountListen();setupEvents();
+  if(location.hash.startsWith("#tip-"))syncLocation();
+  if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js").catch(()=>{}));
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
 })();
