@@ -105,8 +105,30 @@
   }
   function getSegments(t){let steps=t.where.replace(/\s*;\s*/g," → ").split(/\s*→\s*/).map(s=>s.trim()).filter(Boolean);
     if(steps.length>5)steps=steps.slice(0,5);return steps.length?steps:[t.category];}
-  function visualMap(t,index){const parts=getSegments(t);const current=Math.min(index,parts.length-1);
-    return '<div class="visual-map" aria-hidden="true"><div class="visual-top"><span class="visual-dots"><i></i><i></i><i></i></span><span>'+escapeHTML(t.category)+' — where to look</span><span>•••</span></div><div class="visual-screen"><div class="visual-sidebar"><b>'+escapeHTML(t.category.toUpperCase())+'</b><div></div><div></div><div></div><div></div></div><div class="visual-main"><h4>Follow this location path</h4><div class="visual-crumbs">'+parts.map((s,i)=>'<span class="visual-crumb '+(i===current?"current":"")+'">'+escapeHTML(s)+'</span>').join("")+'</div><div class="visual-line"></div><div class="visual-line short"></div></div></div></div><p class="visual-caption"><strong>Illustrative map, not a screenshot.</strong> Menus and controls may look different on your device.</p>';
+  function visualMap(t,index){
+    const parts=getSegments(t), current=Math.min(index,parts.length-1);
+    const caption='<p class="visual-caption"><strong>Illustrative guide, not a screenshot.</strong> Use the written directions above; exact menus vary by device and app version.</p>';
+    const rawShortcut=parts[parts.length-1];
+    const isShortcut=/[⌘⇧⌥]/.test(rawShortcut)||/^Control\s*\+|^Space$|^Spacebar$/i.test(rawShortcut);
+    let inner="";
+    if(isShortcut){
+      const keys=rawShortcut.replace(/Command/g,"⌘").replace(/Shift/g,"⇧").replace(/Option/g,"⌥").split(/\s*\+\s*|\s+/).filter(Boolean);
+      inner='<div class="key-visual"><p class="key-visual-label">USE YOUR KEYBOARD</p><div class="key-row">'+keys.map(k=>'<kbd>'+escapeHTML(k)+'</kbd>').join('<span class="key-plus" aria-hidden="true">+</span>')+'</div><p class="key-visual-note">'+(t.category==="Chrome"?"Keep Chrome selected when using this shortcut.":"Press the keys together while working in the relevant app.")+'</p></div>';
+      if(t.id==="t22"||t.id==="b02"){
+        inner+='<div class="mock-toolbar"><span>Screenshot controls</span><div class="toolbar-items"><span>▣ Capture</span><span class="toolbar-feature">◉ Record screen</span><span>⚙ Options</span></div></div>';
+      }
+    }else{
+      const sidebar={
+        MacBook:["System Settings","General","Desktop & Dock","Trackpad","Control Center"],
+        Outlook:["Inbox","Mail","Calendar","Settings","Rules"],
+        Teams:["Activity","Chat","Teams","Calendar","Settings"],
+        Chrome:["Tabs","Address bar","Bookmarks","History","Settings"]
+      }[t.category];
+      const appName={MacBook:"macOS",Outlook:"Outlook",Teams:"Microsoft Teams",Chrome:"Google Chrome"}[t.category];
+      const currentLabel=parts[current]||parts[0];
+      inner='<div class="visual-screen"><div class="visual-sidebar"><b>'+escapeHTML(appName)+'</b>'+sidebar.map(label=>'<div class="visual-sidebar-entry '+(t.where.toLowerCase().includes(label.toLowerCase())?"is-related":"")+'">'+escapeHTML(label)+'</div>').join("")+'</div><div class="visual-main"><div class="visual-main-title"><h4>Find this area in '+escapeHTML(appName)+'</h4><span class="visual-active-badge">Step '+(index+1)+'</span></div>'+(t.category==="Chrome"?'<div class="visual-address">⌕ &nbsp; '+escapeHTML(parts.includes("@tabs")?"@tabs":parts.includes("@history")?"@history":parts.includes("@bookmarks")?"@bookmarks":"Search or enter a website address")+'</div>':"")+'<div class="visual-crumbs">'+parts.map((part,i)=>'<span class="visual-crumb '+(i===current?"current":"")+'">'+escapeHTML(part)+'</span>').join('<span class="visual-chevron" aria-hidden="true">›</span>')+'</div><div class="visual-target"><span class="visual-target-dot" aria-hidden="true"></span><div><strong>'+escapeHTML(currentLabel)+'</strong><small>Look for this label or equivalent control</small></div><span class="visual-target-arrow" aria-hidden="true">◀</span></div></div></div>';
+    }
+    return '<div class="visual-map" aria-hidden="true"><div class="visual-top"><span class="visual-dots"><i></i><i></i><i></i></span><span>'+escapeHTML(t.category)+' · Visual orientation</span><span class="visual-top-right">GUIDE</span></div>'+inner+'</div>'+caption;
   }
   const dialog=$("#lesson-dialog");
   function renderLesson(id,historyEntry){const t=tipById.get(id);if(!t)return;
