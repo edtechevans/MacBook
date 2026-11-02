@@ -1,69 +1,50 @@
-# MacBook Productivity — AISG Faculty Learning
+# MacBook Productivity — AISG faculty reference
 
-Live site: https://edtechevans.github.io/MacBook/
+**Live website:** https://edtechevans.github.io/MacBook/
 
-A modern, accessible, mobile-friendly, self-paced learning companion for MacBook, Outlook, Teams and Google Chrome. It contains **51 reviewed PD walkthroughs and four clearly labelled bonus tips**.
+This is a lightweight, accessible **productivity tips reference**, not a training course. It contains 51 reviewed PD tips and 4 bonus entries covering macOS, Outlook, Microsoft Teams and Chrome.
 
-## Learner experience
+## How people use it
 
-Start with the working homepage search, browse by application or follow a six-skill pathway. Walkthroughs include:
+- Search from the homepage for what they need, in everyday language
+- Browse the four applications or curated topic collections
+- Open any tip to see **all instructions immediately**, including exact menu/shortcut paths
+- Switch to **one step at a time** when detailed guidance would help
+- View genuine publisher-owned screenshots in selected tips, with links to original sources, clear licensing acknowledgements and an illustrated fallback
+- Open a short cheat sheet of common keyboard shortcuts
+- Save favourite tips in the same browser for future reference
+- Copy a direct link to any tip, open official vendor support or print full written instructions
 
-- Guided mode: one action at a time, a conceptual visual orientation map or keyboard diagram, progress, and a practice activity.
-- Quick answer: the same verified instructions in one compact view.
-- Help: account/version caveats and vendor documentation.
-- Optional read-aloud: browser speech playback where supported, with full written steps always available.
-- Save and share: favourites, deep links, and printable versions of individual tips or all 55.
-- Practice lab: shortcut quiz and local progress tracking with personalised suggestions.
+**No quizzes, assessment scores, learning-completion buttons, progress dashboards or practice requirements** appear in the public experience. A "Useful to try" suggestion is optional advice, not an assessment.
 
-Settings and learning progress are stored in the visitor's browser. No accounts, student information, analytics, or cloud sync. A small JSON progress backup can be exported/imported; the site also has offline support after its first successful visit in compatible browsers.
+The site does not collect identities, student information, analytics, account data or assessment records. Favourites are saved only in local storage on the visitor's device; no account is required.
 
-**Language:** Interface navigation offers English, Simplified Chinese and Korean. Detailed step-by-step lesson instructions remain in English until each technical translation is verified.
+## Content
 
-**Visual accuracy:** Most guided lessons use conceptual maps; selected lessons now also show genuine, unaltered publisher-hosted screenshots. Official vendor documentation accompanies every lesson. See docs/MAINTAINING.md for guidance on creating and validating real annotated screenshots.
+- content.js: 55 instruction records with stable IDs, app, title, location, three instructions, optional note, safe example and official reference
+- lesson-media.js: carefully selected publisher-hosted screenshots with their source and alt text
+- docs/SCREENSHOT_SOURCES.md: image provenance, restrictions and future image maintenance
+- index.html / styles.css / app.js: reference interface and tip viewer
+- print.html / print.js: full printable instructions and individual printable tips
+- service-worker.js: optional offline caching after the first supported visit
+- docs/MAINTAINING.md: editorial and accessibility maintenance
 
-## Local development
+Menus and features change depending on app version, macOS version, account type and school-managed settings. Do not assume that any screenshot represents the exact AISG configuration. Detailed tips are in English; main navigation offers optional Chinese/Korean translation.
 
-Start a local server with: python3 -m http.server 8080
+## Development
 
-Open http://localhost:8080/. The standalone printable guide is at /print.html; print a particular tip via /print.html?tip=t22.
+No production framework, backend or build pipeline is needed:
 
-The site has no production dependencies or backend. Source files:
-- index.html: structure and accessibility landmarks
-- styles.css: responsive high-contrast interface
-- content.js: 55 lesson records
-- app.js: search, lessons, history, progress, quiz and UI options
-- print.html and print.js: full print-to-PDF guide
-- service-worker.js, manifest.webmanifest: optional install/offline experience
-- tests/: static and real-browser checks
+1. Start a local server: python3 -m http.server 8080
+2. Open http://127.0.0.1:8080
+3. Open /print.html for the full printable reference; /print.html?tip=t22 for a particular tip
 
-## Updating lessons
+## Behind-the-scenes quality checks
 
-Edit content.js; retain a lesson's stable ID so deep links and saved progress survive. Each lesson needs category, title, location, exactly three short instructions, a safe practice activity, any app/version caveat and an official HTTPS support source.
+Testing is for **developers, not learners**. It is not part of the public site's navigation.
 
-1. Verify instructions against Apple, Microsoft or Google and a representative school-managed device.
-2. Make minimal, accurate changes with no student/private data.
-3. Run tests and check screenshots.
-4. Update review date statements after re-auditing.
-5. Publish via main after checks succeed.
+Run npm install, npm run check, npx playwright install chromium, then run the local web server in a separate terminal and execute npm run test:browser. GitHub Actions checks source integrity, search, keyboard behaviour, mobile reflow, external image/fallback integration and automated WCAG 2.2 AA rules before deployment.
 
-Full editorial and visual evidence instructions: docs/MAINTAINING.md.
+GitHub Pages deploys automatically from main after quality checks pass. Automated checks are not a substitute for manual screen reader, zoom, keyboard or faculty usability review.
 
-## Test and deploy
-
-Install dev tools: npm install
-
-Run static checks: npm run check
-
-Install Chromium for testing: npx playwright install chromium
-
-Start local HTTP server in a separate terminal, then run: npm run test:browser
-
-GitHub Actions performs those checks automatically on pushes to the development branch and main. When main passes, Pages deploys to the live site. The repository must have Pages configured to use GitHub Actions.
-
-**Accessibility:** WCAG 2.2 AA is the design target, not a certification. Automation should be supplemented with VoiceOver, keyboard-only, zoom, cognitive accessibility and real faculty testing.
-
-This independent learning resource is not affiliated with Apple, Microsoft or Google.
-
-## Actual platform screenshots
-
-A first set of official product screenshots now appears at the correct steps in selected MacBook, Outlook, Teams and Chrome walkthroughs. These are original vendor-hosted images, scaled proportionally, with source attribution, an image link and an illustrated alternative. See [sources and usage](docs/SCREENSHOT_SOURCES.md). Full in-app screenshots are not yet available for every tip.
+This independent resource is not affiliated with Apple, Microsoft or Google.

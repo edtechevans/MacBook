@@ -1,14 +1,14 @@
 {
-  "name": "MacBook Productivity — AISG Faculty Learning",
-  "short_name": "Productivity Lab",
-  "description": "Accessible self-paced learning for MacBook, Outlook, Teams and Chrome.",
+  "name": "MacBook Productivity | Tips Reference",
+  "short_name": "MacBook Tips",
+  "description": "A searchable, printable collection of MacBook, Outlook, Teams and Chrome productivity tips.",
   "id": "./",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#f8f8f5",
-  "theme_color": "#15283e",
+  "background_color": "#f8f8f6",
+  "theme_color": "#14283e",
   "icons": [
     {
       "src": "./favicon.svg",

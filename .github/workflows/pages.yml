@@ -1,7 +1,7 @@
-name: Test and publish accessible MacBook Productivity
+name: Validate and publish MacBook Productivity
 on:
   push:
-    branches: [main, redesign-accessible-learning, real-platform-visuals]
+    branches: [main, reference-library-redesign]
   workflow_dispatch:
 permissions:
   contents: read
@@ -28,7 +28,7 @@ jobs:
         run: |
           npm install --no-audit --no-fund
           npx playwright install --with-deps chromium
-      - name: Test real desktop and phone interactions
+      - name: Test accessible tip finding and reference experience
         run: |
           python3 -m http.server 8080 --bind 127.0.0.1 > /tmp/macbook-http.log 2>&1 &
           sleep 2
