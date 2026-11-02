@@ -19,7 +19,7 @@ Settings and learning progress are stored in the visitor's browser. No accounts,
 
 **Language:** Interface navigation offers English, Simplified Chinese and Korean. Detailed step-by-step lesson instructions remain in English until each technical translation is verified.
 
-**Visual accuracy:** Guided illustrations are conceptual maps, **not authentic app screenshots**. Official vendor documentation accompanies every lesson. See docs/MAINTAINING.md for guidance on creating and validating real annotated screenshots.
+**Visual accuracy:** Most guided lessons use conceptual maps; selected lessons now also show genuine, unaltered publisher-hosted screenshots. Official vendor documentation accompanies every lesson. See docs/MAINTAINING.md for guidance on creating and validating real annotated screenshots.
 
 ## Local development
 

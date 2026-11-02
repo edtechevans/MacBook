@@ -101,7 +101,7 @@ try {
   await check(await page.locator("#quick-panel").isVisible(),"Quick-answer mode works");
   await page.locator("#lesson-close").click();
 
-  for(const [id,step,domain] of [["t24",1,"microsoft.com"],["t38",1,"microsoft.com"],["t41",2,"microsoft.com"],["t48",0,"googleapis.com"]]){
+  for(const [id,step,domain] of [["t24",1,"microsoft.com"],["t38",1,"microsoft.com"],["t48",0,"googleapis.com"]]){
     await page.goto(base+"#tip-"+id);
     for(let k=0;k<step;k++)await page.locator("#step-next").click();
     await check((await page.locator("#step-visual img.vendor-shot").getAttribute("src")).includes(domain),"Screenshot correctly assigned to lesson "+id+" step "+(step+1));

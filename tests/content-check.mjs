@@ -6,7 +6,7 @@ for(const file of ["app.js","content.js","lesson-media.js","print.js","service-w
 const context={window:{}};vm.runInNewContext(read("content.js"),context);
 vm.runInNewContext(read("lesson-media.js"),context);
 const media=context.window.LESSON_MEDIA;
-assert.equal(Object.keys(media).length,5,"Real images used only for five matched lessons");
+assert.equal(Object.keys(media).length,4,"Real images used only for four matched lessons");
 for(const [id,assets] of Object.entries(media)){
   assert(context.window.TIPS.some(t=>t.id===id),"Asset lesson exists");
   for(const asset of assets)assert(asset.step>=0&&asset.step<=2&&/^https:\/\//.test(asset.src)&&/^https:\/\//.test(asset.source)&&asset.alt.length>20,"Image metadata valid");

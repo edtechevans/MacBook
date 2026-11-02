@@ -14,9 +14,6 @@ window.LESSON_MEDIA = Object.freeze({
     {step:1,src:"https://support.microsoft.com/en-us/teams/media/teams-calendar-view.png",alt:"Microsoft Teams Calendar with the Work week menu expanded, listing Day, Work week, Week and Month.",caption:"Choose your calendar view · Microsoft Teams",vendor:"Microsoft Support",source:"https://support.microsoft.com/en-us/teams/meetings/get-started-with-the-microsoft-teams-calendar",note:"Unaltered official image; some calendar layouts differ by account."},
     {step:2,src:"https://support.microsoft.com/en-us/teams/media/teams-calendar-view.png",alt:"The Work week dropdown in Teams Calendar showing available calendar views.",caption:"Day, Work week, Week and Month",vendor:"Microsoft Support",source:"https://support.microsoft.com/en-us/teams/meetings/get-started-with-the-microsoft-teams-calendar",note:"Select the view that gives you the most helpful amount of detail."}
   ],
-  "t41": [
-    {step:2,src:"https://support.microsoft.com/en-us/teams/media/1mac.png",alt:"macOS notification settings screen for Microsoft Teams, showing the Allow notifications control.",caption:"Mac notification settings for Microsoft Teams",vendor:"Microsoft Support",source:"https://support.microsoft.com/en-us/teams/notifications-settings/manage-notifications-in-microsoft-teams",note:"This image illustrates macOS-level notification permissions, not the Teams in-app notification controls."}
-  ],
   "t48": [
     {step:0,src:"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/in-line_1.width-1200.format-webp.webp",alt:"Google Chrome right-click menu on a browser tab with Add tab to new group highlighted.",caption:"Add tab to new group · Google Chrome",vendor:"Google Chrome blog",source:"https://blog.google/products-and-platforms/products/chrome/help-me-out-how-to-organize-chrome-tabs/",note:"Original Google screenshot from 2022. The menu layout may be different in current Chrome."}
   ]
