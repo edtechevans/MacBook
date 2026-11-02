@@ -1,42 +1,62 @@
-name: Deploy MacBook Productivity to GitHub Pages
+name: Test and publish accessible MacBook Productivity
 on:
   push:
-    branches: [main]
+    branches: [main, redesign-accessible-learning]
   workflow_dispatch:
 permissions:
   contents: read
   pages: write
   id-token: write
 concurrency:
-  group: pages
+  group: macbook-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate content and accessibility foundations
+        run: |
+          set -euo pipefail
+          npm run check
+      - name: Install browser test tooling
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Test real desktop and phone interactions
+        run: |
+          python3 -m http.server 8080 --bind 127.0.0.1 > /tmp/macbook-http.log 2>&1 &
+          sleep 2
+          npm run test:browser
+      - name: Keep visual test screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: macbook-ui-checks
+          path: test-artifacts/
+          if-no-files-found: ignore
+          retention-days: 7
   deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: quality
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Validate website files and lesson library
-        shell: bash
-        run: |
-          set -euo pipefail
-          test -s index.html
-          test -s styles.css
-          test -s content.js
-          test -s app.js
-          test -s favicon.svg
-          node --check content.js
-          node --check app.js
-          node -e 'global.window={};require("./content.js");if(window.TIPS.length!==55||window.TIPS.filter(t=>!t.bonus).length!==51||window.TIPS.some(t=>!t.title||!t.steps||t.steps.length!==3))process.exit(1);console.log("Validated 51 core lessons and 4 bonus lessons");'
       - name: Configure Pages
         uses: actions/configure-pages@v5
-      - name: Upload static site
+      - name: Upload static website
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
