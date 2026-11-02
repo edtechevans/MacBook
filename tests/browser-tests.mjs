@@ -23,6 +23,9 @@ try{
  await yes(await page.locator("#category-grid .quick-app").count()===4,"Four pastel application buttons");
  await yes(await page.locator("#popular-grid .popular-card").count()===4,"Four illustrated popular tips render");
  await yes(await page.locator("#category-grid .quick-app-icon").evaluateAll(images=>images.length===4&&images.every(i=>i.complete&&i.naturalWidth>0)),"All four updated application icons load");
+ const iconsInUI=await page.locator("#category-grid .quick-app-icon").evaluateAll(images=>images.map(img=>({src:new URL(img.src).pathname,ratio:img.naturalWidth/img.naturalHeight,display:img.getBoundingClientRect().width})));
+ await yes(iconsInUI.length===4&&iconsInUI.every(i=>i.ratio>0.6&&i.ratio<1.5&&i.display>=35),"App vector icons have healthy proportions and usable sizes");
+
  await yes(await page.locator("#popular-grid .popular-art img").evaluateAll(images=>images.length===4&&images.every(i=>i.complete&&i.naturalWidth>0)),"All task illustration previews load");
  const chromeSource=await page.evaluate(()=>fetch("./assets/app-chrome.svg?v=10").then(r=>r.text()));
  await yes(chromeSource.includes("#ea4335")&&chromeSource.includes("#1a73e8"),"Chrome logo colours match the sourced SVG");

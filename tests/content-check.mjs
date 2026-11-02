@@ -69,6 +69,37 @@ assert(read("assets/app-outlook.svg").includes('viewBox="60 90.4 570.02 539.67"'
 assert(!read("assets/app-macbook.svg").includes("Finder"),"MacBook category does not pretend to be the Finder application");
 assert(!read("assets/hero-device.svg").includes('<text x="337"'),"No fake app logos remain in hero dock");
 assert(read("assets/hero-device.svg").includes("#ea4335"),"Hero has accurate Chrome artwork");
+const dock=read("assets/hero-device.svg");
+for(const [x,view,app] of [
+ [285,"0 0 72 72","MacBook laptop"],
+ [326,"60 90.4 570.02 539.67","Outlook 2025"],
+ [368,"4 4 36 38","Teams 2025"],
+ [410,"0 0 512 512","Chrome 2022"]]){
+ assert(dock.includes('<svg x="'+x+'" y="339" width="30" height="30" viewBox="'+view+'"'),"Correct icon in hero dock: "+app);
+}
+const thumb=read("assets/thumb-chrome.svg");
+assert(thumb.includes('<svg x="15" y="42" width="16" height="16" viewBox="0 0 512 512"'),"Chrome thumbnail cannot accidentally embed Teams or Outlook artwork");
+assert(!thumb.includes('viewBox="4 4 36 38"'),"Teams icon not reused as Chrome logo");
+const allMedia=context.window.LESSON_MEDIA;
+for(const [tipId,images] of Object.entries(allMedia)){
+ assert(ids.has(tipId),"Screenshot metadata references an existing tip");
+ const page=read("tips/"+tipId+".html");
+ for(const m of images){
+  assert(Number.isInteger(m.step)&&m.step>=0&&m.step<3,"Screenshot attached to valid step "+tipId);
+  assert(typeof m.alt==="string"&&m.alt.length>20,"Screenshot has meaningful alt text "+tipId);
+  const path=m.src.replace("./assets/","../assets/");
+  assert(page.includes(path),"Metadata and permanent guide image stay in sync for "+tipId);
+  const section=page.split('<section class="guide-step" id="step-'+(m.step+1)+'">')[1]?.split("</section>")[0];
+  assert(section?.includes(path),"Visual is associated with the correct step of "+tipId);
+  if(m.kind==="illustration"){
+   assert(section.includes("NOT A SCREENSHOT"),"Illustration must be visibly disclosed as such");
+  }else{
+   assert(/^https:\/\//.test(m.src)&&/^(Apple|Microsoft|Google)/.test(m.vendor),"Real screenshots need a direct official vendor source "+tipId);
+   assert(section.includes("REAL PLATFORM SCREENSHOT"),"Real screenshot classification must be explicit");
+  }
+ }
+}
+
 assert(read("assets/thumb-chrome.svg").includes("#ea4335"),"Popular Chrome art uses exact badge");
 assert(read("tips/t48.html").includes("ILLUSTRATED MENU PATH"),"Chrome diagram correctly labelled as illustration");
 assert(!read("tips/t48.html").includes("gweb-uniblog"),"Outdated Chrome 2022 screenshot has been retired");
