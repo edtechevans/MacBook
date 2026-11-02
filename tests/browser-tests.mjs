@@ -1,15 +1,18 @@
 import assert from "node:assert/strict";
+import {mkdirSync} from "node:fs";
 import {chromium} from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 const base="http://127.0.0.1:8080/";
 const browser=await chromium.launch({headless:true,args:["--no-sandbox"]});
 const page=await browser.newPage({viewport:{width:1370,height:900}});
 const errors=[];
+mkdirSync("test-artifacts",{recursive:true});
 page.on("pageerror",e=>errors.push(e.message));
 async function check(condition,message){assert(condition,message);console.log("PASS: "+message);}
 try {
   await page.goto(base,{waitUntil:"networkidle"});
   await check(await page.locator("#hero-title").isVisible(),"Homepage and hero render");
+  await page.screenshot({path:"test-artifacts/homepage-desktop.png",fullPage:true});
   await check(await page.locator("#category-grid .category-card").count()===4,"All four application categories render");
   await check(await page.locator("#popular-list button").count()===4,"Quick tasks are working buttons");
   await check((await page.locator("#result-count").textContent()).includes("55 lessons"),"All 55 lessons available");
@@ -23,6 +26,7 @@ try {
   await check(await page.locator("#lesson-dialog").isVisible(),"Guided lesson opens");
   await check((await page.locator("#lesson-title").textContent()).includes("record your screen"),"Correct lesson opens");
   await check(await page.locator(".visual-map").isVisible(),"Guided lesson includes visual location map");
+  await page.screenshot({path:"test-artifacts/guided-lesson-desktop.png"});
   await check((await page.locator(".visual-caption").textContent()).includes("not a screenshot"),"Illustrations are correctly labelled");
   await check(await page.locator("#step-prev").isDisabled(),"Step 1 has disabled previous control");
   for(let i=0;i<3;i++)await page.locator("#step-next").click();
@@ -56,6 +60,7 @@ try {
   await page.locator("#language").selectOption("en");
   await page.setViewportSize({width:375,height:812});
   await check(await page.locator("#menu-toggle").isVisible(),"Phone navigation adapts");
+  await page.screenshot({path:"test-artifacts/homepage-mobile.png",fullPage:true});
   await page.locator("#menu-toggle").click();
   await check(await page.locator("#main-nav").isVisible(),"Mobile navigation opens");
   await page.locator("#menu-toggle").click();
@@ -63,6 +68,7 @@ try {
   await check(width.scroll<=width.view+2,"No horizontal scrolling at 375px viewport: "+JSON.stringify(width));
   await page.locator("#popular-list [data-tip='t22']").click();
   await check(await page.locator("#lesson-dialog").isVisible(),"Phone lesson opens");
+  await page.screenshot({path:"test-artifacts/guided-lesson-mobile.png"});
   const dialogSize=await page.locator("#lesson-dialog").boundingBox();
   await check(dialogSize.width<=377&&dialogSize.height<=814,"Mobile dialog fits viewport");
   await page.locator("#mode-quick").click();
