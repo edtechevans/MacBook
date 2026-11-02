@@ -1,7 +1,7 @@
 name: Test and publish accessible MacBook Productivity
 on:
   push:
-    branches: [main, redesign-accessible-learning]
+    branches: [main, redesign-accessible-learning, real-platform-visuals]
   workflow_dispatch:
 permissions:
   contents: read
