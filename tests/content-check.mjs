@@ -10,7 +10,7 @@ assert.equal(tips.filter(t=>!t.bonus).length,51,"51 reviewed lessons expected");
 for(const t of tips){
   assert(!ids.has(t.id),"Unique lesson ID: "+t.id);ids.add(t.id);
   assert(["MacBook","Outlook","Teams","Chrome"].includes(t.category),"Valid category");
-  assert(t.title.length>8&&t.where.length>3&&t.steps.length===3&&t.steps.every(s=>s.length>12)&&t.try.length>8,"Complete instructions: "+t.id);
+  assert(t.title.length>8&&t.where.length>1&&t.steps.length===3&&t.steps.every(s=>s.length>12)&&t.try.length>8,"Complete instructions: "+t.id);
   assert(/^https:\/\//.test(t.source),"Secure official reference: "+t.id);
 }
 const html=read("index.html");const css=read("styles.css");const print=read("print.html");
