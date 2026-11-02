@@ -539,7 +539,7 @@ section[id]{scroll-margin-top:calc(var(--top) + 24px)}
 .language-strip{display:flex;align-items:center;gap:11px;flex-wrap:wrap;font-size:.81rem;color:#536577;padding:4px 0 9px}
 .language-strip label{font-weight:730;color:#293d4d}
 .language-strip select{border:1px solid #cbd8de;background:#fff;color:#182b3d;padding:7px 10px;border-radius:8px;min-height:40px;cursor:pointer}
-.translation-tag{font-size:.75rem;color:#687783}
+.translation-tag{font-size:.75rem;color:#4b5d6b}
 .translation-note{padding:11px 14px;border-left:3px solid #942b3c;background:#fff5f6;color:#5b3f45;font-size:.85rem;line-height:1.6;border-radius:7px;margin:6px 0 14px}
 .steps-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;margin:14px 0 11px}
 .steps-heading h2{font-size:1.5rem;line-height:1.3;margin:0}
