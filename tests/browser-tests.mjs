@@ -113,6 +113,14 @@ try {
 
     await page.locator("#lesson-close").click();
   }
+
+  await page.goto(base+"#tip-t24");
+  await page.locator("#step-next").click();
+  await page.locator("#step-next").click();
+  await page.waitForFunction(()=>{const i=document.querySelector("#step-visual img.vendor-shot");return !i||i.complete;},{timeout:15000});
+  await check(await page.locator("#step-visual img.vendor-shot").evaluate(img=>img.naturalWidth>0),"Outlook date/time screenshot loads on step 3");
+  await page.screenshot({path:"test-artifacts/vendor-outlook-time.png"});
+  await page.locator("#lesson-close").click();
   await page.goto(base+"print.html?tip=t22");
   await check((await page.locator("#print-lessons").textContent()).includes("Capture or record your screen"),"Full printable individual walkthrough");
   await page.goto(base+"print.html");
