@@ -2,8 +2,15 @@ import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import vm from "node:vm";
 const read=path=>readFileSync(new URL("../"+path,import.meta.url),"utf8");
-for(const file of ["app.js","content.js","print.js","service-worker.js"]){new vm.Script(read(file),{filename:file});}
+for(const file of ["app.js","content.js","lesson-media.js","print.js","service-worker.js"]){new vm.Script(read(file),{filename:file});}
 const context={window:{}};vm.runInNewContext(read("content.js"),context);
+vm.runInNewContext(read("lesson-media.js"),context);
+const media=context.window.LESSON_MEDIA;
+assert.equal(Object.keys(media).length,5,"Real images used only for five matched lessons");
+for(const [id,assets] of Object.entries(media)){
+  assert(context.window.TIPS.some(t=>t.id===id),"Asset lesson exists");
+  for(const asset of assets)assert(asset.step>=0&&asset.step<=2&&/^https:\/\//.test(asset.src)&&/^https:\/\//.test(asset.source)&&asset.alt.length>20,"Image metadata valid");
+}
 const tips=context.window.TIPS;const ids=new Set();
 assert.equal(tips.length,55,"55 complete lessons expected");
 assert.equal(tips.filter(t=>!t.bonus).length,51,"51 reviewed lessons expected");
@@ -18,6 +25,7 @@ assert(!/id="(?:text-toggle|theme-toggle)"/.test(html),"No font-size or theme co
 assert(!/macbook-(?:large|theme)/.test(read("app.js")),"No obsolete appearance feature handlers");
 assert(/<img[^>]*favicon\.svg/.test(html),"Brand icon image present");
 assert(!/transform:rotate\(\.7deg\)/.test(css),"No tilted feature panel");
+assert(/object-fit:contain/.test(css),"Images are not cropped");
 for(const [re,name] of [[/<main\b/,"main landmark"],[/<dialog\b/,"native accessible dialog"],[/class="skip-link"/,"skip navigation"],[/id="hero-query"/,"real hero search"],[/id="library-query"/,"lesson search"],[/id="lesson-progress"/,"step progress"],[/id="import-button"/,"keyboard-accessible data import"],[/id="language"/,"interface language selection"]])assert(re.test(html),"Missing "+name);
 assert(/prefers-reduced-motion/.test(css),"Respect reduced motion");
 assert(/focus-visible/.test(css),"Visible keyboard focus");

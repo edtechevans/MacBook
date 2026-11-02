@@ -98,3 +98,22 @@
   .brand-copy strong{font-size:0;line-height:1}
   .brand-copy strong::after{content:"MacBook";font-size:.84rem;font-weight:800}
 }
+
+/* Vendor screenshots are original images, proportionally sized and never cropped. */
+.platform-shot{margin:18px 0 12px;border:1px solid var(--border);border-radius:15px;overflow:hidden;background:var(--surface)}
+.platform-shot-heading{display:flex;align-items:center;gap:9px;padding:12px 17px;background:var(--surface-2);border-bottom:1px solid var(--border);color:var(--red);font-size:.72rem;font-weight:850;letter-spacing:.065em}
+.shot-signal{height:8px;width:8px;border-radius:50%;background:var(--red);flex-shrink:0}
+.shot-source{margin-left:auto;font-size:.76rem;letter-spacing:normal;color:var(--muted);font-weight:750;white-space:nowrap}
+.platform-shot-frame{display:flex;justify-content:center;align-items:center;background:#f7f9fa;padding:22px 16px;min-height:100px;max-height:min(48vh,420px);overflow:hidden}
+.platform-shot img.vendor-shot{display:block;max-width:100%;width:auto;height:auto;max-height:min(44vh,350px);object-fit:contain;object-position:center center;border-radius:3px;box-shadow:0 3px 18px #101e3012}
+.platform-shot figcaption{padding:16px 19px 18px}
+.platform-shot figcaption strong{display:block;font-size:.96rem;line-height:1.4}
+.platform-shot figcaption p{font-size:.85rem;color:var(--muted);line-height:1.6;margin:6px 0 10px}
+.shot-links{display:flex;gap:9px 20px;flex-wrap:wrap}
+.shot-links a{font-weight:790;color:var(--red);font-size:.83rem;text-decoration:underline;text-underline-offset:3px;display:inline-flex;align-items:center;min-height:40px}
+.shot-credit{color:var(--muted);font-size:.75rem;line-height:1.5;display:block;margin-top:4px}
+.visual-alternative{border:1px solid var(--border);border-radius:11px;background:var(--surface);padding:12px 16px;margin:12px 0}
+.visual-alternative summary{font-weight:750;min-height:40px;display:flex;align-items:center;cursor:pointer;font-size:.88rem}
+.visual-alternative .visual-map{margin-top:12px}
+.screenshot-unavailable{padding:14px 18px;background:var(--surface-2);color:var(--muted);border-left:4px solid var(--red);font-size:.87rem;line-height:1.6;border-radius:9px}
+@media(max-width:630px){.platform-shot-heading{font-size:.67rem;padding:10px 12px;gap:7px}.shot-source{font-size:.67rem}.platform-shot-frame{max-height:none;min-height:75px;padding:15px 9px}.platform-shot img.vendor-shot{max-height:285px}.platform-shot figcaption{padding:12px 14px 16px}}

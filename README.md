@@ -63,3 +63,7 @@ GitHub Actions performs those checks automatically on pushes to the development 
 **Accessibility:** WCAG 2.2 AA is the design target, not a certification. Automation should be supplemented with VoiceOver, keyboard-only, zoom, cognitive accessibility and real faculty testing.
 
 This independent learning resource is not affiliated with Apple, Microsoft or Google.
+
+## Actual platform screenshots
+
+A first set of official product screenshots now appears at the correct steps in selected MacBook, Outlook, Teams and Chrome walkthroughs. These are original vendor-hosted images, scaled proportionally, with source attribution, an image link and an illustrated alternative. See [sources and usage](docs/SCREENSHOT_SOURCES.md). Full in-app screenshots are not yet available for every tip.

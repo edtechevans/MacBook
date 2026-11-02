@@ -2,6 +2,7 @@
 (function () {
   "use strict";
   const allTips = Array.isArray(window.TIPS) ? window.TIPS : [];
+  const lessonMedia = window.LESSON_MEDIA || {};
   const validIds = new Set(allTips.map(t => t.id));
   const tipById = new Map(allTips.map(t => [t.id, t]));
   const CATEGORIES = ["All", "MacBook", "Outlook", "Teams", "Chrome"];
@@ -166,6 +167,33 @@
     if(state.fromPush){history.back();return;}
     history.replaceState({},"","#library");showFromUrl();
   }
+
+  function visualForStep(t,step){
+    const m=(lessonMedia[t.id]||[]).find(x=>x.step===step);
+    if(!m)return visualMap(t,step);
+    if(!/^https:\/\//.test(m.src)||!/^https:\/\//.test(m.source))return visualMap(t,step);
+    const credit=m.vendor==="Microsoft Support"?"Used with permission from Microsoft.":"Source: "+m.vendor+".";
+    return '<figure class="platform-shot"><div class="platform-shot-heading"><span class="shot-signal" aria-hidden="true"></span>REAL PLATFORM SCREENSHOT<span class="shot-source">'+escapeHTML(m.vendor)+'</span></div>'+
+      '<div class="platform-shot-frame"><img class="vendor-shot" src="'+escapeHTML(m.src)+'" alt="'+escapeHTML(m.alt)+'" loading="eager" decoding="async"></div>'+
+      '<figcaption><strong>'+escapeHTML(m.caption)+'</strong><p>'+escapeHTML(m.note)+'</p><div class="shot-links">'+
+      '<a href="'+escapeHTML(m.source)+'" target="_blank" rel="noopener noreferrer">Official instructions ↗</a>'+
+      '<a href="'+escapeHTML(m.src)+'" target="_blank" rel="noopener noreferrer">Full-size image ↗</a></div>'+
+      '<small class="shot-credit">'+escapeHTML(credit)+' Displayed in full, without cropping, distortion or annotations.</small></figcaption></figure>'+
+      '<details class="visual-alternative"><summary>View the illustrated alternative</summary>'+visualMap(t,step)+'</details>';
+  }
+  function wireVisualFallback(){
+    const img=$("#step-visual img.vendor-shot");
+    if(!img)return;
+    const fail=()=>{
+      const figure=img.closest(".platform-shot");
+      if(!figure||!figure.isConnected)return;
+      const p=document.createElement("p");p.className="screenshot-unavailable";p.textContent="The publisher's screenshot could not load. The illustrated guide is available below.";
+      figure.replaceWith(p);const details=$("#step-visual .visual-alternative");if(details)details.open=true;
+    };
+    img.addEventListener("error",fail,{once:true});
+    if(img.complete&&!img.naturalWidth)fail();
+  }
+
   function renderGuided(){const t=tipById.get(state.lesson);if(!t)return;
     const count=t.steps.length+1,index=state.step,practice=index===t.steps.length;
     $("#step-count").textContent=practice?"Practice and check":"Step "+(index+1)+" of "+t.steps.length;
@@ -173,7 +201,8 @@
     $("#lesson-progress").max=count;$("#lesson-progress").value=index+1;
     $("#step-heading").textContent=practice?"Try it yourself":("Step "+(index+1)+": "+(index===0?"Find the control":index===1?"Make the change":"Check and finish"));
     $("#step-description").textContent=practice?t.try:t.steps[index];
-    $("#step-visual").innerHTML=practice?'<div class="try-box"><strong>CHECK YOUR LEARNING</strong><p>Try it on your own device. Did it work?</p></div><div class="lesson-outcome"><button type="button" class="button primary-button" data-outcome="worked">✓ Yes, it worked</button><button type="button" class="button outline-button" data-outcome="help">Not yet — help me</button></div>':visualMap(t,index);
+    $("#step-visual").innerHTML=practice?'<div class="try-box"><strong>CHECK YOUR LEARNING</strong><p>Try it on your own device. Did it work?</p></div><div class="lesson-outcome"><button type="button" class="button primary-button" data-outcome="worked">✓ Yes, it worked</button><button type="button" class="button outline-button" data-outcome="help">Not yet — help me</button></div>':visualForStep(t,index);
+    if(!practice)wireVisualFallback();
     $("#step-prev").disabled=index===0;$("#step-next").hidden=practice;
     $("#step-next").textContent=index===t.steps.length-1?"Try it yourself →":"Next step →";
     $("#lesson-feedback").hidden=true;

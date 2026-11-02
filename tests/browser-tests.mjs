@@ -40,6 +40,12 @@ try {
   await check(await page.locator(".visual-map").isVisible(),"Guided lesson includes visual location map");
   await page.screenshot({path:"test-artifacts/guided-lesson-desktop.png"});
   await check((await page.locator(".visual-caption").textContent()).includes("not a screenshot"),"Illustrations are correctly labelled");
+  await page.locator("#step-next").click();
+  await check(await page.locator("#step-visual img.vendor-shot").count()===1,"Original Apple screenshot appears on relevant step");
+  await check((await page.locator("#step-visual img.vendor-shot").getAttribute("src")).includes("cdsassets.apple.com"),"Apple image is from original publisher");
+  await check(await page.locator("#step-visual img.vendor-shot").evaluate(img=>getComputedStyle(img).objectFit==="contain"),"Screenshot is proportionally fitted without cropping");
+  await check(await page.locator("#step-visual .visual-alternative").count()===1,"Illustrated fallback is retained");
+  await page.locator("#step-prev").click();
   await check(await page.locator("#step-prev").isDisabled(),"Step 1 has disabled previous control");
   for(let i=0;i<3;i++)await page.locator("#step-next").click();
   await check((await page.locator("#step-heading").textContent()).includes("Try it"),"Guided lesson reaches real practice");
@@ -90,6 +96,14 @@ try {
   await page.locator("#mode-quick").click();
   await check(await page.locator("#quick-panel").isVisible(),"Quick-answer mode works");
   await page.locator("#lesson-close").click();
+
+  for(const [id,step,domain] of [["t24",1,"microsoft.com"],["t38",1,"microsoft.com"],["t41",2,"microsoft.com"],["t48",0,"googleapis.com"]]){
+    await page.goto(base+"#tip-"+id);
+    for(let k=0;k<step;k++)await page.locator("#step-next").click();
+    await check((await page.locator("#step-visual img.vendor-shot").getAttribute("src")).includes(domain),"Screenshot correctly assigned to lesson "+id+" step "+(step+1));
+    await check(await page.locator("#step-visual .shot-links a").count()===2,"Full-size and official-source links visible for "+id);
+    await page.locator("#lesson-close").click();
+  }
   await page.goto(base+"print.html?tip=t22");
   await check((await page.locator("#print-lessons").textContent()).includes("Capture or record your screen"),"Full printable individual walkthrough");
   await page.goto(base+"print.html");
