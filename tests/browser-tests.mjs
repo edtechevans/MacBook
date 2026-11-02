@@ -98,7 +98,7 @@ try {
   let size=await page.evaluate(()=>({document:document.documentElement.scrollWidth,viewport:innerWidth}));
   await verify(size.document<=size.viewport+2,"No 375px horizontal scrolling: "+JSON.stringify(size));
   await page.setViewportSize({width:320,height:760});
-  size=await page.evaluate(()=>({document:document.documentElement.scrollWidth,viewport:innerWidth}));
+  size=await page.evaluate(()=>({document:document.documentElement.scrollWidth,viewport:innerWidth,offenders:Array.from(document.querySelectorAll("body *")).map(el=>({el,r:el.getBoundingClientRect()})).filter(x=>x.r.width>0&&x.r.right>innerWidth+2).slice(0,12).map(x=>({tag:x.el.tagName,id:x.el.id,cls:typeof x.el.className==="string"?x.el.className:"",right:Math.round(x.r.right),width:Math.round(x.r.width)}))}));
   await verify(size.document<=size.viewport+2,"No 320px horizontal scrolling: "+JSON.stringify(size));
   await page.setViewportSize({width:375,height:812});
   await page.locator("#popular-list [data-tip='t22']").click();
