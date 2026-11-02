@@ -20,7 +20,8 @@ for(const t of tips){
  const pageFile="tips/"+t.id+".html";
  assert(existsSync(new URL(pageFile,path)),"Permanent guide exists "+t.id);
  const html=read(pageFile);
- assert(html.includes("<h1 id=\"guide-title\">"+t.title),"Answer-first heading matches source "+t.id);
+ const escapedTitle=t.title.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/\x27/g,"&#39;");
+ assert(html.includes("<h1 id=\"guide-title\">"+escapedTitle),"Answer-first heading matches source "+t.id);
  assert(html.includes("<meta property=\"og:title\""),"Independent social preview "+t.id);
  assert(html.includes('id="copy-answer"')&&html.includes('id="copy-link"'),"Share and copy controls "+t.id);
  assert(html.includes('id="source-checked"')&&html.includes(t.source),"Source and version info "+t.id);
