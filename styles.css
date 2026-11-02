@@ -1153,3 +1153,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
  .quick-app-chevron{display:none}
  .quick-app-content{display:flex;flex-direction:column;min-width:0}
 }
+
+@media(min-width:631px){
+ .app-browse-section{padding-top:30px}
+ .screenshot-heading{margin-bottom:22px}
+ .popular-section{padding-top:14px}
+}

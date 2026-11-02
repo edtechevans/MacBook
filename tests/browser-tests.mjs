@@ -102,6 +102,17 @@ try{
  await yes(await page.locator("#tip-language, #translation-note, .language-strip, .translation-tag").count()===0,"No translation UI in Chrome guide");
  await yes((await page.locator(".article-steps").textContent()).length>35,"English guide is still readable");
 
+ await page.setViewportSize({width:1536,height:1024});
+ await load("");
+ await yes(await page.locator("#popular-grid .popular-card").count()===4,"Reference-width desktop contains four popular tip cards");
+ const cards=await page.locator("#popular-grid .popular-card").evaluateAll(items=>items.map(el=>el.getBoundingClientRect().y));
+ await yes(cards.every(y=>Math.abs(y-cards[0])<2),"All featured desktop cards are aligned in one row");
+ const apps=await page.locator("#category-grid .quick-app").evaluateAll(items=>items.map(el=>el.getBoundingClientRect().y));
+ await yes(apps.every(y=>Math.abs(y-apps[0])<2),"Four desktop app cards align in one row");
+ const fullHero=await page.locator(".quick-hero").boundingBox();
+ await yes(fullHero.height>=420&&fullHero.height<=485,"Reference hero keeps intended height at 1536px");
+ await page.screenshot({path:"test-artifacts/reference-match-1536-top.png",clip:{x:0,y:0,width:1536,height:1024}});
+ await page.setViewportSize({width:1380,height:900});
  await load("");
  await page.setViewportSize({width:375,height:812});
  await yes(await page.locator("#menu-toggle").isVisible(),"Mobile navigation appears");
