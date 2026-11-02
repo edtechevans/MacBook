@@ -44,13 +44,14 @@ window.LESSON_MEDIA = Object.freeze({
   ],
   "t48": [
     {
+      "kind": "illustration",
       "step": 0,
-      "src": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/in-line_1.width-1200.format-webp.webp",
-      "alt": "Google Chrome right-click menu on a browser tab with Add tab to new group highlighted.",
-      "caption": "Add tab to new group · Google Chrome",
-      "vendor": "Google Chrome blog",
-      "source": "https://blog.google/products-and-platforms/products/chrome/help-me-out-how-to-organize-chrome-tabs/",
-      "note": "Original Google screenshot from 2022. The menu layout may be different in current Chrome."
+      "src": "./assets/guide-chrome-groups.svg",
+      "alt": "Illustration of the Chrome menu path: Add tab to group, then New group.",
+      "caption": "Group a tab in Chrome",
+      "vendor": "MacBook Productivity",
+      "source": "https://support.google.com/chrome/answer/2391819?hl=en",
+      "note": "Original diagram based on Chrome Help; not a screenshot or representation of a specific Chrome version."
     }
   ]
 });

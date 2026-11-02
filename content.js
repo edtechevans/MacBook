@@ -850,9 +850,9 @@ window.TIPS = [
     "id": "t48",
     "category": "Chrome",
     "title": "Group tabs by project",
-    "where": "Tab context menu → Add tab to new group",
+    "where": "Tab context menu → Add tab to group → New group",
     "steps": [
-      "Control-click a tab and select Add tab to new group",
+      "Control-click a tab, select Add tab to group, then New group",
       "Name the group, choose a colour and move related tabs into it",
       "Click the group name to collapse or expand it"
     ],
