@@ -758,7 +758,6 @@ body{background:#F7F9FE;color:#172B49}
 .article-footer{background:#112A56}
 .feedback-actions .button.outline,.small-outline-button{border-color:#BBCDEB}
 .small-outline-button:hover{background:#EAF2FF;border-color:#2454B8;color:#2454B8}
-.translation-note{display:none}
 .campus-notice{border-color:#AD771C;background:#FFFAE8;color:#674716}
 @media(max-width:925px){
   .main-nav{background:#FFFFFF;box-shadow:0 20px 35px rgba(21,51,111,.16);border-top:1px solid #D8E5F4}
@@ -777,3 +776,9 @@ body{background:#F7F9FE;color:#172B49}
   .site-header:before,.quick-hero:before,.quick-hero:after{display:none}
 }
 
+
+/* Keep every application filter reachable without an orphaned second row on phones. */
+@media(max-width:630px){
+  .filter-buttons{display:flex;flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;gap:6px;padding:0 1px 6px}
+  .filter-buttons button{flex:0 0 auto;min-width:76px;white-space:nowrap;min-height:44px}
+}

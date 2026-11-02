@@ -96,6 +96,7 @@ try{
  await yes(await page.locator("#menu-toggle").isVisible(),"Mobile navigation appears");
  await page.screenshot({path:"test-artifacts/answer-first-home-mobile.png",fullPage:true});
  await yes(await page.locator("#library-title").isVisible(),"Tip library present on mobile");
+ await yes(await page.locator("#category-filters button").evaluateAll(items=>items.every(b=>Math.abs(b.getBoundingClientRect().top-items[0].getBoundingClientRect().top)<2)),"Mobile application filters stay on one accessible row");
  for(const width of [375,320]){
   await page.setViewportSize({width,height:760});
   const measure=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,width:innerWidth,offenders:[...document.querySelectorAll("body *")].filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&r.right>innerWidth+2}).slice(0,8).map(e=>({tag:e.tagName,id:e.id,cls:e.className?.toString().slice(0,60),right:Math.round(e.getBoundingClientRect().right)}))}));
