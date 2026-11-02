@@ -36,3 +36,13 @@ If creating school-owned captures using test accounts, scrub all protected/priva
 ## Publishing
 
 Run npm run check and npm run test:browser against a local HTTP server and inspect generated desktop/phone screenshots. Merge or fast-forward the tested revision to main. Confirm both quality and deploy GitHub Actions jobs succeeded and check the public URL.
+
+## Release v3 editorial process
+
+Each tip is a static HTML reference page in `tips/<id>.html`. Content lives in `content.js`; regenerate affected tip pages when changing it, or the permanent page and search results can diverge. Do not claim a source is fully verified on AISG-managed Macs unless it has been directly tested. Use `sourceChecked` only for a documented official-link check.
+
+Check typo and intent cases in `tests/search-check.mjs`; for example "mute teams messages", "reopen closed Chrome tab" and "two windows side by side". Correct the search metadata rather than hiding poor results.
+
+Translation drafts cover 15 selected guides, with their draft status visible to faculty; do not claim comprehensive translations. Have English-speaking and native Chinese/Korean faculty review vendor UI terminology before making them official.
+
+Individual pages have accessible, fully readable steps without JavaScript; optional saving, sharing, image zoom and translations enhance this. Each image uses proportional fit and labelled original source. On failed load, show the vendor source and step text.

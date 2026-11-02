@@ -67,6 +67,9 @@ function imageReady(img){
  };
  img.addEventListener("load",()=>frame.classList.add("ready"),{once:true});
  img.addEventListener("error",error,{once:true});
+ const timer=setTimeout(()=>{if(!img.complete||!img.naturalWidth)error();},12000);
+ img.addEventListener("load",()=>clearTimeout(timer),{once:true});
+ img.addEventListener("error",()=>clearTimeout(timer),{once:true});
  if(img.complete&&!img.naturalWidth)error();
 }
 $$("img.vendor-shot").forEach(imageReady);

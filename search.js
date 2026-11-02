@@ -49,7 +49,8 @@
       const coverage=matched/tokensQuery.length;
       if(x.titlePhrase.includes(q))score+=40;
       if(x.aliasPhrase.includes(q))score+=18;
-      if(coverage<.34)score=0;
+      const minimum=tokensQuery.length===1?1:tokensQuery.length===2?.8:tokensQuery.length===3?.66:.5;
+      if(coverage<minimum)score=0;
       score*=Math.pow(coverage,1.3);
       for(const r of rules){const pos=r.ids.indexOf(t.id);if(pos!==-1)score+=290-pos*35;}
       if(score>0)ranked.push({tip:t,score,index:i});

@@ -141,8 +141,10 @@ function setup(){
 function init(){
  const old=location.hash.match(/^#tip-([tb][0-9]{2})$/);
  if(old&&byId.has(old[1])){location.replace(tipLink(old[1]));return;}
+ const tag=location.hash.match(/^#library\?app=(MacBook|Outlook|Teams|Chrome)$/);
  $("#hero-count").textContent=all.length;
  renderCategories();renderGrid();renderCollections();renderShortcuts();renderSaved();languageUI();setup();
+ if(tag)category(tag[1]);
  if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js").catch(()=>{}));
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();

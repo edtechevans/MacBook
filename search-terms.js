@@ -21,7 +21,7 @@ window.SEARCH_TERMS = {
   "t19": "do not disturb mute alerts focus notification silence",
   "t20": "emoji smiley character symbols picker",
   "t21": "quick look preview file space",
-  "t22": "screenshot screen capture record video screen recording screen recorder",
+  "t22": "screenshot screen shot capture record video screen recording screen recorder",
   "t23": "focused inbox organise organize mail sort email",
   "t24": "schedule send delay email later postpone outlook",
   "t25": "undo send unsend recall email delay send",
@@ -52,7 +52,7 @@ window.SEARCH_TERMS = {
   "t50": "bookmark save a website webpage favourite chrome",
   "t51": "reopen restore closed chrome tab undo close reopen tab",
   "b01": "tile split screen arrange two windows side by side compare windows mac",
-  "b02": "capture partial area screenshot selection crop screen",
+  "b02": "capture partial area screenshot shot selection crop screen",
   "b03": "restore reopen session past browser tabs history",
   "b04": "availability status busy away do not disturb teams"
 };

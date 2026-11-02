@@ -48,3 +48,17 @@ Run npm install, npm run check, npx playwright install chromium, then run the lo
 GitHub Pages deploys automatically from main after quality checks pass. Automated checks are not a substitute for manual screen reader, zoom, keyboard or faculty usability review.
 
 This independent resource is not affiliated with Apple, Microsoft or Google.
+
+## Answer-first reference redesign (November 2026)
+
+- Shorter mobile-first homepage with search appearing above the app filters and first results.
+- Semantic local-only task search in `search.js` using aliases, typo tolerance and direct suggestions. The rules live in `search-terms.js`; no user query leaves the device.
+- 55 individual static, SEO-readable documents under `tips/<id>.html`, with native text instructions, unique social previews, quick-copy actions and permanent links. Old `/#tip-t22` links redirect.
+- Real screenshots show original publisher assets at their exact steps, can be viewed larger, and fall back when unavailable. Unlicensed cropping or annotation is avoided.
+- `related-tips.js` contains editorially curated next actions, one set for every guide.
+- Direct vendor references were replaced for 19 entries where a more precise verified document was found; unverified help links are labelled without pretending school-device validation.
+- `tip-translations.js` contains Chinese and Korean draft guidance for 15 common tasks. Other guides stay in English, and these drafts still need a fluent faculty/technical terminology review.
+- Tip correction flow opens a prefilled GitHub issue (GitHub account required), or copies details for manual sharing. No backend or analytics.
+- Safe use note for phone hotspot: school prohibits hotspotting on campus.
+
+Authoring: Edit `content.js` then regenerate the 55 static tip HTML articles whenever their steps or metadata change; they intentionally contain crawlable instructions instead of JS-only articles.
