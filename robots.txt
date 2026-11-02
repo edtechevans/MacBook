@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://edtechevans.github.io/MacBook/sitemap.xml

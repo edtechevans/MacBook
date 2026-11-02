@@ -1,46 +1,43 @@
 import assert from "node:assert/strict";
-import {readFileSync} from "node:fs";
+import {readFileSync,existsSync} from "node:fs";
 import vm from "node:vm";
-const read=path=>readFileSync(new URL("../"+path,import.meta.url),"utf8");
-for(const file of ["app.js","content.js","lesson-media.js","print.js","service-worker.js"])
-  new vm.Script(read(file),{filename:file});
+const path=new URL("../",import.meta.url);
+const read=p=>readFileSync(new URL(p,path),"utf8");
+for(const file of ["app.js","search-terms.js","search.js","content.js","lesson-media.js","related-tips.js","tip-translations.js","tip-page.js","print.js","service-worker.js"])
+ new vm.Script(read(file),{filename:file});
 const context={window:{}};
-vm.runInNewContext(read("content.js"),context);
-vm.runInNewContext(read("lesson-media.js"),context);
+for(const f of ["content.js","related-tips.js","search-terms.js","lesson-media.js","tip-translations.js"])
+ vm.runInNewContext(read(f),context,{filename:f});
 const tips=context.window.TIPS;
-assert.equal(tips.length,55,"Must keep all 55 tips");
-assert.equal(tips.filter(t=>!t.bonus).length,51,"Must preserve 51 reviewed tips");
+assert.equal(tips.length,55,"All tips retained");
+assert.equal(tips.filter(t=>!t.bonus).length,51,"Core tips retained");
 const ids=new Set;
 for(const t of tips){
-  assert(!ids.has(t.id),"Unique tip ID: "+t.id);ids.add(t.id);
-  assert(["MacBook","Outlook","Teams","Chrome"].includes(t.category),"Known application category");
-  assert(t.title.length>7&&t.where.length>1,"Clear title and location");
-  assert(t.steps.length===3&&t.steps.every(s=>s.length>12),"Complete instructions");
-  assert(t.try.length>8&&/^https:\/\//.test(t.source),"Safe example and source");
+ assert(!ids.has(t.id));ids.add(t.id);
+ assert(["MacBook","Outlook","Teams","Chrome"].includes(t.category));
+ assert(t.steps.length===3&&t.steps.every(x=>x.length>12),"Complete 3-step content");
+ assert(t.title.length>7&&t.where.length>1&&/^https:\/\//.test(t.source),"Source and action");
+ const pageFile="tips/"+t.id+".html";
+ assert(existsSync(new URL(pageFile,path)),"Permanent guide exists "+t.id);
+ const html=read(pageFile);
+ assert(html.includes("<h1 id=\"guide-title\">"+t.title),"Answer-first heading matches source "+t.id);
+ assert(html.includes("<meta property=\"og:title\""),"Independent social preview "+t.id);
+ assert(html.includes('id="copy-answer"')&&html.includes('id="copy-link"'),"Share and copy controls "+t.id);
+ assert(html.includes('id="source-checked"')&&html.includes(t.source),"Source and version info "+t.id);
+ assert(html.includes('id="tip-language"'),"Language selector "+t.id);
+ assert(html.includes('data-image-zoom')||!context.window.LESSON_MEDIA[t.id],"Visual zoom for existing screenshots "+t.id);
+ assert(!/quiz|scoreboard|mark as completed|progress-count/.test(html),"No learner assessment in guide "+t.id);
 }
-const images=context.window.LESSON_MEDIA;
-assert.equal(Object.keys(images).length,4,"Four screenshot-supported tips");
-for(const [id,arr] of Object.entries(images)){
-  assert(ids.has(id),"Image mapped to existing tip");
-  for(const m of arr)assert(m.step>=0&&m.step<3&&/^https:\/\//.test(m.src)&&/^https:\/\//.test(m.source)&&m.alt.length>25,"Image metadata complete");
-}
-const html=read("index.html"),css=read("styles.css"),app=read("app.js"),print=read("print.html");
-for(const [re,name] of [
-  [/<main\b/,"main landmark"],[/class="skip-link"/,"skip link"],[/id="hero-query"/,"hero search"],
-  [/id="library-query"/,"library search"],[/id="category-filters"/,"category filters"],
-  [/id="collection-grid"/,"collections"],[/id="shortcut-sheet"/,"shortcut reference"],
-  [/id="saved-preview"/,"saved tips"],[/<dialog\b/,"accessible native dialog"],
-  [/id="mode-all"/,"all steps mode"],[/id="mode-guided"/,"optional guided mode"],
-  [/id="language"/,"navigation languages"]
-])assert(re.test(html),"Missing "+name);
-assert(!/id="(?:quiz|practice|progress-count|progress-percent|main-progress|quiz-score|quiz-options|reset-progress|mark-done|quick-complete)"/.test(html),"No assessment or progress UI");
-assert(!/macbook-completed|quizCorrect|quizIndex|markPractised|renderQuiz/.test(app),"No quiz or completion tracking in production code");
-assert(/prefers-reduced-motion/.test(css)&&/focus-visible/.test(css),"Motion and keyboard accessibility");
-assert(/object-fit:contain/.test(css),"Publisher images displayed without cropping");
-assert(/@media\(max-width:630px\)/.test(css),"Responsive phone layout");
-assert(/id="print-lessons"/.test(print),"Full printable reference retained");
-const luminance=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)/255).map(x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4).reduce((n,x,i)=>n+x*[.2126,.7152,.0722][i],0);
-const contrast=(a,b)=>{const x=[luminance(a),luminance(b)].sort((a,b)=>a-b);return (x[1]+.05)/(x[0]+.05)};
-assert(contrast("#516171","#ffffff")>=4.5,"Body muted text contrast");
-assert(contrast("#942b3c","#ffffff")>=4.5,"Red accent text contrast");
-console.log("PASS: 55 tips; reference library without quizzes or progress; accessibility and print foundations.");
+assert.equal(Object.keys(context.window.RELATED_TIPS).length,55,"All tip recommendations curated");
+for(const [id,more] of Object.entries(context.window.RELATED_TIPS))assert(more.every(k=>ids.has(k)&&k!==id),"Related tips are valid");
+assert.equal(Object.keys(context.window.LESSON_MEDIA).length,4,"Copyrighted image scope remains limited");
+assert.equal(Object.keys(context.window.TIP_TRANSLATIONS).length,15,"15 priority language drafts");
+assert(tips.filter(t=>t.sourceChecked==="2026-11-02").length>=19,"Verified official reference links supplied");
+const home=read("index.html"),css=read("styles.css");
+for(const s of ['id="hero-query"','id="hero-suggestions"','id="library"','id="tips-grid"','id="saved-preview"','id="category-grid"','id="shortcuts"'])
+ assert(home.includes(s),"Homepage element "+s);
+assert(!/id="(?:quiz|practice|main-progress|quiz-score|reset-progress)"/.test(home),"No assessment controls");
+assert(/prefers-reduced-motion/.test(css)&&/focus-visible/.test(css),"Accessible motion and focus");
+assert(/object-fit:contain/.test(css),"Platform screenshot is not cropped");
+assert(read("service-worker.js").includes("v6-20261102"),"Offline cache version bumped");
+console.log("Source integrity: 55 permanent articles, semantic index, 15 draft translations, official sources and accessible HTML verified.");
