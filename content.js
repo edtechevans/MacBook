@@ -1,4 +1,4 @@
-/* Reviewed faculty PD lessons. Preserve stable IDs when editing. */
+/* Reviewed core tip data, with stable IDs and targeted vendor references. */
 window.TIPS = [
   {
     "id": "t01",
@@ -12,8 +12,11 @@ window.TIPS = [
     ],
     "try": "Check that your Mac is using the school naming convention.",
     "note": "Managed devices may restrict renaming.",
-    "source": "https://support.apple.com/guide/mac-help/welcome/mac",
-    "bonus": false
+    "source": "https://support.apple.com/guide/mac-help/mchlp2322/mac",
+    "bonus": false,
+    "sourceStatus": "verified-reference",
+    "sourceChecked": "2026-11-02",
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t02",
@@ -27,8 +30,11 @@ window.TIPS = [
     ],
     "try": "Remove one unnecessary startup app.",
     "note": "Do not disable school-managed background services.",
-    "source": "https://support.apple.com/guide/mac-help/welcome/mac",
-    "bonus": false
+    "source": "https://support.apple.com/guide/mac-help/mh15189/mac",
+    "bonus": false,
+    "sourceStatus": "verified-reference",
+    "sourceChecked": "2026-11-02",
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t03",
@@ -43,7 +49,10 @@ window.TIPS = [
     "try": "Share a test file to another device you own.",
     "note": "AirDrop availability and discoverability vary by macOS version and school settings.",
     "source": "https://support.apple.com/guide/mac-help/mh35868/mac",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t04",
@@ -57,8 +66,11 @@ window.TIPS = [
     ],
     "try": "Try Auto mode and a new accent colour.",
     "note": "",
-    "source": "https://support.apple.com/guide/mac-help/welcome/mac",
-    "bonus": false
+    "source": "https://support.apple.com/guide/mac-help/mchl52e1c2d2/mac",
+    "bonus": false,
+    "sourceStatus": "verified-reference",
+    "sourceChecked": "2026-11-02",
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t05",
@@ -72,8 +84,11 @@ window.TIPS = [
     ],
     "try": "Make your most-used control easy to reach.",
     "note": "Edit Controls and menu layout depend on macOS version.",
-    "source": "https://support.apple.com/guide/mac-help/welcome/mac",
-    "bonus": false
+    "source": "https://support.apple.com/guide/mac-help/mchl50f94f8f/mac",
+    "bonus": false,
+    "sourceStatus": "verified-reference",
+    "sourceChecked": "2026-11-02",
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t06",
@@ -87,8 +102,11 @@ window.TIPS = [
     ],
     "try": "Choose a Dock size that doesn't crowd your screen.",
     "note": "",
-    "source": "https://support.apple.com/guide/mac-help/welcome/mac",
-    "bonus": false
+    "source": "https://support.apple.com/guide/mac-help/mchlp1119/mac",
+    "bonus": false,
+    "sourceStatus": "verified-reference",
+    "sourceChecked": "2026-11-02",
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t07",
@@ -102,8 +120,11 @@ window.TIPS = [
     ],
     "try": "Try moving the Dock to the left.",
     "note": "",
-    "source": "https://support.apple.com/guide/mac-help/welcome/mac",
-    "bonus": false
+    "source": "https://support.apple.com/guide/mac-help/mchlp1119/mac",
+    "bonus": false,
+    "sourceStatus": "verified-reference",
+    "sourceChecked": "2026-11-02",
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t08",
@@ -117,8 +138,11 @@ window.TIPS = [
     ],
     "try": "Check your current default browser.",
     "note": "Managed settings may prevent changes.",
-    "source": "https://support.apple.com/guide/mac-help/welcome/mac",
-    "bonus": false
+    "source": "https://support.apple.com/en-au/102362",
+    "bonus": false,
+    "sourceStatus": "verified-reference",
+    "sourceChecked": "2026-11-02",
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t09",
@@ -131,9 +155,12 @@ window.TIPS = [
       "Connect, then disconnect when normal Wi-Fi is available"
     ],
     "try": "Learn the steps for approved off-campus use.",
-    "note": "Follow school network rules. Personal hotspots may be prohibited on campus.",
-    "source": "https://support.apple.com/guide/mac-help/welcome/mac",
-    "bonus": false
+    "note": "Follow school network rules. Personal hotspots may be prohibited on campus. AISG prohibits hotspotting on campus. Use this only where permitted, such as away from school.",
+    "source": "https://support.apple.com/guide/mac-help/mchl7594e36f/mac",
+    "bonus": false,
+    "sourceStatus": "verified-reference",
+    "sourceChecked": "2026-11-02",
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t10",
@@ -147,8 +174,11 @@ window.TIPS = [
     ],
     "try": "Check whether Touch ID is enabled for unlocking.",
     "note": "Available only on supported hardware and if school policy permits.",
-    "source": "https://support.apple.com/guide/mac-help/welcome/mac",
-    "bonus": false
+    "source": "https://support.apple.com/guide/mac-help/mchl16fbf90a/mac",
+    "bonus": false,
+    "sourceStatus": "verified-reference",
+    "sourceChecked": "2026-11-02",
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t11",
@@ -162,8 +192,11 @@ window.TIPS = [
     ],
     "try": "Open a file's shortcut menu with your trackpad.",
     "note": "",
-    "source": "https://support.apple.com/guide/mac-help/welcome/mac",
-    "bonus": false
+    "source": "https://support.apple.com/guide/mac-help/mh35853/mac",
+    "bonus": false,
+    "sourceStatus": "verified-reference",
+    "sourceChecked": "2026-11-02",
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t12",
@@ -177,8 +210,11 @@ window.TIPS = [
     ],
     "try": "Group your screenshots without moving the original files.",
     "note": "",
-    "source": "https://support.apple.com/guide/mac-help/welcome/mac",
-    "bonus": false
+    "source": "https://support.apple.com/guide/mac-help/mh35846/mac",
+    "bonus": false,
+    "sourceStatus": "verified-reference",
+    "sourceChecked": "2026-11-02",
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t13",
@@ -193,7 +229,10 @@ window.TIPS = [
     "try": "Group Chrome and a document into a single workspace.",
     "note": "Stage Manager is separate from window tiling.",
     "source": "https://support.apple.com/guide/mac-help/mchl534ba392/mac",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t14",
@@ -207,8 +246,11 @@ window.TIPS = [
     ],
     "try": "Create one desktop for planning and another for meetings.",
     "note": "Trackpad gestures are configurable.",
-    "source": "https://support.apple.com/guide/mac-help/welcome/mac",
-    "bonus": false
+    "source": "https://support.apple.com/guide/mac-help/mh14112/mac",
+    "bonus": false,
+    "sourceStatus": "verified-reference",
+    "sourceChecked": "2026-11-02",
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t15",
@@ -222,8 +264,11 @@ window.TIPS = [
     ],
     "try": "Add your planning folder to Finder Favorites.",
     "note": "Removing a shortcut does not delete the original.",
-    "source": "https://support.apple.com/guide/mac-help/welcome/mac",
-    "bonus": false
+    "source": "https://support.apple.com/guide/mac-help/mchl83c9e8b8/mac",
+    "bonus": false,
+    "sourceStatus": "verified-reference",
+    "sourceChecked": "2026-11-02",
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t16",
@@ -238,7 +283,10 @@ window.TIPS = [
     "try": "Try 48*17 or 10 km in miles.",
     "note": "Some Spotlight capabilities depend on OS and region.",
     "source": "https://support.apple.com/guide/mac-help/mchlp1008/mac",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t17",
@@ -252,8 +300,11 @@ window.TIPS = [
     ],
     "try": "Move between Teams, Outlook and Chrome without using the Dock.",
     "note": "",
-    "source": "https://support.apple.com/guide/mac-help/welcome/mac",
-    "bonus": false
+    "source": "https://support.apple.com/guide/mac-help/mchlgtd_kbd01/mac",
+    "bonus": false,
+    "sourceStatus": "verified-reference",
+    "sourceChecked": "2026-11-02",
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t18",
@@ -267,8 +318,11 @@ window.TIPS = [
     ],
     "try": "Quit an app you are no longer using.",
     "note": "Save work first; quitting is different from closing a window.",
-    "source": "https://support.apple.com/guide/mac-help/welcome/mac",
-    "bonus": false
+    "source": "https://support.apple.com/guide/mac-help/mchlgtd_kbd01/mac",
+    "bonus": false,
+    "sourceStatus": "verified-reference",
+    "sourceChecked": "2026-11-02",
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t19",
@@ -282,8 +336,11 @@ window.TIPS = [
     ],
     "try": "Try a focused 20-minute work block.",
     "note": "The F6 shortcut exists on some keyboards but not all.",
-    "source": "https://support.apple.com/guide/mac-help/welcome/mac",
-    "bonus": false
+    "source": "https://support.apple.com/guide/mac-help/mchl999b7c1a/mac",
+    "bonus": false,
+    "sourceStatus": "verified-reference",
+    "sourceChecked": "2026-11-02",
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t20",
@@ -297,8 +354,11 @@ window.TIPS = [
     ],
     "try": "Insert a check mark in a practice note.",
     "note": "The Globe/Fn key can also open the viewer if configured.",
-    "source": "https://support.apple.com/guide/mac-help/welcome/mac",
-    "bonus": false
+    "source": "https://support.apple.com/guide/mac-help/mchlp1560/mac",
+    "bonus": false,
+    "sourceStatus": "verified-reference",
+    "sourceChecked": "2026-11-02",
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t21",
@@ -312,8 +372,11 @@ window.TIPS = [
     ],
     "try": "Preview three files in Downloads.",
     "note": "",
-    "source": "https://support.apple.com/guide/mac-help/welcome/mac",
-    "bonus": false
+    "source": "https://support.apple.com/guide/mac-help/preview-a-file-mchlgtd_prev01/mac",
+    "bonus": false,
+    "sourceStatus": "verified-reference",
+    "sourceChecked": "2026-11-02",
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t22",
@@ -328,7 +391,10 @@ window.TIPS = [
     "try": "Record a short, non-sensitive demo.",
     "note": "Avoid recording student information or confidential emails.",
     "source": "https://support.apple.com/guide/mac-help/mh26782/mac",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "t23",
@@ -343,7 +409,10 @@ window.TIPS = [
     "try": "Make a decision about five non-sensitive emails.",
     "note": "Focused Inbox depends on account settings.",
     "source": "https://support.microsoft.com/en-us/outlook/outlook-for-mac",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Outlook for Mac • accounts and web view may differ"
   },
   {
     "id": "t24",
@@ -358,7 +427,10 @@ window.TIPS = [
     "try": "Schedule a harmless email to yourself.",
     "note": "Requires a supported Microsoft 365 or Exchange account; options may differ in web Outlook.",
     "source": "https://support.microsoft.com/en-us/outlook/use-schedule-send-in-outlook-for-mac",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Outlook for Mac • accounts and web view may differ"
   },
   {
     "id": "t25",
@@ -373,7 +445,10 @@ window.TIPS = [
     "try": "Set an Undo Send delay appropriate for your work.",
     "note": "Undo Send delays delivery; it is not a recall feature. Range and availability depend on account/version.",
     "source": "https://support.microsoft.com/en-us/outlook/undo-send-in-outlook-for-mac",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Outlook for Mac • accounts and web view may differ"
   },
   {
     "id": "t26",
@@ -388,7 +463,10 @@ window.TIPS = [
     "try": "Create one clear follow-up folder.",
     "note": "Flags are often better for active reminders than storing everything in a folder.",
     "source": "https://support.microsoft.com/en-us/outlook/add-or-remove-a-folder-in-outlook-for-mac",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Outlook for Mac • accounts and web view may differ"
   },
   {
     "id": "t27",
@@ -403,7 +481,10 @@ window.TIPS = [
     "try": "Create a low-risk newsletter rule.",
     "note": "Avoid hiding time-sensitive and safeguarding messages.",
     "source": "https://support.microsoft.com/en-us/outlook/create-a-rule-in-outlook-for-mac",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Outlook for Mac • accounts and web view may differ"
   },
   {
     "id": "t28",
@@ -418,7 +499,10 @@ window.TIPS = [
     "try": "Snooze a practice email; use a flag if unavailable.",
     "note": "Snooze is not available for every type of account.",
     "source": "https://support.microsoft.com/en-us/outlook/mail/snooze-mail-feature-outlook",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Outlook for Mac • accounts and web view may differ"
   },
   {
     "id": "t29",
@@ -433,7 +517,10 @@ window.TIPS = [
     "try": "Create a private event from a practice email.",
     "note": "In some Outlook interfaces this command is unavailable; create a calendar event manually instead.",
     "source": "https://support.microsoft.com/en-us/outlook/create-an-event-from-an-email-message-in-outlook-for-mac",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Outlook for Mac • accounts and web view may differ"
   },
   {
     "id": "t30",
@@ -448,7 +535,10 @@ window.TIPS = [
     "try": "Pin one useful reference email.",
     "note": "Pin is interface and account dependent.",
     "source": "https://support.microsoft.com/en-us/outlook/outlook-for-mac-features",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Outlook for Mac • accounts and web view may differ"
   },
   {
     "id": "t31",
@@ -463,7 +553,10 @@ window.TIPS = [
     "try": "Flag one actionable email, then clear the flag when done.",
     "note": "Shared-mailbox flagged messages do not sync to To Do; account restrictions apply.",
     "source": "https://support.microsoft.com/en-us/todo/using-microsoft-to-do-with-flagged-email-from-outlook",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Outlook for Mac • accounts and web view may differ"
   },
   {
     "id": "t32",
@@ -478,7 +571,10 @@ window.TIPS = [
     "try": "Find your next scheduled commitment.",
     "note": "Names vary between new Outlook for Mac and web Outlook.",
     "source": "https://support.microsoft.com/en-us/outlook/my-day-in-outlook-for-mac",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Outlook for Mac • accounts and web view may differ"
   },
   {
     "id": "t33",
@@ -493,7 +589,10 @@ window.TIPS = [
     "try": "Unsubscribe from one trusted, low-value newsletter.",
     "note": "Never click unsubscribe links in suspicious email.",
     "source": "https://support.microsoft.com/en-us/outlook/outlook-for-mac",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Outlook for Mac • accounts and web view may differ"
   },
   {
     "id": "t34",
@@ -508,7 +607,10 @@ window.TIPS = [
     "try": "Review your existing calendar sharing permissions.",
     "note": "Sharing controls require supported accounts and permissions.",
     "source": "https://support.microsoft.com/en-us/outlook/share-your-calendar-in-outlook-for-mac",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Outlook for Mac • accounts and web view may differ"
   },
   {
     "id": "t35",
@@ -523,7 +625,10 @@ window.TIPS = [
     "try": "View an existing shared calendar.",
     "note": "The colleague must have shared it or granted permission.",
     "source": "https://support.microsoft.com/en-us/outlook/open-a-shared-mail-calendar-or-people-folder-in-outlook-for-mac",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Outlook for Mac • accounts and web view may differ"
   },
   {
     "id": "t36",
@@ -538,7 +643,10 @@ window.TIPS = [
     "try": "Compare Week and Month views.",
     "note": "Layout may differ across Outlook versions.",
     "source": "https://support.microsoft.com/en-us/outlook/outlook-for-mac",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Outlook for Mac • accounts and web view may differ"
   },
   {
     "id": "t37",
@@ -553,7 +661,10 @@ window.TIPS = [
     "try": "Draft a meeting without sending it.",
     "note": "Always verify time zone and recipients.",
     "source": "https://support.microsoft.com/en-us/outlook/create-a-meeting-or-appointment-in-outlook-for-mac",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Outlook for Mac • accounts and web view may differ"
   },
   {
     "id": "t38",
@@ -568,7 +679,10 @@ window.TIPS = [
     "try": "Compare Week and Work week views.",
     "note": "Available views may change as Teams evolves.",
     "source": "https://support.microsoft.com/en-us/teams/meetings/get-started-with-the-microsoft-teams-calendar",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Teams for work or school • layout may differ"
   },
   {
     "id": "t39",
@@ -583,7 +697,10 @@ window.TIPS = [
     "try": "Find the online-meeting toggle, then cancel your practice event.",
     "note": "Do not accidentally invite real people when practising.",
     "source": "https://support.microsoft.com/en-us/teams/meetings/get-started-with-the-microsoft-teams-calendar",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Teams for work or school • layout may differ"
   },
   {
     "id": "t40",
@@ -598,7 +715,10 @@ window.TIPS = [
     "try": "Favourite one essential channel.",
     "note": "Labels depend on the combined-chat experience.",
     "source": "https://support.microsoft.com/en-gb/teams/teams-channels/show-hide-or-favorite-a-channel-in-microsoft-teams",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Teams for work or school • layout may differ"
   },
   {
     "id": "t41",
@@ -613,7 +733,10 @@ window.TIPS = [
     "try": "Reduce one low-value notification.",
     "note": "Keep direct mentions and essential school alerts visible.",
     "source": "https://support.microsoft.com/en-us/teams/notifications-settings/manage-notifications-in-microsoft-teams",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Teams for work or school • layout may differ"
   },
   {
     "id": "t42",
@@ -628,7 +751,10 @@ window.TIPS = [
     "try": "Mute a non-urgent group chat.",
     "note": "Direct @mentions may still notify you.",
     "source": "https://support.microsoft.com/en-us/teams/chat/hide-unhide-mute-add-a-chat-to-favorites-or-mark-a-chat-as-unread-in-microsoft-teams",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Teams for work or school • layout may differ"
   },
   {
     "id": "t43",
@@ -643,7 +769,10 @@ window.TIPS = [
     "try": "Find one message without scrolling every channel.",
     "note": "Filter placement differs between Teams layouts.",
     "source": "https://support.microsoft.com/en-us/teams/notifications-settings/manage-notifications-in-microsoft-teams",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Teams for work or school • layout may differ"
   },
   {
     "id": "t44",
@@ -658,7 +787,10 @@ window.TIPS = [
     "try": "Quiet one busy but nonessential channel.",
     "note": "Keep critical channels monitored.",
     "source": "https://support.microsoft.com/en-us/teams/teams-channels/manage-channel-notifications-in-microsoft-teams",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Teams for work or school • layout may differ"
   },
   {
     "id": "t45",
@@ -673,7 +805,10 @@ window.TIPS = [
     "try": "Find an existing tab before opening a duplicate.",
     "note": "",
     "source": "https://support.google.com/chrome/answer/2391819?hl=en",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Chrome on Mac • browser version may differ"
   },
   {
     "id": "t46",
@@ -688,7 +823,10 @@ window.TIPS = [
     "try": "Recover a useful website from last week.",
     "note": "",
     "source": "https://support.google.com/chrome/answer/188842?hl=en",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Chrome on Mac • browser version may differ"
   },
   {
     "id": "t47",
@@ -703,7 +841,10 @@ window.TIPS = [
     "try": "Find a term on a long policy page.",
     "note": "",
     "source": "https://support.google.com/chrome/answer/157179?hl=en",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Chrome on Mac • browser version may differ"
   },
   {
     "id": "t48",
@@ -718,7 +859,10 @@ window.TIPS = [
     "try": "Create a tab group for one teaching task.",
     "note": "",
     "source": "https://support.google.com/chrome/answer/2391819?hl=en",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Chrome on Mac • browser version may differ"
   },
   {
     "id": "t49",
@@ -732,8 +876,11 @@ window.TIPS = [
     ],
     "try": "Pin one essential work page.",
     "note": "Pinned tabs are not a replacement for bookmarks.",
-    "source": "https://support.google.com/chrome/",
-    "bonus": false
+    "source": "https://support.google.com/chrome/answer/2391819?hl=en",
+    "bonus": false,
+    "sourceStatus": "verified-reference",
+    "sourceChecked": "2026-11-02",
+    "platformHint": "Chrome on Mac • browser version may differ"
   },
   {
     "id": "t50",
@@ -748,7 +895,10 @@ window.TIPS = [
     "try": "Save one PD resource in a sensible folder.",
     "note": "",
     "source": "https://support.google.com/chrome/answer/188842?hl=en",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Chrome on Mac • browser version may differ"
   },
   {
     "id": "t51",
@@ -763,7 +913,10 @@ window.TIPS = [
     "try": "Close and restore a test tab.",
     "note": "",
     "source": "https://support.google.com/chrome/answer/157179?hl=en",
-    "bonus": false
+    "bonus": false,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Chrome on Mac • browser version may differ"
   },
   {
     "id": "b01",
@@ -778,7 +931,10 @@ window.TIPS = [
     "try": "Arrange planning notes alongside a browser.",
     "note": "BONUS — check macOS version for tiling options.",
     "source": "https://support.apple.com/guide/mac-help/mchl4fbe2921/mac",
-    "bonus": true
+    "bonus": true,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "b02",
@@ -793,7 +949,10 @@ window.TIPS = [
     "try": "Capture only the relevant part of a sample screen.",
     "note": "BONUS — avoid including sensitive information.",
     "source": "https://support.apple.com/guide/mac-help/mh26782/mac",
-    "bonus": true
+    "bonus": true,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "macOS • menu labels can vary by version"
   },
   {
     "id": "b03",
@@ -808,7 +967,10 @@ window.TIPS = [
     "try": "Recover a closed research window.",
     "note": "BONUS — private browsing windows cannot be recovered this way.",
     "source": "https://support.google.com/chrome/answer/95589?hl=en",
-    "bonus": true
+    "bonus": true,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Chrome on Mac • browser version may differ"
   },
   {
     "id": "b04",
@@ -823,12 +985,16 @@ window.TIPS = [
     "try": "Set a purposeful status for a focused planning block.",
     "note": "BONUS — presence is a signal, not a guarantee of uninterrupted time.",
     "source": "https://support.microsoft.com/en-us/teams",
-    "bonus": true
+    "bonus": true,
+    "sourceStatus": "vendor-reference",
+    "sourceChecked": null,
+    "platformHint": "Teams for work or school • layout may differ"
   }
 ];
 window.METADATA = {
   "reviewed": "2026-11-02",
+  "sourceRecheckedCount": 19,
+  "contentLanguage": "en",
   "core": 51,
-  "bonus": 4,
-  "contentLanguage": "en"
+  "bonus": 4
 };
