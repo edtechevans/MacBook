@@ -26,3 +26,18 @@
 .key-visual{min-height:192px;background:var(--surface);text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:23px 15px}.key-visual-label{margin:0 0 17px;color:var(--red);font-weight:840;font-size:.72rem;letter-spacing:.13em}.key-row{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}.key-row kbd{min-width:60px;min-height:54px;display:inline-flex;align-items:center;justify-content:center;padding:9px 14px;font-size:1.2rem;font-weight:850;border:2px solid var(--border);border-bottom-width:5px;box-shadow:0 6px 0 var(--page);background:var(--surface-2)}.key-plus{font-weight:900;color:var(--muted);font-size:1.05rem}.key-visual-note{max-width:450px;margin:20px 0 0;font-size:.79rem;color:var(--muted)}
 .mock-toolbar{display:flex;justify-content:space-between;gap:12px;align-items:center;border-top:1px solid var(--border);padding:12px 15px;background:var(--surface-2);font-size:.73rem;font-weight:750}.toolbar-items{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.toolbar-items span{border:1px solid var(--border);background:var(--surface);padding:6px 8px;border-radius:7px}.toolbar-items .toolbar-feature{border:2px solid var(--red);color:var(--red);background:var(--red-soft)}
 @media(max-width:630px){.visual-sidebar{gap:5px}.visual-sidebar .visual-sidebar-entry{font-size:.65rem;padding:4px}.visual-main-title{align-items:flex-start}.visual-main-title h4{font-size:.85rem}.visual-target{padding:9px 10px}.visual-target small{font-size:.67rem}.mock-toolbar{display:block}.toolbar-items{margin-top:8px}.key-row kbd{min-width:46px;font-size:1.05rem;padding:7px 10px}}
+
+
+/* Prevent compact phone header controls from widening the entire document. */
+@media(max-width:420px){
+  .wordmark{gap:7px;min-width:0;flex-shrink:1}
+  .brand-copy{min-width:0}
+  .brand-copy small{display:none}
+  .brand-copy strong{font-size:0;line-height:1}
+  .brand-copy strong:after{content:"MacBook";font-size:.87rem;font-weight:800;letter-spacing:-.03em}
+  .brand-mark{width:36px;height:36px;flex-shrink:0}
+  .header-inner{gap:5px}
+  .header-tools{gap:0;flex-shrink:0}
+  .header-tools .icon-button,.header-tools #header-search,.menu-toggle{min-width:35px;width:35px;padding:5px}
+  .header-tools #header-search{min-width:35px}
+}
