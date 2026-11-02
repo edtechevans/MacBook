@@ -1134,3 +1134,22 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
  .article-top-nav .article-search-link{display:inline-flex;margin-left:0}
 }
 @media(max-width:630px){.article-top-nav .article-search-link{display:none}}
+
+/* Scale hero text and device together so neither overlaps on desktop. */
+@media(min-width:1111px){
+ .quick-hero .hero-search{width:min(760px,49.5vw)}
+ .quick-hero-copy .hero-lead{max-width:min(738px,49.5vw)}
+ .hero-device{width:min(49vw,750px);right:-96px}
+}
+@media(min-width:926px) and (max-width:1110px){
+ .hero-device{right:-145px;width:58vw;opacity:.58}
+ .quick-hero-copy{width:74%}
+ .quick-hero-copy .hero-lead{max-width:60vw}
+ .quick-hero .hero-search{max-width:60vw}
+}
+@media(max-width:925px){.hero-device{display:none}}
+@media(max-width:630px){
+ .quick-app small{display:block}
+ .quick-app-chevron{display:none}
+ .quick-app-content{display:flex;flex-direction:column;min-width:0}
+}

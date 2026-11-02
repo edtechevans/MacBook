@@ -10,6 +10,7 @@ const cats=["All","MacBook","Outlook","Teams","Chrome"];
 const appArt={MacBook:"macbook",Outlook:"outlook",Teams:"teams",Chrome:"chrome"};
 const popularIDs=["t22","t24","t41","t48"];
 const popularArt={t22:"screen",t24:"outlook",t41:"teams",t48:"chrome"};
+const popularTitles={t22:"Capture or record your screen",t24:"Schedule an email for later",t41:"Reduce notifications",t48:"Use tab groups to stay organised"};
 const FEATURED=["t22","t24","t41","t48","t51","b01","t16","t28","t17","t31","t45","t50"];
 const COLLECTIONS=[
  {title:"Everyday Mac essentials",desc:"Find things, arrange windows and make common tasks faster.",ids:["t16","t17","t21","t22","b01","t19"]},
@@ -56,7 +57,7 @@ function renderCategories(){
 function renderPopular(){
  $("#popular-grid").innerHTML=popularIDs.map(id=>{
   const t=byId.get(id);if(!t)return "";
-  return '<a class="popular-card" href="'+tipLink(t.id)+'" aria-label="View guide: '+esc(t.title)+'"><span class="popular-art"><img src="./assets/thumb-'+popularArt[id]+'.svg" width="150" height="132" alt=""></span><span class="popular-info"><strong>'+esc(t.title)+'</strong><span class="popular-meta"><img src="./assets/app-'+appArt[t.category]+'.svg" width="22" height="22" alt="">'+esc(t.category)+'</span></span><span class="popular-arrow" aria-hidden="true">→</span></a>';
+  return '<a class="popular-card" href="'+tipLink(t.id)+'" aria-label="View guide: '+esc(t.title)+'"><span class="popular-art"><img src="./assets/thumb-'+popularArt[id]+'.svg" width="150" height="132" alt=""></span><span class="popular-info"><strong>'+esc(popularTitles[id]||t.title)+'</strong><span class="popular-meta"><img src="./assets/app-'+appArt[t.category]+'.svg" width="22" height="22" alt="">'+esc(t.category)+'</span></span><span class="popular-arrow" aria-hidden="true">→</span></a>';
  }).join("");
 }
 function renderCollections(){

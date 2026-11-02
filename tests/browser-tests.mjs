@@ -22,6 +22,9 @@ try{
  await yes((await page.locator("#result-count").textContent()).includes("55 guides"),"All 55 guides accessible");
  await yes(await page.locator("#category-grid .quick-app").count()===4,"Four pastel application buttons");
  await yes(await page.locator("#popular-grid .popular-card").count()===4,"Four illustrated popular tips render");
+ const heroBox=await page.locator(".hero-search").boundingBox();
+ const deviceBox=await page.locator(".hero-device").boundingBox();
+ await yes(heroBox.x+heroBox.width<=deviceBox.x+deviceBox.width*95/750+8,"Search bar does not overlap the visible laptop screen");
  await yes(await page.locator(".hero-device img").evaluate(img=>img.complete&&img.naturalWidth>0),"Homepage MacBook artwork is loaded");
  await yes(await page.locator('#category-grid [data-category="MacBook"] small').textContent().then(t=>t.includes("24 tips")),"Counts use real MacBook guides");
  await yes(await page.locator('#category-grid [data-category="Outlook"] small').textContent().then(t=>t.includes("15 tips")),"Counts use real Outlook guides");
@@ -105,6 +108,7 @@ try{
  await page.screenshot({path:"test-artifacts/answer-first-home-mobile.png",fullPage:true});
  await yes(await page.locator("#library-title").isVisible(),"Tip library present on mobile");
  await yes(await page.locator("#popular-grid .popular-card").count()===4,"Visual popular tips remain on mobile");
+ await yes(await page.locator('#category-grid [data-category="MacBook"] small').isVisible(),"Real app tip counts stay visible on mobile");
  await yes(await page.locator("#category-filters button").evaluateAll(items=>items.every(b=>Math.abs(b.getBoundingClientRect().top-items[0].getBoundingClientRect().top)<2)),"Mobile application filters stay on one accessible row");
  for(const width of [375,320]){
   await page.setViewportSize({width,height:760});
