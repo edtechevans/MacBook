@@ -15,7 +15,7 @@ This is a lightweight, accessible **productivity tips reference**, not a trainin
 - Save favourite tips in the same browser for future reference
 - Copy a direct link to any tip, open official vendor support or print full written instructions
 
-**No quizzes, assessment scores, learning-completion buttons, progress dashboards or practice requirements** appear in the public experience. A "Useful to try" suggestion is optional advice, not an assessment.
+**No quizzes, assessment scores, learning-completion buttons, progress dashboards or practice requirements** appear in the public experience. Any "Practical example" is optional context, not an assessment.
 
 The site does not collect identities, student information, analytics, account data or assessment records. Favourites are saved only in local storage on the visitor's device; no account is required.
 

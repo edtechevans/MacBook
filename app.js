@@ -46,9 +46,9 @@ appsEyebrow:"BROWSE BY APPLICATION",appsTitle:"Four tools. Everything in one pla
 libraryEyebrow:"THE TIP LIBRARY",libraryTitle:"Find exactly what you need.",libraryDesc:"Search a task or browse the collection. Every guide includes clear steps and a useful reference.",clearFilters:"Clear filters ↺",savedOnly:"Saved only",showMore:"Show more tips ↓",
 collectionsEyebrow:"USEFUL COLLECTIONS",collectionsTitle:"Sometimes you just need a starting point.",collectionsDesc:"Hand-picked tips for the small tasks that come up throughout a school day.",
 shortcutsEyebrow:"QUICK REFERENCE",shortcutsTitle:"Shortcuts worth keeping close.",shortcutsDesc:"A few of the most useful Mac shortcuts in one place. No memorisation required—come back whenever you need them.",printGuide:"Open printable guide ↗",
-savedEyebrow:"YOUR OWN REFERENCE SHELF",savedTitle:"Keep the useful ones handy.",savedDesc:"Tap the bookmark on a tip to save it. Your saved tips stay in this browser, with no account required.",viewSaved:"See all saved tips →",clearSaved:"Clear saved",savedBoard:"Your saved tips",savedNote:"Private to this browser. Nothing is sent to a school server.",
+savedEyebrow:"YOUR OWN REFERENCE SHELF",savedTitle:"Keep the useful ones handy.",savedDesc:"Tap the heart beside a tip to save it. Your saved tips stay in this browser, with no account required.",viewSaved:"See all saved tips →",clearSaved:"Clear saved",savedBoard:"Your saved tips",savedNote:"Private to this browser. Nothing is sent to a school server.",
 bottomEyebrow:"ALWAYS HERE WHEN YOU NEED IT",bottomTitle:"A useful answer is never far away.",bottomDesc:"Bookmark this website and come back whenever you need a reminder.",backTop:"Search for another tip ↑",
-backTips:"All tips",modeAll:"All steps",modeGuided:"One step at a time",whereLabel:"WHERE TO GO",tryHeading:"USEFUL TO TRY",helpHeading:"Can't find the setting? Read this",relatedTitle:"You might also find these useful"
+backTips:"All tips",modeAll:"All steps",modeGuided:"One step at a time",whereLabel:"WHERE TO GO",tryHeading:"PRACTICAL EXAMPLE",helpHeading:"Can't find the setting? Read this",relatedTitle:"You might also find these useful"
 },
 zh:{
 navTips:"所有技巧",navApps:"按应用浏览",navCollections:"精选合集",navShortcuts:"快捷键",navSaved:"已收藏",search:"搜索",menu:"菜单",
@@ -58,9 +58,9 @@ appsEyebrow:"按应用浏览",appsTitle:"四种工具，集中查找。",appsDes
 libraryEyebrow:"技巧资源库",libraryTitle:"快速找到所需内容。",libraryDesc:"搜索任务或浏览合集，每条技巧都有明确步骤和参考资料。",clearFilters:"清除筛选 ↺",savedOnly:"只看收藏",showMore:"显示更多技巧 ↓",
 collectionsEyebrow:"精选合集",collectionsTitle:"从这里轻松开始。",collectionsDesc:"为日常学校工作精选的实用技巧。",
 shortcutsEyebrow:"快捷参考",shortcutsTitle:"值得收藏的快捷键。",shortcutsDesc:"常用 Mac 快捷键集中呈现，随时回来查阅。",printGuide:"打开打印版指南 ↗",
-savedEyebrow:"我的参考收藏",savedTitle:"把实用技巧留在身边。",savedDesc:"点击书签收藏技巧，内容仅保存在当前浏览器中。",viewSaved:"查看已收藏技巧 →",clearSaved:"清除收藏",savedBoard:"我的收藏",savedNote:"仅保存在此浏览器，不会发送到学校服务器。",
+savedEyebrow:"我的参考收藏",savedTitle:"把实用技巧留在身边。",savedDesc:"点击心形图标收藏技巧，内容仅保存在当前浏览器中。",viewSaved:"查看已收藏技巧 →",clearSaved:"清除收藏",savedBoard:"我的收藏",savedNote:"仅保存在此浏览器，不会发送到学校服务器。",
 bottomEyebrow:"随时可查",bottomTitle:"实用答案就在这里。",bottomDesc:"收藏本网站，随时回来查阅。",backTop:"搜索其他技巧 ↑",
-backTips:"全部技巧",modeAll:"查看全部步骤",modeGuided:"逐步查看",whereLabel:"操作位置",tryHeading:"可以试试",helpHeading:"找不到设置？查看帮助",relatedTitle:"你可能也会用到"
+backTips:"全部技巧",modeAll:"查看全部步骤",modeGuided:"逐步查看",whereLabel:"操作位置",tryHeading:"实际应用示例",helpHeading:"找不到设置？查看帮助",relatedTitle:"你可能也会用到"
 },
 ko:{
 navTips:"전체 팁",navApps:"앱별 보기",navCollections:"추천 모음",navShortcuts:"단축키",navSaved:"저장한 팁",search:"검색",menu:"메뉴",
@@ -70,9 +70,9 @@ appsEyebrow:"앱별 탐색",appsTitle:"네 가지 도구를 한곳에서.",appsD
 libraryEyebrow:"팁 자료실",libraryTitle:"필요한 답을 바로 찾으세요.",libraryDesc:"작업을 검색하거나 모음을 탐색하세요. 모든 팁에는 명확한 설명과 참고 자료가 있습니다.",clearFilters:"필터 초기화 ↺",savedOnly:"저장한 항목만",showMore:"팁 더 보기 ↓",
 collectionsEyebrow:"추천 모음",collectionsTitle:"여기서 시작해 보세요.",collectionsDesc:"학교 일상에서 유용한 팁을 모았습니다.",
 shortcutsEyebrow:"빠른 참고",shortcutsTitle:"자주 쓰는 단축키.",shortcutsDesc:"매일 유용한 Mac 단축키를 쉽게 찾아보세요.",printGuide:"인쇄용 가이드 열기 ↗",
-savedEyebrow:"나만의 참고 자료",savedTitle:"필요한 팁을 저장하세요.",savedDesc:"북마크를 눌러 팁을 저장하세요. 현재 브라우저에만 보관됩니다.",viewSaved:"저장한 팁 보기 →",clearSaved:"저장 삭제",savedBoard:"저장한 팁",savedNote:"이 브라우저에만 저장되며 학교 서버로 전송하지 않습니다.",
+savedEyebrow:"나만의 참고 자료",savedTitle:"필요한 팁을 저장하세요.",savedDesc:"하트 아이콘을 눌러 팁을 저장하세요. 현재 브라우저에만 보관됩니다.",viewSaved:"저장한 팁 보기 →",clearSaved:"저장 삭제",savedBoard:"저장한 팁",savedNote:"이 브라우저에만 저장되며 학교 서버로 전송하지 않습니다.",
 bottomEyebrow:"필요할 때 언제든",bottomTitle:"유용한 답을 언제든 찾으세요.",bottomDesc:"웹사이트를 북마크하고 필요할 때 다시 찾아보세요.",backTop:"다른 팁 검색 ↑",
-backTips:"전체 팁",modeAll:"모든 단계",modeGuided:"한 단계씩",whereLabel:"찾아갈 위치",tryHeading:"직접 해 보기",helpHeading:"설정을 찾을 수 없나요?",relatedTitle:"함께 보면 좋은 팁"
+backTips:"전체 팁",modeAll:"모든 단계",modeGuided:"한 단계씩",whereLabel:"찾아갈 위치",tryHeading:"활용 예시",helpHeading:"설정을 찾을 수 없나요?",relatedTitle:"함께 보면 좋은 팁"
 }
 };
 function saveFavourites(){try{localStorage.setItem("macbook-favorites",JSON.stringify([...favourites]));}catch{announce("Your browser could not save bookmarks.");}}
@@ -208,7 +208,7 @@ function visualAt(t,index){
   if(!m||!/^https:\/\//.test(m.src)||!/^https:\/\//.test(m.source))return visualMap(t,index);
   const credit=m.vendor==="Microsoft Support"?"Used with permission from Microsoft.":"Source: "+m.vendor+".";
   return '<figure class="platform-shot"><div class="platform-shot-heading"><span>REAL PLATFORM SCREENSHOT</span><span class="shot-source">'+escapeHTML(m.vendor)+'</span></div>'+
-    '<div class="platform-shot-frame"><img class="vendor-shot" src="'+escapeHTML(m.src)+'" alt="'+escapeHTML(m.alt)+'" decoding="async" loading="lazy"></div>'+
+    '<div class="platform-shot-frame"><img class="vendor-shot" src="'+escapeHTML(m.src)+'" alt="'+escapeHTML(m.alt)+'" decoding="async" loading="eager"></div>'+
     '<figcaption><strong>'+escapeHTML(m.caption)+'</strong><p>'+escapeHTML(m.note)+'</p><div class="shot-links"><a href="'+escapeHTML(m.source)+'" target="_blank" rel="noopener noreferrer">Official guidance ↗</a><a href="'+escapeHTML(m.src)+'" target="_blank" rel="noopener noreferrer">Full-size original ↗</a></div><small class="shot-credit">'+escapeHTML(credit)+' Displayed without cropping or annotation.</small></figcaption></figure>'+
     '<details class="visual-alternative"><summary>Show illustrated alternative</summary>'+visualMap(t,index)+'</details>';
 }
