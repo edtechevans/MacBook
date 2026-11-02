@@ -1,0 +1,15 @@
+{
+  "name": "macbook-productivity",
+  "private": true,
+  "version": "2.0.0",
+  "description": "Static, accessible faculty learning resource",
+  "scripts": {
+    "check": "node tests/content-check.mjs",
+    "test:browser": "node tests/browser-tests.mjs",
+    "test": "npm run check && npm run test:browser"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "@axe-core/playwright": "^4.10.0"
+  }
+}
