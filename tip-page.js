@@ -105,8 +105,8 @@ function setLanguage(choice){
  if(selected){status.textContent=choice==="zh"?"中文译文为供学习参考的草稿，软件界面名称请以实际英文标签为准。":"한국어 번역은 참고용 초안입니다. 실제 앱의 영문 메뉴 이름을 확인하세요.";status.hidden=false;}
  else if(choice!=="en"){status.textContent=choice==="zh"?"这项技巧的详细中文译文尚未完成审核；目前显示英文原文。":"이 팁의 한국어 상세 번역이 준비되지 않아 영어 원문을 표시합니다.";status.hidden=false;}
  else status.hidden=true;
- if(selected){document.documentElement.lang=choice;}
- else document.documentElement.lang="en";
+ // Keep the site chrome in English; only translated title/steps receive a zh/ko lang attribute.
+ document.documentElement.lang="en";
 }
 $("#tip-language").addEventListener("change",e=>{setLanguage(e.target.value);try{localStorage.setItem("macbook-lang",e.target.value);}catch{}});
 try{
