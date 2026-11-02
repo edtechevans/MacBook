@@ -1159,3 +1159,12 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
  .screenshot-heading{margin-bottom:22px}
  .popular-section{padding-top:14px}
 }
+
+/* The large desktop masthead uses the reference's visual scale. */
+@media(min-width:1450px){
+ .brand-mark{width:118px;height:94px;flex-basis:118px}
+ .brand-copy strong{font-size:2.2rem}
+ .brand-copy small{font-size:.96rem;letter-spacing:.16em}
+ .main-nav a{font-size:1.1rem;padding-inline:22px}
+ .main-nav{gap:7px}
+}

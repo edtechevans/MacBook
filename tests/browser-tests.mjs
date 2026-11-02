@@ -109,6 +109,10 @@ try{
  await yes(cards.every(y=>Math.abs(y-cards[0])<2),"All featured desktop cards are aligned in one row");
  const apps=await page.locator("#category-grid .quick-app").evaluateAll(items=>items.map(el=>el.getBoundingClientRect().y));
  await yes(apps.every(y=>Math.abs(y-apps[0])<2),"Four desktop app cards align in one row");
+ const brandRect=await page.locator(".wordmark").boundingBox();
+ const navRect=await page.locator(".main-nav").boundingBox();
+ const searchRect=await page.locator(".header-search").boundingBox();
+ await yes(brandRect.x+brandRect.width+12<navRect.x&&navRect.x+navRect.width<searchRect.x,"Large-screen navigation spacing remains readable");
  const fullHero=await page.locator(".quick-hero").boundingBox();
  await yes(fullHero.height>=420&&fullHero.height<=485,"Reference hero keeps intended height at 1536px");
  await page.screenshot({path:"test-artifacts/reference-match-1536-top.png",clip:{x:0,y:0,width:1536,height:1024}});
