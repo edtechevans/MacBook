@@ -1,16 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="MacBook Productivity">
-  <defs>
-    <linearGradient id="ribbon" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#f5b5bd"/>
-      <stop offset="60%" stop-color="#e88c9d"/>
-      <stop offset="100%" stop-color="#b83954"/>
-    </linearGradient>
-    <clipPath id="app-shape"><rect width="64" height="64" rx="16"/></clipPath>
-  </defs>
-  <g clip-path="url(#app-shape)">
-    <rect width="64" height="64" fill="#14293e"/>
-    <path d="M8 64c9-4 14-10 23-13 9-4 17-3 23-4 4-1 7-3 10-5v22H8Z" fill="url(#ribbon)"/>
-    <path d="M15.3 42V17.8h7.4L32 31.3l9.3-13.5h7.4V42h-6.8V28.1l-8.1 11.5h-3.6L22 28.1V42h-6.7Z" fill="#ffffff"/>
-  </g>
-  <rect x="1.1" y="1.1" width="61.8" height="61.8" rx="15" fill="none" stroke="#94afc2" stroke-width="2.2"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="MacBook Productivity">
+<defs><linearGradient id="spark" x1=".18" y1="0" x2=".85" y2="1"><stop offset="0" stop-color="#36E2E6"/><stop offset=".56" stop-color="#17B6F0"/><stop offset="1" stop-color="#585FDF"/></linearGradient></defs>
+<rect width="128" height="128" rx="28" fill="#F5FAFF"/>
+<g transform="translate(12 12) scale(.8125)">
+  <g fill="none" stroke="#162A4C" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 87V43c0-6 5-9 10-5l31 21 31-21c5-4 10-1 10 5v44c0 5-4 9-9 9H32c-5 0-9-4-9-9Z"/></g>
+  <path d="M11 105h37l4 4h24l4-4h37c0 8-5 13-13 13H24c-8 0-13-5-13-13Z" fill="#162A4C"/>
+  <path d="M64 59c4 12 8 16 23 21-15 4-19 8-23 21-4-13-8-17-23-21 15-5 19-9 23-21Z" fill="url(#spark)"/>
+  <g fill="none" stroke="#21C5E9" stroke-width="8" stroke-linecap="round"><path d="M64 10v14"/><path d="M39 18l10 10"/><path d="M89 18 79 28"/></g>
+</g></svg>

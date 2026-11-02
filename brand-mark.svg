@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="brandTitle">
+  <title id="brandTitle">MacBook Productivity — open laptop and spark</title>
+  <defs>
+    <linearGradient id="spark" x1=".18" y1="0" x2=".85" y2="1">
+      <stop offset="0" stop-color="#36E2E6"/>
+      <stop offset=".56" stop-color="#17B6F0"/>
+      <stop offset="1" stop-color="#585FDF"/>
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke="#162A4C" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M23 87V43c0-6 5-9 10-5l31 21 31-21c5-4 10-1 10 5v44c0 5-4 9-9 9H32c-5 0-9-4-9-9Z"/>
+  </g>
+  <path d="M11 105h37l4 4h24l4-4h37c0 8-5 13-13 13H24c-8 0-13-5-13-13Z" fill="#162A4C"/>
+  <path d="M64 59c4 12 8 16 23 21-15 4-19 8-23 21-4-13-8-17-23-21 15-5 19-9 23-21Z" fill="url(#spark)"/>
+  <g fill="none" stroke="#21C5E9" stroke-width="8" stroke-linecap="round">
+    <path d="M64 10v14"/><path d="M39 18l10 10"/><path d="M89 18 79 28"/>
+  </g>
+</svg>
