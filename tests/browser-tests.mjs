@@ -41,7 +41,7 @@ try {
   await page.reload();
   await check((await page.locator("#progress-count").textContent()).includes("1"),"Completed progress persists after refresh");
   await page.locator('#category-filters [data-filter="Teams"]').click();
-  await check((await page.locator("#result-count").textContent()).includes("7 lessons"),"Application filtering works");
+  await check((await page.locator("#result-count").textContent()).includes("8 lessons"),"Application filtering includes seven core Teams tips and one bonus");
   await page.locator("#clear-filters").click();
   await page.locator('#tips-grid [data-save="t16"]').click();
   await check((await page.locator('#tips-grid [data-save="t16"]').getAttribute("aria-pressed"))==="true","Favourites have accessible pressed state");
